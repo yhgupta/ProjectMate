@@ -11,7 +11,7 @@
 
     <style name="FullScreenStyle" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorBlue</item>
-        <item name="colorPrimaryDark">@color/colorGray</item>
+        <item name="colorPrimaryDark">@color/colorRed</item>
         <item name="colorAccent">@color/colorYellow</item>
     </style>
 
