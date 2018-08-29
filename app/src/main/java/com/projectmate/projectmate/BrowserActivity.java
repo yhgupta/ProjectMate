@@ -36,6 +36,7 @@ public class BrowserActivity extends AppCompatActivity {
         webView.setWebChromeClient(new WebChromeClientDemo());
 
         progressBar.setMax(100*100);
+        progressBar.setProgress(0);
 
         webView.loadUrl("http://www.concretepage.com");
 
