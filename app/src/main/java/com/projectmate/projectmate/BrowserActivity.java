@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.DecelerateInterpolator;
@@ -24,7 +23,7 @@ import com.projectmate.projectmate.Database.DatabaseContract;
 public class BrowserActivity extends AppCompatActivity {
 
     private WebView webView;
-    private ProgressBar progressBar;
+    private ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +36,10 @@ public class BrowserActivity extends AppCompatActivity {
         toolbar.setElevation(4);
 
         webView = findViewById(R.id.webview);
-        progressBar = findViewById(R.id.progressBar);
+        mProgressBar = findViewById(R.id.progressBar);
 
-        webView.setWebViewClient(new WebViewClientDemo());
-        webView.setWebChromeClient(new WebChromeClientDemo());
+        webView.setWebViewClient(new WebViewClientCodeChef());
+        webView.setWebChromeClient(new WebChromeClientCodeChef());
 
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setUserAgentString("Android");
@@ -48,57 +47,71 @@ public class BrowserActivity extends AppCompatActivity {
         webView.getSettings().setBuiltInZoomControls(true);
         webView.getSettings().setDisplayZoomControls(false);
 
-        progressBar.setMax(100*100);
-        progressBar.setProgress(0);
+        mProgressBar.setMax(100 * 100);
+        mProgressBar.setProgress(0);
 
-        webView.loadUrl(APIContract.CODECHEF_AUTH_URL);
+        webView.loadUrl(APIContract.getCodeChefAuthUrl());
 
     }
 
-    private class WebViewClientDemo extends WebViewClient {
+    private class WebViewClientCodeChef extends WebViewClient {
+
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            if(url.startsWith("r://auth?")){
-                url = url.substring(14);
-                int codeEndIndex = url.indexOf('&');
-                String code = url.substring(0, codeEndIndex-1);
-                Log.v("CODECHEF", code);
+
+            //Check if CodeChef has redirected
+            if (url.startsWith(APIContract.REDIRECT_URI)) {
+
+                //Url start is now the start of code
+                url = url.substring(APIContract.REDIRECT_URI.length() + "?code=".length());
+
+                String code = url.substring(0, url.indexOf('&') - 1);
+
+                //Save the obtained code in local database as SharedPreference
                 SharedPreferences.Editor editor = getSharedPreferences(DatabaseContract.SHARED_PREFS, Context.MODE_PRIVATE).edit();
                 editor.putString(DatabaseContract.AUTH_CODE_KEY, code);
                 editor.apply();
+
                 Intent intent = new Intent(BrowserActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
-                //TODO: Close all previously open activities
             }
+
+            //Normally load the url if its other than the Auth Code
             view.loadUrl(url);
             return true;
         }
+
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
-            ObjectAnimator animation = ObjectAnimator.ofInt(progressBar, "progress", progressBar.getProgress(), 100 * 100);
-            animation.setDuration(500);
+            ObjectAnimator animation = ObjectAnimator.ofInt(mProgressBar, "progress", mProgressBar.getProgress(), 100 * 100);
+            animation.setDuration(300);
             animation.setInterpolator(new DecelerateInterpolator());
             animation.start();
             AlphaAnimation anim = new AlphaAnimation(1.0f, 0.0f);
             anim.setDuration(300);
-            progressBar.startAnimation(anim);
-            progressBar.setVisibility(View.INVISIBLE);
+            mProgressBar.startAnimation(anim);
+            mProgressBar.setVisibility(View.INVISIBLE);
         }
+
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             super.onPageStarted(view, url, favicon);
-            progressBar.setVisibility(View.VISIBLE);
-            progressBar.setProgress(0);
+            mProgressBar.setVisibility(View.VISIBLE);
+            mProgressBar.setProgress(0);
         }
     }
-    private class WebChromeClientDemo extends WebChromeClient {
+
+    private class WebChromeClientCodeChef extends WebChromeClient {
         public void onProgressChanged(WebView view, int progress) {
-            ObjectAnimator animation = ObjectAnimator.ofInt(progressBar, "progress", progressBar.getProgress(), progress * 100);
+
+            ObjectAnimator animation = ObjectAnimator.ofInt(mProgressBar, "progress", mProgressBar.getProgress(), progress * 100);
             animation.setDuration(300);
             animation.setInterpolator(new DecelerateInterpolator());
             animation.start();
+
         }
     }
 }
