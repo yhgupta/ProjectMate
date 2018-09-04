@@ -15,13 +15,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+        startActivity(intent);
+        finish();
+
         //Get the shared preferences
         SharedPreferences prefs = getSharedPreferences(DatabaseContract.SHARED_PREFS, MODE_PRIVATE);
         String userCode = prefs.getString(DatabaseContract.AUTH_CODE_KEY, null);
 
         //userCode is null if code not initialized by Browser Activity
         if (userCode == null) {
-            Intent intent = new Intent(MainActivity.this, StartActivity.class);
+            intent = new Intent(MainActivity.this, StartActivity.class);
             startActivity(intent);
             finish();
         }
