@@ -22,9 +22,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /*Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+        Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
         startActivity(intent);
+        if(true){
         finish();
+        return;}
+
+        Log.v("TAG", "Still ran");
 
         //Get the shared preferences
         SharedPreferences prefs = getSharedPreferences(DatabaseContract.SHARED_PREFS, MODE_PRIVATE);
@@ -37,30 +41,8 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
 
-        ((TextView) findViewById(R.id.tv_temp)).setText("The code is : " + userCode);*/
+        ((TextView) findViewById(R.id.tv_temp)).setText("The code is : " + userCode);
 
-        Skill skill1 = new Skill(1,"Android", 5, "", "");
-        Skill skill2 = new Skill(2,"Android2", 5, "", "");
 
-        ArrayList<Skill> skills = new ArrayList<>();
-        skills.add(skill1);
-        skills.add(skill2);
-
-        ArrayList<Integer> projectSkills = new ArrayList<>();
-        projectSkills.add(skill1.getSkillID());
-        projectSkills.add(skill2.getSkillID());
-
-        Project project1 = new Project("App", "Nothinsg", "tete", projectSkills);
-
-        ArrayList<Project> projects = new ArrayList<>();
-        projects.add(project1);
-        User user = new User("Parth", "Manit", "betul", "india", "parth115", 122, skills, projects);
-
-        Gson gson = new Gson();
-        String json = gson.toJson(user);
-
-        ((TextView) findViewById(R.id.tv_temp)).setText(json);
-
-        Log.v("JSON", json);
     }
 }

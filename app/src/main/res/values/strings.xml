@@ -1,6 +1,32 @@
 <resources>
-    <string name="app_name">ProjectMate</string>
+    <string name="app_name">Project Mate</string>
     <string name="start_screen_main_text">Find your perfect team to change the world!</string>
     <string name="start_screen_get_started">Get Started</string>
     <string name="start_screen_welcome">Welcome!</string>
+
+    <!--ProfileActivity Strings-->
+    <string name="activity_profile_country">Country</string>
+    <string name="activity_profile_city">City</string>
+    <string name="activity_profile_organization">Organization</string>
+    <string name="activity_profile_projects">Projects</string>
+    <string name="activity_profile_skills">Skills</string>
+    <string name="activity_profile_full_name">Full Name</string>
+    <string name="activity_profile_add_skill">+ Add Skill</string>
+    <string name="activity_profile_save">Save</string>
+    <string name="activity_profile_add_project">+ Add Project</string>
+
+    <!--Add new skill dialog strings-->
+    <string name="add_skill_dialog_courses_taken_optional">Courses Taken (Optional)</string>
+    <string name="add_skill_dialog_strength">Strength</string>
+    <string name="add_skill_dialog_short_description_optional">Short Description (Optional)</string>
+    <string name="add_skill_dialog_add_skill">Add Skill</string>
+    <string name="add_skill_dialog_name">Name</string>
+    <string name="add_skill_dialog_choose">Choose</string>
+    <string name="profile_activity_toolbar">Your Profile</string>
+    <string name="add_skill_dialog_save_and_add_btn">Save and add another</string>
+    <string name="add_skill_dialog_invalid_skill_toast">Invalid Skill</string>
+    <string name="add_skill_dialog_save_btn">Save</string>
+    <string name="add_skill_dialog_cancel_btn">Cancel</string>
+
+
 </resources>

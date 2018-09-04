@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <array name="skillsArray">
+        <item>Android</item>
+        <item>Java</item>
+        <item>Web</item>
+        <item>None</item>
+        <item>IDK</item>
+    </array>
+
+
+</resources>

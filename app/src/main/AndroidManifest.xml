@@ -29,7 +29,7 @@
             android:name=".BrowserActivity"
             android:parentActivityName=".StartActivity"
             android:theme="@style/BrowserTheme" />
-        <activity android:name=".ProfileActivity"></activity>
+        <activity android:name=".ProfileActivity" />
     </application>
 
 </manifest>

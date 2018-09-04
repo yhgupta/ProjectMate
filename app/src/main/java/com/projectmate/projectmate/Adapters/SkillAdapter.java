@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.projectmate.projectmate.Classes.Skill;
@@ -22,11 +23,6 @@ public class SkillAdapter extends RecyclerView.Adapter<SkillAdapter.SkillViewHol
         this.mSkills = skills;
     }
 
-    public void updateSkills(List<Skill> skills){
-        this.mSkills = skills;
-        this.notifyDataSetChanged();
-    }
-
     @NonNull
     @Override
     public SkillAdapter.SkillViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -38,7 +34,7 @@ public class SkillAdapter extends RecyclerView.Adapter<SkillAdapter.SkillViewHol
     @Override
     public void onBindViewHolder(@NonNull SkillViewHolder holder, int position) {
         holder.tvStringName.setText(mSkills.get(position).getSkillName());
-        holder.itemView.setElevation(4);
+        holder.ratingBar.setRating(mSkills.get(position).getSkillRating());
     }
 
 
@@ -49,10 +45,12 @@ public class SkillAdapter extends RecyclerView.Adapter<SkillAdapter.SkillViewHol
 
     class SkillViewHolder extends RecyclerView.ViewHolder {
         TextView tvStringName;
+        RatingBar ratingBar;
 
         SkillViewHolder(View itemView) {
             super(itemView);
             tvStringName = itemView.findViewById(R.id.tv_skill_name);
+            ratingBar = itemView.findViewById(R.id.skill_rating);
         }
     }
 }

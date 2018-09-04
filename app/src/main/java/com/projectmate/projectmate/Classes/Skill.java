@@ -5,11 +5,11 @@ import android.content.Intent;
 public class Skill {
     private Integer skillID;
     private String skillName;
-    private int skillRating;
+    private float skillRating;
     private String shortDescription;
     private String coursesTaken;
 
-    public Skill(Integer skillID, String skillName, int skillRating, String shortDescription, String coursesTaken) {
+    public Skill(Integer skillID, String skillName, float skillRating, String shortDescription, String coursesTaken) {
         this.skillID = skillID;
         this.skillName = skillName;
         this.skillRating = skillRating;
@@ -33,7 +33,7 @@ public class Skill {
         this.skillName = skillName;
     }
 
-    public int getSkillRating() {
+    public float getSkillRating() {
         return skillRating;
     }
 
