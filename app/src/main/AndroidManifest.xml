@@ -25,9 +25,11 @@
             android:name=".StartActivity"
             android:label="@string/app_name"
             android:theme="@style/FullScreenStyle" />
-        <activity android:name=".BrowserActivity"
-            android:theme="@style/BrowserTheme"
-            android:parentActivityName=".StartActivity"/>
+        <activity
+            android:name=".BrowserActivity"
+            android:parentActivityName=".StartActivity"
+            android:theme="@style/BrowserTheme" />
+        <activity android:name=".ProfileActivity"></activity>
     </application>
 
 </manifest>
