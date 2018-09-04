@@ -19,6 +19,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,17 +61,18 @@ public class ProfileActivity extends AppCompatActivity {
     //Global toast to prevent overlapping
     private Toast mToast;
 
+    //Global progress dialog
+    private ProgressBar mProgressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
 
-        //Setting toolbar title and enabling back button
+        //Setting toolbar title
         ActionBar toolbar = getSupportActionBar();
         toolbar.setTitle(R.string.profile_activity_toolbar);
-        toolbar.setDisplayHomeAsUpEnabled(true);
-
 
         //Initializing all fields in the main View
         mNameEditText = findViewById(R.id.profile_et_name);
