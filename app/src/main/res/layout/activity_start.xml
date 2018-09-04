@@ -64,7 +64,8 @@
         android:foreground="?android:attr/selectableItemBackground"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:cardCornerRadius="32sp">
 
         <TextView
             android:layout_width="wrap_content"
