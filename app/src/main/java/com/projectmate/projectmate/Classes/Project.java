@@ -7,13 +7,13 @@ public class Project {
     private String projectShortDesc;
     private String projectCompleteDesc;
 
-    private ArrayList<Skill> skills;
+    private ArrayList<Integer> skillIDs;
 
-    public Project(String projectName, String projectShortDesc, String projectCompleteDesc, ArrayList<Skill> skills) {
+    public Project(String projectName, String projectShortDesc, String projectCompleteDesc, ArrayList<Integer> skillIDs) {
         this.projectName = projectName;
         this.projectShortDesc = projectShortDesc;
         this.projectCompleteDesc = projectCompleteDesc;
-        this.skills = skills;
+        this.skillIDs = skillIDs;
     }
 
     public String getProjectName() {
@@ -40,11 +40,11 @@ public class Project {
         this.projectCompleteDesc = projectCompleteDesc;
     }
 
-    public ArrayList<Skill> getSkills() {
-        return skills;
+    public ArrayList<Integer> getSkillIDs() {
+        return skillIDs;
     }
 
-    public void setSkills(ArrayList<Skill> skills) {
-        this.skills = skills;
+    public void setSkillIDs(ArrayList<Integer> skillIDs) {
+        this.skillIDs = skillIDs;
     }
 }

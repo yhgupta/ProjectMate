@@ -22,6 +22,11 @@ public class SkillAdapter extends RecyclerView.Adapter<SkillAdapter.SkillViewHol
         this.mSkills = skills;
     }
 
+    public void updateSkills(List<Skill> skills){
+        this.mSkills = skills;
+        this.notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public SkillAdapter.SkillViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -42,10 +47,10 @@ public class SkillAdapter extends RecyclerView.Adapter<SkillAdapter.SkillViewHol
         return mSkills.size();
     }
 
-    public class SkillViewHolder extends RecyclerView.ViewHolder {
-        public TextView tvStringName;
+    class SkillViewHolder extends RecyclerView.ViewHolder {
+        TextView tvStringName;
 
-        public SkillViewHolder(View itemView) {
+        SkillViewHolder(View itemView) {
             super(itemView);
             tvStringName = itemView.findViewById(R.id.tv_skill_name);
         }

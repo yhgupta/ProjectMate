@@ -17,7 +17,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.projectmate.projectmate.Adapters.SkillAdapter;
+import com.projectmate.projectmate.Classes.Project;
 import com.projectmate.projectmate.Classes.Skill;
+import com.projectmate.projectmate.Classes.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +37,8 @@ public class ProfileActivity extends AppCompatActivity {
     private RecyclerView mSkillsRv;
     private RecyclerView mProjectsRv;
 
+
+    private User mUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,10 +64,9 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        List<Skill> array = new ArrayList<>();
-        array.add(new Skill("Test", 5, "", ""));
+        mUser = getUser();
 
-        SkillAdapter skillAdapter = new SkillAdapter(array);
+        SkillAdapter skillAdapter = new SkillAdapter(mUser.getSkills());
 
         mSkillsRv.setLayoutManager(new LinearLayoutManager(this));
         mSkillsRv.setAdapter(skillAdapter);
@@ -71,6 +74,22 @@ public class ProfileActivity extends AppCompatActivity {
         ActionBar toolbar = getSupportActionBar();
         toolbar.setTitle("Your Profile");
         toolbar.setDisplayHomeAsUpEnabled(true);
+    }
+
+    private User getUser(){
+        String name = "Name";
+        String organization = "Organization";
+        String city = "City";
+        String country = "Country";
+        String username = "username";
+        int ranking = 0;
+
+        //If user is first time then
+        User user = new User(name, organization, city, country, username, ranking);
+
+        //else get array lists from net
+
+        return user;
     }
 
     private Dialog createAddSkillDialog(){
@@ -83,7 +102,9 @@ public class ProfileActivity extends AppCompatActivity {
         builder.setPositiveButton("Save and add another", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //TODO: Save to array list and add another
+                //TODO: Save to array list
+                dialog.dismiss();
+                createAddSkillDialog().show();
             }
 
         }).setNeutralButton("Save", new DialogInterface.OnClickListener() {

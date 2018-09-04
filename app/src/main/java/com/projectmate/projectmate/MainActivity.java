@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+        /*Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
         startActivity(intent);
         finish();
 
@@ -37,16 +37,20 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
 
-        ((TextView) findViewById(R.id.tv_temp)).setText("The code is : " + userCode);
+        ((TextView) findViewById(R.id.tv_temp)).setText("The code is : " + userCode);*/
 
-        /*Skill skill1 = new Skill("Android", 5, "", "");
-        Skill skill2 = new Skill("Android2", 5, "", "");
+        Skill skill1 = new Skill(1,"Android", 5, "", "");
+        Skill skill2 = new Skill(2,"Android2", 5, "", "");
 
         ArrayList<Skill> skills = new ArrayList<>();
         skills.add(skill1);
         skills.add(skill2);
 
-        Project project1 = new Project("App", "Nothinsg", "tete", skills);
+        ArrayList<Integer> projectSkills = new ArrayList<>();
+        projectSkills.add(skill1.getSkillID());
+        projectSkills.add(skill2.getSkillID());
+
+        Project project1 = new Project("App", "Nothinsg", "tete", projectSkills);
 
         ArrayList<Project> projects = new ArrayList<>();
         projects.add(project1);
@@ -57,6 +61,6 @@ public class MainActivity extends AppCompatActivity {
 
         ((TextView) findViewById(R.id.tv_temp)).setText(json);
 
-        Log.v("JSON", json);*/
+        Log.v("JSON", json);
     }
 }

@@ -1,16 +1,28 @@
 package com.projectmate.projectmate.Classes;
 
+import android.content.Intent;
+
 public class Skill {
+    private Integer skillID;
     private String skillName;
     private int skillRating;
     private String shortDescription;
     private String coursesTaken;
 
-    public Skill(String skillName, int skillRating, String shortDescription, String coursesTaken) {
+    public Skill(Integer skillID, String skillName, int skillRating, String shortDescription, String coursesTaken) {
+        this.skillID = skillID;
         this.skillName = skillName;
         this.skillRating = skillRating;
         this.shortDescription = shortDescription;
         this.coursesTaken = coursesTaken;
+    }
+
+    public int getSkillID() {
+        return skillID;
+    }
+
+    public void setSkillID(int skillID) {
+        this.skillID = skillID;
     }
 
     public String getSkillName() {

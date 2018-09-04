@@ -25,6 +25,17 @@ public class User {
         this.projects = projects;
     }
 
+    public User(String name, String organization, String city, String country, String codeChefUsername, int codeChefRanking) {
+        this.name = name;
+        this.organization = organization;
+        this.city = city;
+        this.country = country;
+        this.codeChefUsername = codeChefUsername;
+        this.codeChefRanking = codeChefRanking;
+        this.skills = new ArrayList<>();
+        this.projects = new ArrayList<>();
+    }
+
     public String getName() {
         return name;
     }
