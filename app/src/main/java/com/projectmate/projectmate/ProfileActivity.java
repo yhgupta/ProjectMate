@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -77,6 +78,12 @@ public class ProfileActivity extends AppCompatActivity {
         mCityEditText = findViewById(R.id.profile_et_city);
         mCountryEditText = findViewById(R.id.profile_et_country);
 
+        //Disabling all edit text
+        mNameEditText.setEnabled(false);mNameEditText.setInputType(InputType.TYPE_NULL);
+        mOrganizationEditText.setEnabled(false);mOrganizationEditText.setInputType(InputType.TYPE_NULL);
+        mCityEditText.setEnabled(false);mCityEditText.setInputType(InputType.TYPE_NULL);
+        mCountryEditText.setEnabled(false);mCountryEditText.setInputType(InputType.TYPE_NULL);
+
         mAddSkill = findViewById(R.id.profile_tv_add_skill);
         mAddProject = findViewById(R.id.profile_tv_add_project);
 
@@ -103,6 +110,11 @@ public class ProfileActivity extends AppCompatActivity {
         //get him using the CodeChef API sending request to server
         mUser = getUser();
 
+        //Setting all edit texts
+        mNameEditText.setText(mUser.getName());
+        mOrganizationEditText.setText(mUser.getOrganization());
+        mCityEditText.setText(mUser.getCity());
+        mCountryEditText.setText(mUser.getCountry());
 
         //Initialize adapters for Skills and Projects Recycler Views
         mSkillAdapter = new SkillAdapter(mUser.getSkills());
@@ -250,7 +262,7 @@ public class ProfileActivity extends AppCompatActivity {
         listDialog.setView(view);
 
         ListView listView = view.findViewById(R.id.listView);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,mAllSkills);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mAllSkills);
         listView.setAdapter(adapter);
 
 

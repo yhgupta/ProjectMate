@@ -13,7 +13,12 @@ import com.projectmate.projectmate.Classes.Skill;
 import com.projectmate.projectmate.Classes.User;
 import com.projectmate.projectmate.Database.DatabaseContract;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,8 +46,8 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
 
-        ((TextView) findViewById(R.id.tv_temp)).setText("The code is : " + userCode);
-
 
     }
+
 }
+
