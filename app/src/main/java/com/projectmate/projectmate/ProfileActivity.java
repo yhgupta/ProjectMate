@@ -24,6 +24,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.projectmate.projectmate.Adapters.ProjectAdapter;
 import com.projectmate.projectmate.Adapters.SkillAdapter;
 import com.projectmate.projectmate.Classes.Project;
 import com.projectmate.projectmate.Classes.Skill;
@@ -56,6 +57,10 @@ public class ProfileActivity extends AppCompatActivity {
 
     //List and Project Global adapters
     private SkillAdapter mSkillAdapter;
+
+    private ArrayList<String> mAllProjects;
+    private ProjectAdapter mProjectAdapter;
+
 
 
     //Global toast to prevent overlapping
@@ -103,7 +108,7 @@ public class ProfileActivity extends AppCompatActivity {
         mAddProject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: Complete this
+                createAddSkillDialog().show();
             }
         });
 
@@ -121,15 +126,27 @@ public class ProfileActivity extends AppCompatActivity {
         //Initialize adapters for Skills and Projects Recycler Views
         mSkillAdapter = new SkillAdapter(mUser.getSkills());
 
-
         //Set up layout managers and adapters
         mSkillsRv.setLayoutManager(new LinearLayoutManager(this));
         mSkillsRv.setAdapter(mSkillAdapter);
 
 
         //Now load all skills in mAllSkills from XML arrays
-        String[] array = getResources().getStringArray(R.array.skillsArray);
-        mAllSkills = new ArrayList<>(Arrays.asList(array));
+        String[] arraySkill = getResources().getStringArray(R.array.skillsArray);
+        mAllSkills = new ArrayList<>(Arrays.asList(arraySkill));
+
+
+        mProjectAdapter = new ProjectAdapter((mUser.getProjects()));
+
+        //Set up layout managers and adapters
+        mProjectsRv.setLayoutManager(new LinearLayoutManager(this));
+        mProjectsRv.setAdapter(mProjectAdapter);
+
+
+        //Now load all projects in mAllProjects from XML arrays
+        String[] arrayProject = getResources().getStringArray(R.array.skillsArray);
+        mAllProjects = new ArrayList<>(Arrays.asList(arrayProject));
+
 
     }
 
@@ -147,6 +164,52 @@ public class ProfileActivity extends AppCompatActivity {
         //else get array lists from net
 
         return user;
+    }
+
+    //Create the dialog to add a project
+    private Dialog createAddProjectDialog(){
+        //Create a new AlertDialog Builder
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        //Get Layout Inflater
+        LayoutInflater inflater = this.getLayoutInflater();
+
+        //Get the root view using Layout Inflater
+        final View view = inflater.inflate(R.layout.dialog_add_project, null);
+
+
+        //Set the root view as Dialogs Layout
+        builder.setView(view);
+
+        //Adding positive and negative buttons
+        builder.setPositiveButton(R.string.add_project_dialog_save_and_add_btn, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if(addProject(view)) {
+                    dialog.dismiss();
+                    createAddProjectDialog().show();
+                }
+            }
+
+        }).setNeutralButton(getString(R.string.add_project_dialog_save_btn), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if(addSkill(view)){
+                    dialog.dismiss();
+                }
+            }
+
+        }).setNegativeButton(getString(R.string.add_project_dialog_cancel_btn), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+
+        });
+
+
+        return builder.create();
+
     }
 
     //Creates the dialog to add a skill
@@ -219,6 +282,46 @@ public class ProfileActivity extends AppCompatActivity {
         return builder.create();
     }
 
+
+    //Add the project to user and return true if successful
+    private boolean addProject(View rootView){
+        //Get all of the views
+
+        EditText tvName = rootView.findViewById(R.id.dialog_addproject_et_name);
+        EditText tvShortDesc = rootView.findViewById(R.id.dialog_addproject_short_desc);
+        EditText tvCompleteDesc = rootView.findViewById(R.id.dialog_addproject_complete_desc);
+        EditText tvskillsID = rootView.findViewById(R.id.dialog_addproject_skillsID);
+
+        //Get all fields from the views
+        String name = tvName.getText().toString().trim();
+        String shortDesc = tvShortDesc.getText().toString().trim();
+        String completeDesc = tvCompleteDesc.getText().toString().trim();
+       // int skillsID = tvskillsID.getId();
+        /*
+        TODO ARRAYLIST
+        * *///ArrayList<Integer> skillsID = tvskillsID.getText().toString().trim();
+
+
+        //Check condition
+        if(name.isEmpty()) return false;
+        int position = mAllProjects.indexOf(name);
+
+        if(position<0) return false;
+
+        //Create a new skill and add to user skills
+        Project project = new Project( name, shortDesc, completeDesc, skillsID);
+        mUser.getSkills().add(project);
+
+        //Finally remove the current skill as its added to user skills
+        mAllProjects.remove(name);
+
+        //Notify adapter
+        mProjectAdapter.notifyDataSetChanged();
+
+        return true;
+    }
+
+
     //Add the skill to user skills and return true if successful
     private boolean addSkill(View rootView){
         //Get all of the views
@@ -253,6 +356,41 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     //Displays all skills
+    private Dialog createAllProjectsDialog(final AutoCompleteTextView textView){
+        //Create new dialog and get inflater
+        AlertDialog.Builder listDialog = new AlertDialog.Builder(ProfileActivity.this);
+        LayoutInflater inflater = getLayoutInflater();
+
+        View view = inflater.inflate(R.layout.dialog_list_projects, null);
+
+        listDialog.setTitle("Add Project");
+        listDialog.setView(view);
+
+        ListView listView = view.findViewById(R.id.listView);
+
+        /*
+           TODO HAVE A LOOK AT SIMPLE_LSIT_ITEM_1
+        * */
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mAllProjects);
+        listView.setAdapter(adapter);
+
+
+        final Dialog dialog = listDialog.create();
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                textView.setText(mAllProjects.get(position));
+                dialog.dismiss();
+                textView.setSelection(mAllProjects.get(position).length());
+            }
+        });
+
+        return dialog;
+
+    }
+
     private Dialog createAllSkillsDialog(final AutoCompleteTextView textView){
         //Create new dialog and get inflater
         AlertDialog.Builder listDialog = new AlertDialog.Builder(ProfileActivity.this);

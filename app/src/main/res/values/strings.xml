@@ -28,5 +28,13 @@
     <string name="add_skill_dialog_save_btn">Save</string>
     <string name="add_skill_dialog_cancel_btn">Cancel</string>
 
+    <!--Add new Project dialog strings-->
+    <string name="add_project_dialog_short_description_optional">Short Description (Optional)</string>
+    <string name="add_project_dialog_complete_description_optional">Complete Description (Optional)</string>
+    <string name="add_project_dialog_name">Name</string>
+    <string name="add_project_dialog_save_and_add_btn">Save and add another</string>
+    <string name="add_project_dialog_save_btn">Save</string>
+    <string name="add_project_dialog_cancel_btn">Cancel</string>
+
 
 </resources>
