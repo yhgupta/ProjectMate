@@ -8,7 +8,9 @@ public class ProjectMateUris {
         Uri.Builder builder = new Uri.Builder();
         builder.scheme("http")
                 .authority(ProjectMateAPIContract.SERVER_URL)
-                .appendPath(ProjectMateAPIContract.AUTH_PATH);
+                .appendPath(ProjectMateAPIContract.API_PATH)
+        .appendPath(ProjectMateAPIContract.USERS_PATH)
+        .appendPath(ProjectMateAPIContract.CURRENT_USER_PATH);
 
         return builder.build().toString();
     }
