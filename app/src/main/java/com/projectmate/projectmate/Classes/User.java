@@ -6,32 +6,32 @@ public class User {
     private String name;
     private String organization;
     private String city;
-    private String country;
+    private String location;
 
-    private String codeChefUsername;
-    private int codeChefRanking;
+    private String username;
+    private int ranking;
 
     private ArrayList<Skill> skills;
     private ArrayList<Project> projects;
 
-    public User(String name, String organization, String city, String country, String codeChefUsername, int codeChefRanking, ArrayList<Skill> skills, ArrayList<Project> projects) {
+    public User(String name, String organization, String city, String location, String username, int ranking, ArrayList<Skill> skills, ArrayList<Project> projects) {
         this.name = name;
         this.organization = organization;
         this.city = city;
-        this.country = country;
-        this.codeChefUsername = codeChefUsername;
-        this.codeChefRanking = codeChefRanking;
+        this.location = location;
+        this.username = username;
+        this.ranking = ranking;
         this.skills = skills;
         this.projects = projects;
     }
 
-    public User(String name, String organization, String city, String country, String codeChefUsername, int codeChefRanking) {
+    public User(String name, String organization, String city, String location, String username, int ranking) {
         this.name = name;
         this.organization = organization;
         this.city = city;
-        this.country = country;
-        this.codeChefUsername = codeChefUsername;
-        this.codeChefRanking = codeChefRanking;
+        this.location = location;
+        this.username = username;
+        this.ranking = ranking;
         this.skills = new ArrayList<>();
         this.projects = new ArrayList<>();
     }
@@ -60,28 +60,28 @@ public class User {
         this.city = city;
     }
 
-    public String getCountry() {
-        return country;
+    public String getLocation() {
+        return location;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
-    public String getCodeChefUsername() {
-        return codeChefUsername;
+    public String getUsername() {
+        return username;
     }
 
-    public void setCodeChefUsername(String codeChefUsername) {
-        this.codeChefUsername = codeChefUsername;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public int getCodeChefRanking() {
-        return codeChefRanking;
+    public int getRanking() {
+        return ranking;
     }
 
-    public void setCodeChefRanking(int codeChefRanking) {
-        this.codeChefRanking = codeChefRanking;
+    public void setRanking(int ranking) {
+        this.ranking = ranking;
     }
 
     public ArrayList<Skill> getSkills() {

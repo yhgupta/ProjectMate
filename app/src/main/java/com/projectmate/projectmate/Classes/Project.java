@@ -1,19 +1,26 @@
 package com.projectmate.projectmate.Classes;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 
 public class Project {
+    @SerializedName("project_name")
     private String projectName;
+
+    @SerializedName("project_short_desc")
     private String projectShortDesc;
+
+    @SerializedName("project_complete_desc")
     private String projectCompleteDesc;
 
-    private ArrayList<Integer> skillIDs;
+    private ArrayList<Integer> skills;
 
-    public Project(String projectName, String projectShortDesc, String projectCompleteDesc, ArrayList<Integer> skillIDs) {
+    public Project(String projectName, String projectShortDesc, String projectCompleteDesc, ArrayList<Integer> skills) {
         this.projectName = projectName;
         this.projectShortDesc = projectShortDesc;
         this.projectCompleteDesc = projectCompleteDesc;
-        this.skillIDs = skillIDs;
+        this.skills = skills;
     }
 
     public String getProjectName() {
@@ -40,11 +47,11 @@ public class Project {
         this.projectCompleteDesc = projectCompleteDesc;
     }
 
-    public ArrayList<Integer> getSkillIDs() {
-        return skillIDs;
+    public ArrayList<Integer> getSkills() {
+        return skills;
     }
 
-    public void setSkillIDs(ArrayList<Integer> skillIDs) {
-        this.skillIDs = skillIDs;
+    public void setSkills(ArrayList<Integer> skills) {
+        this.skills = skills;
     }
 }

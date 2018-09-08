@@ -2,14 +2,12 @@ package com.projectmate.projectmate;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,13 +24,12 @@ import android.widget.Toast;
 
 import com.projectmate.projectmate.Adapters.ProjectAdapter;
 import com.projectmate.projectmate.Adapters.SkillAdapter;
-import com.projectmate.projectmate.Classes.Project;
 import com.projectmate.projectmate.Classes.Skill;
 import com.projectmate.projectmate.Classes.User;
+import com.projectmate.projectmate.Database.StaticValues;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -108,7 +105,7 @@ public class ProfileActivity extends AppCompatActivity {
         mAddProject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createAddSkillDialog().show();
+                createAddProjectDialog().show();
             }
         });
 
@@ -121,7 +118,7 @@ public class ProfileActivity extends AppCompatActivity {
         mNameEditText.setText(mUser.getName());
         mOrganizationEditText.setText(mUser.getOrganization());
         mCityEditText.setText(mUser.getCity());
-        mCountryEditText.setText(mUser.getCountry());
+        mCountryEditText.setText(mUser.getLocation());
 
         //Initialize adapters for Skills and Projects Recycler Views
         mSkillAdapter = new SkillAdapter(mUser.getSkills());
@@ -143,27 +140,10 @@ public class ProfileActivity extends AppCompatActivity {
         mProjectsRv.setAdapter(mProjectAdapter);
 
 
-        //Now load all projects in mAllProjects from XML arrays
-        String[] arrayProject = getResources().getStringArray(R.array.skillsArray);
-        mAllProjects = new ArrayList<>(Arrays.asList(arrayProject));
-
-
     }
 
     private User getUser(){
-        String name = "Name";
-        String organization = "Organization";
-        String city = "City";
-        String country = "Country";
-        String username = "username";
-        int ranking = 0;
-
-        //If user is first time then
-        User user = new User(name, organization, city, country, username, ranking);
-
-        //else get array lists from net
-
-        return user;
+        return StaticValues.getCurrentUser();
     }
 
     //Create the dialog to add a project
@@ -185,7 +165,7 @@ public class ProfileActivity extends AppCompatActivity {
         builder.setPositiveButton(R.string.add_project_dialog_save_and_add_btn, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if(addProject(view)) {
+                if(true/*addProject(view)*/) {
                     dialog.dismiss();
                     createAddProjectDialog().show();
                 }
@@ -284,22 +264,22 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     //Add the project to user and return true if successful
-    private boolean addProject(View rootView){
+   /* private boolean addProject(View rootView){
         //Get all of the views
 
         EditText tvName = rootView.findViewById(R.id.dialog_addproject_et_name);
         EditText tvShortDesc = rootView.findViewById(R.id.dialog_addproject_short_desc);
         EditText tvCompleteDesc = rootView.findViewById(R.id.dialog_addproject_complete_desc);
-        EditText tvskillsID = rootView.findViewById(R.id.dialog_addproject_skillsID);
+        //EditText tvskillsID = rootView.findViewById(R.id.dialog_addproject_skillsID);
 
         //Get all fields from the views
         String name = tvName.getText().toString().trim();
         String shortDesc = tvShortDesc.getText().toString().trim();
         String completeDesc = tvCompleteDesc.getText().toString().trim();
        // int skillsID = tvskillsID.getId();
-        /*
+        *//*
         TODO ARRAYLIST
-        * *///ArrayList<Integer> skillsID = tvskillsID.getText().toString().trim();
+        * *//*//ArrayList<Integer> skillsID = tvskillsID.getText().toString().trim();
 
 
         //Check condition
@@ -309,18 +289,18 @@ public class ProfileActivity extends AppCompatActivity {
         if(position<0) return false;
 
         //Create a new skill and add to user skills
-        Project project = new Project( name, shortDesc, completeDesc, skillsID);
+        *//*Project project = new Project( name, shortDesc, completeDesc, skillsID);
         mUser.getSkills().add(project);
 
         //Finally remove the current skill as its added to user skills
         mAllProjects.remove(name);
 
         //Notify adapter
-        mProjectAdapter.notifyDataSetChanged();
+        mProjectAdapter.notifyDataSetChanged();*//*
 
         return true;
     }
-
+*/
 
     //Add the skill to user skills and return true if successful
     private boolean addSkill(View rootView){
@@ -356,7 +336,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     //Displays all skills
-    private Dialog createAllProjectsDialog(final AutoCompleteTextView textView){
+    private Dialog createAddProjectsDialog(final AutoCompleteTextView textView){
         //Create new dialog and get inflater
         AlertDialog.Builder listDialog = new AlertDialog.Builder(ProfileActivity.this);
         LayoutInflater inflater = getLayoutInflater();

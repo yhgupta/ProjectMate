@@ -1,5 +1,9 @@
 package com.projectmate.projectmate.AlibabaCloud;
 
+import android.util.Log;
+
+import com.google.gson.JsonObject;
+
 import org.json.JSONObject;
 
 import okhttp3.Callback;
@@ -9,34 +13,25 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 
 public class OkHttpRequests {
-    private String authToken;
     private final OkHttpClient client = new OkHttpClient();
 
     private static final MediaType MEDIA_TYPE = MediaType.parse("application/json");
 
 
-    public OkHttpRequests(String authToken) {
-        this.authToken = authToken;
-    }
 
-    public void setAuthToken(String authToken) {
-        this.authToken = authToken;
-    }
-
-
-    public void performGetRequest(String url, Callback callback){
+    public void performGetRequest(String url, Callback callback, String authToken){
         Request request = new Request.Builder()
                 .url(url)
                 .get()
                 .addHeader("Content-Type", "application/json")
-                .addHeader("Authorization", this.authToken)
+                .addHeader("Authorization", authToken)
                 .build();
 
         client.newCall(request).enqueue(callback);
 
     }
 
-    public void performPostRequest(String url, JSONObject postdata, Callback callback){
+    public void performPostRequest(String url, JSONObject postdata, Callback callback, String authToken){
 
         RequestBody body = RequestBody.create(MEDIA_TYPE, postdata.toString());
 
@@ -44,7 +39,22 @@ public class OkHttpRequests {
                 .url(url)
                 .post(body)
                 .addHeader("Content-Type", "application/json")
-                .addHeader("Authorization", this.authToken)
+                .addHeader("Authorization", authToken)
+                .build();
+
+        client.newCall(request).enqueue(callback);
+    }
+
+    public void performPostRequestCodeChef(String url, String postdata, Callback callback){
+
+        Log.v("POST", postdata);
+        RequestBody body = RequestBody.create(MEDIA_TYPE, postdata);
+
+
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .addHeader("content-Type", "application/json")
                 .build();
 
         client.newCall(request).enqueue(callback);

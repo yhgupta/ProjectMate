@@ -2,11 +2,22 @@ package com.projectmate.projectmate.Classes;
 
 import android.content.Intent;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Skill {
+    @SerializedName("skill_id")
     private Integer skillID;
+
+    @SerializedName("skill_name")
     private String skillName;
+
+    @SerializedName("skill_rating")
     private float skillRating;
+
+    @SerializedName("skill_short_desc")
     private String shortDescription;
+
+    @SerializedName("skill_courses_taken")
     private String coursesTaken;
 
     public Skill(Integer skillID, String skillName, float skillRating, String shortDescription, String coursesTaken) {

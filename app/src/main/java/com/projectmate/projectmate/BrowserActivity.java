@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.DecelerateInterpolator;
@@ -16,8 +17,20 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.projectmate.projectmate.AlibabaCloud.OkHttpRequests;
 import com.projectmate.projectmate.CodeChefAPI.APIContract;
+import com.projectmate.projectmate.CodeChefAPI.AuthPostDataClass;
 import com.projectmate.projectmate.Database.DatabaseContract;
+
+import java.io.IOException;
+
+import dmax.dialog.SpotsDialog;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 
 public class BrowserActivity extends AppCompatActivity {
@@ -63,24 +76,53 @@ public class BrowserActivity extends AppCompatActivity {
             if (url.startsWith(APIContract.REDIRECT_URI)) {
 
                 //Url start is now the start of code
+                Log.v("URL", url);
                 url = url.substring(APIContract.REDIRECT_URI.length() + "?code=".length());
 
-                String code = url.substring(0, url.indexOf('&') - 1);
+                //Got the authentication code
+                String code = url.substring(0, url.indexOf('&'));
+                Log.v("URL", code);
 
-                //Save the obtained code in local database as SharedPreference
-                SharedPreferences.Editor editor = getSharedPreferences(DatabaseContract.SHARED_PREFS, Context.MODE_PRIVATE).edit();
-                editor.putString(DatabaseContract.AUTH_CODE_KEY, code);
-                editor.apply();
+                //Making a verifying dialog
+                android.app.AlertDialog dialog = getVerifyingDialog();
+                dialog.show();
 
-                Intent intent = new Intent(BrowserActivity.this, MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-                finish();
+                //Making a call back that will be executed after post request
+
+                Callback callback = new Callback() {
+
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        //Authentication Failed
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        JsonParser parser = new JsonParser();
+                        JsonObject root = (JsonObject)parser.parse(response.body().string());
+                        String token = root.getAsJsonObject("result").getAsJsonObject("data").get("access_token").getAsString();
+
+                        Log.v("TAG", response.body().toString());
+                        authComplete(token);
+                    }
+
+                };
+
+                ////Running post request on Code Chef to get access token on data
+                OkHttpRequests requests = new OkHttpRequests();
+                Gson gson = new Gson();
+                AuthPostDataClass authPostDataClass = new AuthPostDataClass(code);
+
+                requests.performPostRequestCodeChef(APIContract.CODECHEF_TOKEN_URL,
+                        gson.toJson(authPostDataClass), callback);
+
+            }else{
+                //Normally load the url if its other than the Auth Code
+                view.loadUrl(url);
             }
 
-            //Normally load the url if its other than the Auth Code
-            view.loadUrl(url);
             return true;
+
         }
 
         @Override
@@ -113,5 +155,25 @@ public class BrowserActivity extends AppCompatActivity {
             animation.start();
 
         }
+    }
+
+    private void authComplete(String code){
+        //Save the obtained code in local database as SharedPreference
+        SharedPreferences.Editor editor = getSharedPreferences(DatabaseContract.SHARED_PREFS, Context.MODE_PRIVATE).edit();
+        editor.putString(DatabaseContract.AUTH_CODE_KEY, code);
+        editor.apply();
+
+        Intent intent = new Intent(BrowserActivity.this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
+    }
+
+    private android.app.AlertDialog getVerifyingDialog(){
+        SpotsDialog.Builder dialog = new SpotsDialog.Builder();
+        dialog.setContext(this).
+                setMessage("Verifying").
+                setCancelable(false);
+        return dialog.build();
     }
 }
