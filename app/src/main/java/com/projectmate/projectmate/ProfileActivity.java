@@ -2,6 +2,7 @@ package com.projectmate.projectmate;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -19,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -210,6 +213,10 @@ public class ProfileActivity extends AppCompatActivity {
         //Get the auto complete text view and the choose button
         final AutoCompleteTextView skillNameView = view.findViewById(R.id.dialog_addskill_et_name);
         Button chooseBtn = view.findViewById(R.id.dialog_addskill_btn_choose);
+        skillNameView.requestFocus();
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+
 
         //Populate the autocomplete textView and also view list of skills on
         //pressing choose button
@@ -234,7 +241,7 @@ public class ProfileActivity extends AppCompatActivity {
                     createAddSkillDialog().show();
                 }else{
                     displayToast(getString(R.string.add_skill_dialog_invalid_skill_toast));
-                    createAddSkillDialog().show();
+                    
                 }
 
             }
@@ -336,41 +343,6 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     //Displays all skills
-    private Dialog createAddProjectsDialog(final AutoCompleteTextView textView){
-        //Create new dialog and get inflater
-        AlertDialog.Builder listDialog = new AlertDialog.Builder(ProfileActivity.this);
-        LayoutInflater inflater = getLayoutInflater();
-
-        View view = inflater.inflate(R.layout.dialog_list_projects, null);
-
-        listDialog.setTitle("Add Project");
-        listDialog.setView(view);
-
-        ListView listView = view.findViewById(R.id.listView);
-
-        /*
-           TODO HAVE A LOOK AT SIMPLE_LSIT_ITEM_1
-        * */
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mAllProjects);
-        listView.setAdapter(adapter);
-
-
-        final Dialog dialog = listDialog.create();
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                textView.setText(mAllProjects.get(position));
-                dialog.dismiss();
-                textView.setSelection(mAllProjects.get(position).length());
-            }
-        });
-
-        return dialog;
-
-    }
-
     private Dialog createAllSkillsDialog(final AutoCompleteTextView textView){
         //Create new dialog and get inflater
         AlertDialog.Builder listDialog = new AlertDialog.Builder(ProfileActivity.this);
@@ -382,8 +354,23 @@ public class ProfileActivity extends AppCompatActivity {
         listDialog.setView(view);
 
         ListView listView = view.findViewById(R.id.listView);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mAllSkills);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mAllSkills);
         listView.setAdapter(adapter);
+
+        android.support.v7.widget.SearchView searchView = view.findViewById(R.id.search_view);
+        searchView.setOnQueryTextListener(new android.support.v7.widget.SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return true;
+            }
+        });
+
 
 
         final Dialog dialog = listDialog.create();
@@ -391,9 +378,10 @@ public class ProfileActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                textView.setText(mAllSkills.get(position));
+                textView.setText(((TextView)view).getText().toString());
                 dialog.dismiss();
-                textView.setSelection(mAllSkills.get(position).length());
+                textView.setSelection(textView.getText().toString().length());
+                textView.dismissDropDown();
             }
         });
 
