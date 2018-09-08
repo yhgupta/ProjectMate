@@ -24,7 +24,7 @@
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:background="?android:selectableItemBackground"
+                android:backgroundTint="@android:color/holo_blue_dark"
                 android:scaleType="fitCenter"
                 android:src="@drawable/trending_icon"
                 />
@@ -33,7 +33,7 @@
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:background="?android:selectableItemBackground"
+                android:backgroundTint="@android:color/holo_blue_dark"
                 android:scaleType="fitCenter"
                 android:src="@drawable/notification_icon"
                 />
@@ -42,7 +42,7 @@
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:backgroundTint="@android:color/white"
+                android:backgroundTint="@android:color/holo_blue_dark"
                 android:scaleType="fitCenter"
                 android:src="@drawable/chat_icon"/>
 
@@ -50,7 +50,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:backgroundTint="@android:color/white"
+                android:backgroundTint="@android:color/holo_blue_dark"
                 android:scaleType="fitCenter"
                 android:src="@drawable/project_icon"/>
 
@@ -58,7 +58,7 @@
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:backgroundTint="@android:color/white"
+                android:backgroundTint="@android:color/holo_blue_dark"
                 android:scaleType="fitCenter"
                 android:src="@drawable/profile_icon"/>
 
