@@ -197,13 +197,36 @@
 
     </ScrollView>
 
-    <Button
+    <android.support.v7.widget.CardView
         android:id="@+id/profile_btn_save"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:backgroundTint="@color/colorBlue"
-        android:text="@string/activity_profile_save"
-        android:textColor="@android:color/white" />
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:elevation="8dp"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:layout_margin="4dp"
+        android:backgroundTint="@color/colorBlue">
+
+        <TextView
+            android:id="@+id/profile_btn_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="8dp"
+            android:text="SAVE"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+
+        <ProgressBar
+            android:id="@+id/profile_btn_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="invisible"
+            android:indeterminateTint="@android:color/white" />
+
+    </android.support.v7.widget.CardView>
 
 
 </LinearLayout>

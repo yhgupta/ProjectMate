@@ -89,10 +89,10 @@ public class MainActivity extends AppCompatActivity {
                                 User user = gson.fromJson(jsonResponse, User.class);
 
                                 StaticValues.setCurrentUser(user);
-                                fetchingDetailsDialog.dismiss();
-                                if (user.getSkills().size() == 0) {
+                                if (user.getSkills().size() == 0 || true) {
                                     Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
                                     startActivity(intent);
+                                    fetchingDetailsDialog.dismiss();
                                     finish();
                                 }
                             }

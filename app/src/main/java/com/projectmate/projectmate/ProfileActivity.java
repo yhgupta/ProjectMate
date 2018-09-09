@@ -4,14 +4,19 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -25,15 +30,23 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.projectmate.projectmate.Adapters.ProjectAdapter;
 import com.projectmate.projectmate.Adapters.SkillAdapter;
+import com.projectmate.projectmate.AlibabaCloud.OkHttpRequests;
+import com.projectmate.projectmate.AlibabaCloud.ProjectMateUris;
 import com.projectmate.projectmate.Classes.Project;
 import com.projectmate.projectmate.Classes.Skill;
 import com.projectmate.projectmate.Classes.User;
 import com.projectmate.projectmate.Database.StaticValues;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -67,8 +80,10 @@ public class ProfileActivity extends AppCompatActivity {
     //Global toast to prevent overlapping
     private Toast mToast;
 
-    //Global progress dialog
-    private ProgressBar mProgressBar;
+    private CardView mSaveBtn;
+    private TextView mSaveBtnText;
+    private ProgressBar mSaveBtnProgress;
+    private Boolean mSaveBtnClicked=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +100,10 @@ public class ProfileActivity extends AppCompatActivity {
         mOrganizationEditText = findViewById(R.id.profile_et_organization);
         mCityEditText = findViewById(R.id.profile_et_city);
         mCountryEditText = findViewById(R.id.profile_et_country);
+
+        mSaveBtn = findViewById(R.id.profile_btn_save);
+        mSaveBtnText = findViewById(R.id.profile_btn_text);
+        mSaveBtnProgress = findViewById(R.id.profile_btn_progress);
 
         //Disabling all edit text
         mNameEditText.setEnabled(false);mNameEditText.setInputType(InputType.TYPE_NULL);
@@ -143,6 +162,17 @@ public class ProfileActivity extends AppCompatActivity {
         //Set up layout managers and adapters
         mProjectsRv.setLayoutManager(new LinearLayoutManager(this));
         mProjectsRv.setAdapter(mProjectAdapter);
+
+        mSaveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!mSaveBtnClicked){
+                    saveProfile();
+                    mSaveBtnClicked = true;
+                }
+
+            }
+        });
 
 
     }
@@ -470,7 +500,80 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
+    private void saveProfile(){
+        Animation fadeOut = new AlphaAnimation(1, 0);
+        fadeOut.setInterpolator(new AccelerateInterpolator());
+        fadeOut.setDuration(400);
 
+        fadeOut.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                mSaveBtnText.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        Animation fadeIn = new AlphaAnimation(0, 1);
+        fadeIn.setInterpolator(new AccelerateInterpolator());
+        fadeIn.setDuration(400);
+
+        fadeIn.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                mSaveBtnProgress.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        mSaveBtnText.startAnimation(fadeOut);
+        mSaveBtnProgress.startAnimation(fadeIn);
+
+        saveToServer();
+
+    }
+
+    private void saveToServer(){
+        Gson gson = new Gson();
+        String jsonData = gson.toJson(mUser);
+        String authToken = StaticValues.getCodeChefAuthKey();
+        String url = ProjectMateUris.getAuthUrl();
+
+        Callback callback = new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if(response.isSuccessful()){
+                    Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        };
+        OkHttpRequests requests = new OkHttpRequests();
+        requests.performPutRequest(url, jsonData, callback, authToken);
+    }
 
     private void displayToast(String message){
         if(mToast==null){

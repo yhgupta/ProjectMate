@@ -31,13 +31,13 @@ public class OkHttpRequests {
 
     }
 
-    public void performPostRequest(String url, JSONObject postdata, Callback callback, String authToken){
+    public void performPutRequest(String url, String postdata, Callback callback, String authToken){
 
-        RequestBody body = RequestBody.create(MEDIA_TYPE, postdata.toString());
+        RequestBody body = RequestBody.create(MEDIA_TYPE, postdata);
 
         Request request = new Request.Builder()
                 .url(url)
-                .post(body)
+                .put(body)
                 .addHeader("Content-Type", "application/json")
                 .addHeader("Authorization", authToken)
                 .build();
