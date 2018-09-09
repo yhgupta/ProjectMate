@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.projectmate.projectmate.Adapters.ProjectAdapter;
 import com.projectmate.projectmate.Adapters.SkillAdapter;
+import com.projectmate.projectmate.Classes.Project;
 import com.projectmate.projectmate.Classes.Skill;
 import com.projectmate.projectmate.Classes.User;
 import com.projectmate.projectmate.Database.StaticValues;
@@ -134,6 +135,7 @@ public class ProfileActivity extends AppCompatActivity {
         //Now load all skills in mAllSkills from XML arrays
         String[] arraySkill = getResources().getStringArray(R.array.skillsArray);
         mAllSkills = new ArrayList<>(Arrays.asList(arraySkill));
+        //TODO: Next Time mAllSkills should be skills except in userSkills
 
 
         mProjectAdapter = new ProjectAdapter((mUser.getProjects()));
@@ -164,11 +166,37 @@ public class ProfileActivity extends AppCompatActivity {
         //Set the root view as Dialogs Layout
         builder.setView(view);
 
+
+        //Find add skill button
+        TextView addSkill = view.findViewById(R.id.dialog_addproject_add_skill);
+
+        //Find Recycler View of list of skills
+        RecyclerView skillView = view.findViewById(R.id.dialog_add_project_rv);
+
+        //Make list of skills and mySkills is the skills added by user
+        final ArrayList<Skill> skills = new ArrayList<>(mUser.getSkills());
+        final ArrayList<Skill> mySkills = new ArrayList<>();
+
+        //Configuring the recycler view
+        final SkillAdapter skillAdapter = new SkillAdapter(mySkills);
+        skillView.setLayoutManager(new LinearLayoutManager(this));
+        skillView.setAdapter(skillAdapter);
+
+        addSkill.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createAllSkillsProjectDialog(skillAdapter, skills, mySkills).show();
+            }
+        });
+
+        final ArrayList<Integer> skillIds = new ArrayList<>();
+
         //Adding positive and negative buttons
         builder.setPositiveButton(R.string.add_project_dialog_save_and_add_btn, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if(true/*addProject(view)*/) {
+
+                if(addProject(view, mySkills)) {
                     dialog.dismiss();
                     createAddProjectDialog().show();
                 }
@@ -177,7 +205,7 @@ public class ProfileActivity extends AppCompatActivity {
         }).setNeutralButton(getString(R.string.add_project_dialog_save_btn), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if(addSkill(view)){
+                if(addProject(view, mySkills)){
                     dialog.dismiss();
                 }
             }
@@ -213,10 +241,6 @@ public class ProfileActivity extends AppCompatActivity {
         //Get the auto complete text view and the choose button
         final AutoCompleteTextView skillNameView = view.findViewById(R.id.dialog_addskill_et_name);
         Button chooseBtn = view.findViewById(R.id.dialog_addskill_btn_choose);
-        skillNameView.requestFocus();
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
-
 
         //Populate the autocomplete textView and also view list of skills on
         //pressing choose button
@@ -228,7 +252,7 @@ public class ProfileActivity extends AppCompatActivity {
         chooseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createAllSkillsDialog(skillNameView).show();
+                createAllSkillsDialog(skillNameView, mAllSkills).show();
             }
         });
 
@@ -241,7 +265,7 @@ public class ProfileActivity extends AppCompatActivity {
                     createAddSkillDialog().show();
                 }else{
                     displayToast(getString(R.string.add_skill_dialog_invalid_skill_toast));
-                    
+
                 }
 
             }
@@ -271,43 +295,40 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     //Add the project to user and return true if successful
-   /* private boolean addProject(View rootView){
+    private boolean addProject(View rootView, ArrayList<Skill>skills){
         //Get all of the views
 
         EditText tvName = rootView.findViewById(R.id.dialog_addproject_et_name);
         EditText tvShortDesc = rootView.findViewById(R.id.dialog_addproject_short_desc);
         EditText tvCompleteDesc = rootView.findViewById(R.id.dialog_addproject_complete_desc);
-        //EditText tvskillsID = rootView.findViewById(R.id.dialog_addproject_skillsID);
+
+
 
         //Get all fields from the views
         String name = tvName.getText().toString().trim();
         String shortDesc = tvShortDesc.getText().toString().trim();
         String completeDesc = tvCompleteDesc.getText().toString().trim();
-       // int skillsID = tvskillsID.getId();
-        *//*
-        TODO ARRAYLIST
-        * *//*//ArrayList<Integer> skillsID = tvskillsID.getText().toString().trim();
-
 
         //Check condition
         if(name.isEmpty()) return false;
-        int position = mAllProjects.indexOf(name);
+        if(skills.size()==0) return false;
+        //TODO: Check other conditions
 
-        if(position<0) return false;
-
+        ArrayList<Integer> skillIds = new ArrayList<>();
+        for(Skill skill: skills){
+            skillIds.add(skill.getSkillID());
+        }
         //Create a new skill and add to user skills
-        *//*Project project = new Project( name, shortDesc, completeDesc, skillsID);
-        mUser.getSkills().add(project);
+        Project project = new Project( name, shortDesc, completeDesc, skillIds);
+        mUser.getProjects().add(project);
 
-        //Finally remove the current skill as its added to user skills
-        mAllProjects.remove(name);
 
         //Notify adapter
-        mProjectAdapter.notifyDataSetChanged();*//*
+        mProjectAdapter.notifyDataSetChanged();
 
         return true;
     }
-*/
+
 
     //Add the skill to user skills and return true if successful
     private boolean addSkill(View rootView){
@@ -343,7 +364,8 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     //Displays all skills
-    private Dialog createAllSkillsDialog(final AutoCompleteTextView textView){
+    private Dialog createAllSkillsDialog(final AutoCompleteTextView textView, ArrayList<String> allSkills){
+
         //Create new dialog and get inflater
         AlertDialog.Builder listDialog = new AlertDialog.Builder(ProfileActivity.this);
         LayoutInflater inflater = getLayoutInflater();
@@ -354,7 +376,7 @@ public class ProfileActivity extends AppCompatActivity {
         listDialog.setView(view);
 
         ListView listView = view.findViewById(R.id.listView);
-        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mAllSkills);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, allSkills);
         listView.setAdapter(adapter);
 
         android.support.v7.widget.SearchView searchView = view.findViewById(R.id.search_view);
@@ -388,6 +410,66 @@ public class ProfileActivity extends AppCompatActivity {
         return dialog;
 
     }
+
+    //Displays all skills
+    private Dialog createAllSkillsProjectDialog(final SkillAdapter skillAdapter, final ArrayList<Skill> allSkills, final ArrayList<Skill> mySkills){
+
+        //Create new dialog and get inflater
+        AlertDialog.Builder listDialog = new AlertDialog.Builder(ProfileActivity.this);
+        LayoutInflater inflater = getLayoutInflater();
+
+        View view = inflater.inflate(R.layout.dialog_list_skills, null);
+
+        listDialog.setTitle("Select Skill");
+        listDialog.setView(view);
+
+        ListView listView = view.findViewById(R.id.listView);
+
+        final ArrayList<String> skillList = new ArrayList<>();
+        for(Skill skill:allSkills){
+            skillList.add(skill.getSkillName());
+        }
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, skillList);
+        listView.setAdapter(adapter);
+
+        android.support.v7.widget.SearchView searchView = view.findViewById(R.id.search_view);
+        searchView.setOnQueryTextListener(new android.support.v7.widget.SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return true;
+            }
+        });
+
+
+
+        final Dialog dialog = listDialog.create();
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String skill =((TextView)view).getText().toString();
+                int pos = skillList.indexOf(skill);
+
+                mySkills.add(allSkills.get(pos));
+                allSkills.remove(pos);
+                skillList.remove(pos);
+
+                skillAdapter.notifyDataSetChanged();
+                dialog.dismiss();
+
+            }
+        });
+
+        return dialog;
+
+    }
+
 
 
     private void displayToast(String message){
