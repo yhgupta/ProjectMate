@@ -5,6 +5,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +21,7 @@ import com.projectmate.projectmate.AlibabaCloud.ProjectMateUris;
 import com.projectmate.projectmate.Classes.User;
 import com.projectmate.projectmate.Database.DatabaseContract;
 import com.projectmate.projectmate.Database.StaticValues;
+import com.projectmate.projectmate.Fragments.MainFragmentsAdapter;
 
 import java.io.IOException;
 
@@ -31,11 +34,26 @@ import static android.graphics.Color.*;
 
 public class MainActivity extends AppCompatActivity {
 
+    private ImageButton mHomeButton;
+    private  ImageButton mMyProjectButton;
+    private ImageButton mChatsButton;
+    private  ImageButton mNotificationButton;
+    private ImageButton mProfileButton;
+
+    private FragmentPagerAdapter mMainPagerAdapter;
+    private ViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Finding all buttons
+        mHomeButton = findViewById(R.id.home_button);
+        mMyProjectButton = findViewById(R.id.project_button);
+        mChatsButton = findViewById(R.id.chat_button);
+        mNotificationButton = findViewById(R.id.notification_button);
+        mProfileButton = findViewById(R.id.profile_button);
 
 
         //Get the shared preferences
@@ -54,9 +72,46 @@ public class MainActivity extends AppCompatActivity {
 
         boolean isFirstTime = prefs.getBoolean(DatabaseContract.FIRST_TIME_KEY, true);
 
-        if (isFirstTime) {
+        if (!isFirstTime) {
             userFirstTime();
         }
+        else{
+            mViewPager = (ViewPager) findViewById(R.id.main_view_pager);
+            mMainPagerAdapter = new MainFragmentsAdapter(getSupportFragmentManager());
+            mViewPager.setAdapter(mMainPagerAdapter);
+        }
+
+        mHomeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mViewPager.setCurrentItem(0);
+            }
+        });
+        mMyProjectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mViewPager.setCurrentItem(1);
+            }
+        });
+        mChatsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mViewPager.setCurrentItem(2);
+            }
+        });
+        mNotificationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mViewPager.setCurrentItem(3);
+            }
+        });
+        mProfileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mViewPager.setCurrentItem(4);
+            }
+        });
+
 
     }
 
@@ -141,12 +196,5 @@ public class MainActivity extends AppCompatActivity {
         return builder.create();
     }
 
-    //TODO BUT THIS ONE IS NOT WORKING  
-
-    public void changeColor(View view) {
-        ImageButton xy = findViewById(R.id.home_button);
-        xy.setColorFilter(Color.RED);
-
-    }
 }
 
