@@ -84,7 +84,7 @@ public class BrowserActivity extends AppCompatActivity {
                 Log.v("URL", code);
 
                 //Making a verifying dialog
-                android.app.AlertDialog dialog = getVerifyingDialog();
+                final android.app.AlertDialog dialog = getVerifyingDialog();
                 dialog.show();
 
                 //Making a call back that will be executed after post request
@@ -103,6 +103,7 @@ public class BrowserActivity extends AppCompatActivity {
                         String token = root.getAsJsonObject("result").getAsJsonObject("data").get("access_token").getAsString();
 
                         Log.v("TAG", response.body().toString());
+                        dialog.dismiss();
                         authComplete(token);
                     }
 

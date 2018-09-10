@@ -4,23 +4,22 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.ImageButton;
 
 import com.google.gson.Gson;
 import com.projectmate.projectmate.AlibabaCloud.OkHttpRequests;
 import com.projectmate.projectmate.AlibabaCloud.ProjectMateAPIContract;
 import com.projectmate.projectmate.AlibabaCloud.ProjectMateUris;
-import com.projectmate.projectmate.Classes.Project;
-import com.projectmate.projectmate.Classes.Skill;
 import com.projectmate.projectmate.Classes.User;
 import com.projectmate.projectmate.Database.DatabaseContract;
 import com.projectmate.projectmate.Database.StaticValues;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import dmax.dialog.SpotsDialog;
 import okhttp3.Call;
@@ -28,6 +27,7 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
         if (isFirstTime) {
             userFirstTime();
         }
-
 
     }
 
@@ -137,6 +136,11 @@ public class MainActivity extends AppCompatActivity {
                 });
 
         return builder.create();
+    }
+
+    public void changeColor(View view) {
+        ImageButton xy = findViewById(R.id.home_button);
+        xy.setColorFilter(Color.RED);
     }
 }
 
