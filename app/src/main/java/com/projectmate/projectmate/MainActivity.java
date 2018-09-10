@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.autofill.AutofillValue;
 import android.widget.ImageButton;
 
 import com.google.gson.Gson;
@@ -25,6 +26,8 @@ import dmax.dialog.SpotsDialog;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+
+import static android.graphics.Color.*;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -138,9 +141,12 @@ public class MainActivity extends AppCompatActivity {
         return builder.create();
     }
 
+    //TODO BUT THIS ONE IS NOT WORKING  
+
     public void changeColor(View view) {
         ImageButton xy = findViewById(R.id.home_button);
         xy.setColorFilter(Color.RED);
+
     }
 }
 
