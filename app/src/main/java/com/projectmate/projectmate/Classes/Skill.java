@@ -5,6 +5,7 @@ import android.content.Intent;
 import com.google.gson.annotations.SerializedName;
 
 public class Skill {
+
     @SerializedName("skill_id")
     private Integer skillID;
 
@@ -26,6 +27,15 @@ public class Skill {
         this.skillRating = skillRating;
         this.shortDescription = shortDescription;
         this.coursesTaken = coursesTaken;
+    }
+
+
+    public void setSkillID(Integer skillID) {
+        this.skillID = skillID;
+    }
+
+    public void setSkillRating(float skillRating) {
+        this.skillRating = skillRating;
     }
 
     public int getSkillID() {
