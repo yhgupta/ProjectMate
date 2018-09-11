@@ -3,7 +3,7 @@ package com.projectmate.projectmate.Classes;
 import java.util.ArrayList;
 
 public class User {
-    private int pk; // Primary Key
+    private int id; // Primary Key
 
     private String name;
     private String organization;
@@ -16,8 +16,8 @@ public class User {
     private ArrayList<Skill> skills;
     private ArrayList<Project> projects;
 
-    public User(int pk, String name, String organization, String city, String location, String username, int ranking, ArrayList<Skill> skills, ArrayList<Project> projects) {
-        this.pk = pk;
+    public User(int id, String name, String organization, String city, String location, String username, int ranking, ArrayList<Skill> skills, ArrayList<Project> projects) {
+        this.id = id;
         this.name = name;
         this.organization = organization;
         this.city = city;
@@ -28,12 +28,12 @@ public class User {
         this.projects = projects;
     }
 
-    public int getPk() {
-        return pk;
+    public int getId() {
+        return id;
     }
 
-    public void setPk(int pk) {
-        this.pk = pk;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
