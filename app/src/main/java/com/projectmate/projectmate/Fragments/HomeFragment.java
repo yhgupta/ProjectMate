@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.projectmate.projectmate.Adapters.AllProjectAdapter;
 import com.projectmate.projectmate.Adapters.ProjectAdapter;
 import com.projectmate.projectmate.AlibabaCloud.OkHttpRequests;
 import com.projectmate.projectmate.AlibabaCloud.ProjectMateUris;
@@ -29,7 +30,7 @@ import okhttp3.Response;
 
 public class HomeFragment extends Fragment {
 
-    private ProjectAdapter mAdapter;
+    private AllProjectAdapter mAdapter;
     private ArrayList<Project> mProjects = new ArrayList<>();
 
     Callback callback = new Callback() {
@@ -55,12 +56,19 @@ public class HomeFragment extends Fragment {
 
                         if(projects.isEmpty()){
                             moreItemsPresent=false;
+                            mAdapter.setNoMorePresent();
+                            mAdapter.notifyDataSetChanged();
                             return;
                         }
 
                         mProjects.addAll(projects);
-                        mAdapter.notifyDataSetChanged();
                         loadingFromServer = false;
+
+                        if(projects.size()<15){
+                            moreItemsPresent=false;
+                            mAdapter.setNoMorePresent();
+                        }
+                        mAdapter.notifyDataSetChanged();
                     }
                 });
             }
@@ -82,13 +90,17 @@ public class HomeFragment extends Fragment {
         final RecyclerView recyclerView = new RecyclerView(getContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        mAdapter = new ProjectAdapter(mProjects);
+        mAdapter = new AllProjectAdapter(mProjects);
 
         recyclerView.setAdapter(mAdapter);
 
         if(mProjects.isEmpty()){
             OkHttpRequests requests = new OkHttpRequests();
             requests.performGetRequest(ProjectMateUris.getAllProjects(0), callback, StaticValues.getCodeChefAuthKey());
+        }
+        else if(mProjects.size()<15){
+            mAdapter.setNoMorePresent();
+            mAdapter.notifyDataSetChanged();
         }
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -100,7 +112,7 @@ public class HomeFragment extends Fragment {
                 lastCompletelyVisibleItemPosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition();
 
                 if(moreItemsPresent){
-                    if(lastCompletelyVisibleItemPosition>=mProjects.size()-3){
+                    if(lastCompletelyVisibleItemPosition>=mProjects.size()-5){
                         if(!loadingFromServer){
                             OkHttpRequests requests = new OkHttpRequests();
                             requests.performGetRequest(ProjectMateUris.getAllProjects(mProjects.size()), callback, StaticValues.getCodeChefAuthKey());

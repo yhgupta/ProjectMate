@@ -11,8 +11,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.view.autofill.AutofillValue;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 
 import com.google.gson.Gson;
 import com.projectmate.projectmate.AlibabaCloud.OkHttpRequests;
@@ -22,6 +27,7 @@ import com.projectmate.projectmate.Classes.User;
 import com.projectmate.projectmate.Database.DatabaseContract;
 import com.projectmate.projectmate.Database.StaticValues;
 import com.projectmate.projectmate.Fragments.MainFragmentsAdapter;
+import com.victor.loading.rotate.RotateLoading;
 
 import java.io.IOException;
 
@@ -40,6 +46,9 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton mNotificationButton;
     private ImageButton mProfileButton;
 
+
+    private RotateLoading mRotateLoading;
+
     private FragmentPagerAdapter mMainPagerAdapter;
     private ViewPager mViewPager;
 
@@ -55,32 +64,12 @@ public class MainActivity extends AppCompatActivity {
         mNotificationButton = findViewById(R.id.notification_button);
         mProfileButton = findViewById(R.id.profile_button);
 
+        mRotateLoading = findViewById(R.id.rotateloading);
 
-        //Get the shared preferences
-        SharedPreferences prefs = getSharedPreferences(DatabaseContract.SHARED_PREFS, MODE_PRIVATE);
-        String userCode = prefs.getString(DatabaseContract.AUTH_CODE_KEY, null);
+        mRotateLoading.start();
 
-        //userCode is null if code not initialized by Browser Activity
-        if (userCode == null) {
-            Intent intent = new Intent(MainActivity.this, StartActivity.class);
-            startActivity(intent);
-            finish();
-            return;
-        }
 
-        Log.v("USERCODE", userCode);
-
-        StaticValues.setCodeChefAuthKey(userCode);
-
-        boolean isFirstTime = prefs.getBoolean(DatabaseContract.FIRST_TIME_KEY, true);
-
-        if (isFirstTime) {
-            userFirstTime();
-        }
-
-        mViewPager = (ViewPager) findViewById(R.id.main_view_pager);
-        mMainPagerAdapter = new MainFragmentsAdapter(getSupportFragmentManager());
-        mViewPager.setAdapter(mMainPagerAdapter);
+        mViewPager = findViewById(R.id.main_view_pager);
 
         mHomeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,12 +102,42 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //Get the shared preferences
+        SharedPreferences prefs = getSharedPreferences(DatabaseContract.SHARED_PREFS, MODE_PRIVATE);
+        String userCode = prefs.getString(DatabaseContract.AUTH_CODE_KEY, null);
+
+        //userCode is null if code not initialized by Browser Activity
+        if (userCode == null) {
+            Intent intent = new Intent(MainActivity.this, StartActivity.class);
+            startActivity(intent);
+            finish();
+            return;
+        }
+
+        Log.v("USERCODE", userCode);
+
+        StaticValues.setCodeChefAuthKey(userCode);
+
+        boolean isFirstTime = prefs.getBoolean(DatabaseContract.FIRST_TIME_KEY, true);
+
+        if (isFirstTime) {
+            userFirstTime();
+        }
+        else{
+            mMainPagerAdapter = new MainFragmentsAdapter(getSupportFragmentManager());
+            mViewPager.setAdapter(mMainPagerAdapter);
+            startAnimation();
+
+        }
+
+
+
 
     }
 
     private void userFirstTime() {
-        final AlertDialog fetchingDetailsDialog = getFetchingDetailsDialog();
-        fetchingDetailsDialog.show();
+        /*final AlertDialog fetchingDetailsDialog = getFetchingDetailsDialog();
+        fetchingDetailsDialog.show();*/
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -139,8 +158,11 @@ public class MainActivity extends AppCompatActivity {
 
                             if (jsonResponse.equals(ProjectMateAPIContract.AUTHENTICATION_FAILED)) {
 
-                                fetchingDetailsDialog.dismiss();
-                                getReAuthenticationDialog().show();
+                                mRotateLoading.stop();
+                                //getReAuthenticationDialog().show();
+                                Intent intent = new Intent(MainActivity.this, BrowserActivity.class);
+                                startActivity(intent);
+                                finish();
 
                             } else {
                                 Gson gson = new Gson();
@@ -150,10 +172,15 @@ public class MainActivity extends AppCompatActivity {
                                 if (user.getSkills().size() == 0) {
                                     Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
                                     startActivity(intent);
-                                    fetchingDetailsDialog.dismiss();
+                                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                                     finish();
+                                }else{
+                                    mMainPagerAdapter = new MainFragmentsAdapter(getSupportFragmentManager());
+                                    mViewPager.setAdapter(mMainPagerAdapter);
+                                    startAnimation();
+
                                 }
-                                fetchingDetailsDialog.dismiss();
+
                             }
                         }
                     });
@@ -194,6 +221,56 @@ public class MainActivity extends AppCompatActivity {
                 });
 
         return builder.create();
+    }
+
+    private void startAnimation(){
+        final FrameLayout frameLayout = findViewById(R.id.main_frame_layout);
+        final LinearLayout linearLayout = findViewById(R.id.main_layout);
+
+        Animation fadeOut = new AlphaAnimation(1, 0);
+        fadeOut.setInterpolator(new AccelerateInterpolator());
+        fadeOut.setDuration(400);
+
+        fadeOut.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                mRotateLoading.stop();
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                frameLayout.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        Animation fadeIn = new AlphaAnimation(0, 1);
+        fadeIn.setInterpolator(new AccelerateInterpolator());
+        fadeIn.setDuration(400);
+
+        fadeIn.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                linearLayout.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        frameLayout.startAnimation(fadeOut);
+        linearLayout.startAnimation(fadeIn);
     }
 
 }
