@@ -3,17 +3,72 @@ package com.projectmate.projectmate.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.projectmate.projectmate.Adapters.ProjectAdapter;
+import com.projectmate.projectmate.AlibabaCloud.OkHttpRequests;
+import com.projectmate.projectmate.AlibabaCloud.ProjectMateUris;
+import com.projectmate.projectmate.Classes.Project;
+import com.projectmate.projectmate.Database.StaticValues;
 import com.projectmate.projectmate.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+import java.io.IOException;
+import java.util.ArrayList;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
+
+
 public class HomeFragment extends Fragment {
 
+    private ProjectAdapter mAdapter;
+    private ArrayList<Project> mProjects = new ArrayList<>();
+
+    Callback callback = new Callback() {
+        @Override
+        public void onFailure(Call call, IOException e) {
+
+        }
+
+        @Override
+        public void onResponse(Call call, Response response) throws IOException {
+            if (response.isSuccessful()) {
+
+                final String jsonData = response.body().string();
+
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.v("RESPONSE", jsonData);
+                        Gson gson = new Gson();
+                        TypeToken<ArrayList<Project>> token = new TypeToken<ArrayList<Project>>() {
+                        };
+                        ArrayList<Project> projects = gson.fromJson(jsonData, token.getType());
+
+                        if(projects.isEmpty()){
+                            moreItemsPresent=false;
+                            return;
+                        }
+
+                        mProjects.addAll(projects);
+                        mAdapter.notifyDataSetChanged();
+                        loadingFromServer = false;
+                    }
+                });
+            }
+        }
+    };
+
+    private boolean loadingFromServer = true;
+    private boolean moreItemsPresent = true;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -23,8 +78,42 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+
+        final RecyclerView recyclerView = new RecyclerView(getContext());
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        mAdapter = new ProjectAdapter(mProjects);
+
+        recyclerView.setAdapter(mAdapter);
+
+        if(mProjects.isEmpty()){
+            OkHttpRequests requests = new OkHttpRequests();
+            requests.performGetRequest(ProjectMateUris.getAllProjects(0), callback, StaticValues.getCodeChefAuthKey());
+        }
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int lastCompletelyVisibleItemPosition = 0;
+
+                lastCompletelyVisibleItemPosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition();
+
+                if(moreItemsPresent){
+                    if(lastCompletelyVisibleItemPosition>=mProjects.size()-3){
+                        if(!loadingFromServer){
+                            OkHttpRequests requests = new OkHttpRequests();
+                            requests.performGetRequest(ProjectMateUris.getAllProjects(mProjects.size()), callback, StaticValues.getCodeChefAuthKey());
+                        }
+                    }
+                }
+
+            }
+        });
+
+
+        return recyclerView;
     }
+
 
 }

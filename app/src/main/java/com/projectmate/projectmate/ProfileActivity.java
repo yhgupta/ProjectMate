@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -38,6 +39,7 @@ import com.projectmate.projectmate.AlibabaCloud.ProjectMateUris;
 import com.projectmate.projectmate.Classes.Project;
 import com.projectmate.projectmate.Classes.Skill;
 import com.projectmate.projectmate.Classes.User;
+import com.projectmate.projectmate.Database.DatabaseContract;
 import com.projectmate.projectmate.Database.StaticValues;
 
 import java.io.IOException;
@@ -155,7 +157,7 @@ public class ProfileActivity extends AppCompatActivity {
         String[] arraySkill = getResources().getStringArray(R.array.skillsArray);
         mAllSkills = new ArrayList<>(Arrays.asList(arraySkill));
         //TODO: Next Time mAllSkills should be skills except in userSkills
-
+        //TODO: User should be saved when he adds a skill/project
 
         mProjectAdapter = new ProjectAdapter((mUser.getProjects()));
 
@@ -178,6 +180,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private User getUser(){
+
         return StaticValues.getCurrentUser();
     }
 
@@ -349,7 +352,7 @@ public class ProfileActivity extends AppCompatActivity {
             skillIds.add(skill.getSkillID());
         }
         //Create a new skill and add to user skills
-        Project project = new Project( name, shortDesc, completeDesc, skillIds);
+        Project project = new Project(0, name, shortDesc, completeDesc, skillIds);
         mUser.getProjects().add(project);
 
 
@@ -565,6 +568,12 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if(response.isSuccessful()){
+                    //User is no longer first time
+                    SharedPreferences.Editor editor = getSharedPreferences(DatabaseContract.SHARED_PREFS, Context.MODE_PRIVATE).edit();
+                    editor.putBoolean(DatabaseContract.FIRST_TIME_KEY, false);
+                    editor.apply();
+
+                    //Start Main Activity
                     Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();

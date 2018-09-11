@@ -35,9 +35,9 @@ import static android.graphics.Color.*;
 public class MainActivity extends AppCompatActivity {
 
     private ImageButton mHomeButton;
-    private  ImageButton mMyProjectButton;
+    private ImageButton mMyProjectButton;
     private ImageButton mChatsButton;
-    private  ImageButton mNotificationButton;
+    private ImageButton mNotificationButton;
     private ImageButton mProfileButton;
 
     private FragmentPagerAdapter mMainPagerAdapter;
@@ -68,18 +68,19 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
+        Log.v("USERCODE", userCode);
+
         StaticValues.setCodeChefAuthKey(userCode);
 
         boolean isFirstTime = prefs.getBoolean(DatabaseContract.FIRST_TIME_KEY, true);
 
-        if (!isFirstTime) {
+        if (isFirstTime) {
             userFirstTime();
         }
-        else{
-            mViewPager = (ViewPager) findViewById(R.id.main_view_pager);
-            mMainPagerAdapter = new MainFragmentsAdapter(getSupportFragmentManager());
-            mViewPager.setAdapter(mMainPagerAdapter);
-        }
+
+        mViewPager = (ViewPager) findViewById(R.id.main_view_pager);
+        mMainPagerAdapter = new MainFragmentsAdapter(getSupportFragmentManager());
+        mViewPager.setAdapter(mMainPagerAdapter);
 
         mHomeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,17 +147,16 @@ public class MainActivity extends AppCompatActivity {
                                 User user = gson.fromJson(jsonResponse, User.class);
 
                                 StaticValues.setCurrentUser(user);
-                                if (user.getSkills().size() == 0 || true) {
+                                if (user.getSkills().size() == 0) {
                                     Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
                                     startActivity(intent);
                                     fetchingDetailsDialog.dismiss();
                                     finish();
                                 }
+                                fetchingDetailsDialog.dismiss();
                             }
                         }
                     });
-
-
 
 
                 }
