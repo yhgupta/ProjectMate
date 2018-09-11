@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 
 public class Project {
-    private int id; // Primary Key
+    private int pk; // Primary Key
 
     @SerializedName("project_name")
     private String projectName;
@@ -18,20 +18,20 @@ public class Project {
 
     private ArrayList<Integer> skills;
 
-    public Project(int id, String projectName, String projectShortDesc, String projectCompleteDesc, ArrayList<Integer> skills) {
-        this.id = id;
+    public Project(int pk, String projectName, String projectShortDesc, String projectCompleteDesc, ArrayList<Integer> skills) {
+        this.pk = pk;
         this.projectName = projectName;
         this.projectShortDesc = projectShortDesc;
         this.projectCompleteDesc = projectCompleteDesc;
         this.skills = skills;
     }
 
-    public int getId() {
-        return id;
+    public int getPk() {
+        return pk;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setPk(int pk) {
+        this.pk = pk;
     }
 
     public String getProjectName() {

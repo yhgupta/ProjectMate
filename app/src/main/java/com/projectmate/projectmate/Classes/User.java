@@ -99,4 +99,5 @@ public class User {
     public void setProjects(ArrayList<Project> projects) {
         this.projects = projects;
     }
+
 }
