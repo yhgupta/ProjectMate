@@ -10,15 +10,16 @@
         android:id="@+id/main_frame_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorRedDark">
+        android:background="@color/colorRedDark"
+        android:visibility="gone">
 
         <com.victor.loading.rotate.RotateLoading
             android:id="@+id/rotateloading"
             android:layout_width="80dp"
-            android:layout_gravity="center"
             android:layout_height="80dp"
-            app:loading_width="5dp"
-            app:loading_color="#ffffff" />
+            android:layout_gravity="center"
+            app:loading_color="#ffffff"
+            app:loading_width="5dp" />
 
     </FrameLayout>
 
@@ -28,7 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:visibility="invisible"
+        android:visibility="visible"
         tools:context=".MainActivity">
 
         <android.support.v4.view.ViewPager
@@ -43,63 +44,134 @@
             android:layout_width="match_parent"
             android:layout_height="50dp">
 
-            <ImageButton
-                android:id="@+id/home_button"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="0dp"
-                android:layout_weight="1"
-                android:backgroundTint="@android:color/white"
-                android:onClick="changeColor"
-                android:scaleType="fitCenter"
-                android:src="@drawable/baseline_home_24" />
 
-            <ImageButton
-                android:id="@+id/project_button"
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_margin="0dp"
                 android:layout_weight="1"
-                android:backgroundTint="@android:color/white"
-                android:onClick="changeColor"
-                android:scaleType="fitCenter"
-                android:src="@drawable/baseline_code_24" />
+                android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/chat_button"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_margin="0dp"
-                android:onClick="changeColor"
-                android:backgroundTint="@android:color/white"
-                android:scaleType="fitCenter"
-                android:src="@drawable/baseline_chat_24" />
+                <ImageView
+                    android:id="@+id/home_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:backgroundTint="@android:color/white"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/baseline_home_24" />
 
-            <ImageButton
-                android:id="@+id/notification_button"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="0dp"
-                android:layout_weight="1"
-                android:backgroundTint="@android:color/white"
-                android:onClick="changeColor"
-                android:scaleType="fitCenter"
-                android:src="@drawable/baseline_notifications_24" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="Home"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
-            <ImageButton
-                android:id="@+id/profile_button"
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:layout_margin="0dp"
-                android:onClick="changeColor"
-                android:backgroundTint="@android:color/white"
-                android:scaleType="fitCenter"
-                android:src="@drawable/baseline_account_circle_24" />
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/project_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:backgroundTint="@android:color/white"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/baseline_code_24" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="My Project"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/chat_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:backgroundTint="@android:color/white"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/baseline_chat_24" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="Chat"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/notification_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:backgroundTint="@android:color/white"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/baseline_notifications_24" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="Activity"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/profile_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:backgroundTint="@android:color/white"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/baseline_account_circle_24" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="Profile"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
         </LinearLayout>
-
 
 
     </LinearLayout>
