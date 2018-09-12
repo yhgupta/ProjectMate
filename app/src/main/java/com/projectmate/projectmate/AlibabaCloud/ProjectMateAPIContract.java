@@ -11,4 +11,8 @@ public class ProjectMateAPIContract {
     public static final String All_PROJECTS = "all";
 
     public static final String AUTHENTICATION_FAILED = "{\"Error\":\"Authentication Failed\"}";
+
+
+    public static final int NOTIFICATION_TYPE_INFO = 700;
+    public static final int NOTIFICATION_TYPE_ACCEPT_REJECT = 701;
 }

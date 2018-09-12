@@ -126,7 +126,6 @@ public class MainActivity extends AppCompatActivity {
         else{
             mMainPagerAdapter = new MainFragmentsAdapter(getSupportFragmentManager());
             mViewPager.setAdapter(mMainPagerAdapter);
-            startAnimation();
 
         }
 
@@ -169,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
                                 User user = gson.fromJson(jsonResponse, User.class);
 
                                 StaticValues.setCurrentUser(user);
-                                if (user.getSkills().size() == 0) {
+                                if (user.getSkills().size() != 0) {
                                     Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
                                     startActivity(intent);
                                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out);

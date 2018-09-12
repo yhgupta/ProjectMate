@@ -9,6 +9,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -19,6 +24,7 @@ import com.projectmate.projectmate.AlibabaCloud.ProjectMateUris;
 import com.projectmate.projectmate.Classes.Project;
 import com.projectmate.projectmate.Database.StaticValues;
 import com.projectmate.projectmate.R;
+import com.victor.loading.rotate.RotateLoading;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -60,6 +66,8 @@ public class HomeFragment extends Fragment {
                             mAdapter.notifyDataSetChanged();
                             return;
                         }
+
+                        if(mProjects.isEmpty()) startAnimation();
 
                         mProjects.addAll(projects);
                         loadingFromServer = false;
@@ -126,6 +134,53 @@ public class HomeFragment extends Fragment {
 
         return recyclerView;
     }
+    private void startAnimation(){
+        final FrameLayout frameLayout = getActivity().findViewById(R.id.main_frame_layout);
+        final LinearLayout linearLayout = getActivity().findViewById(R.id.main_layout);
 
+        Animation fadeOut = new AlphaAnimation(1, 0);
+        fadeOut.setInterpolator(new AccelerateInterpolator());
+        fadeOut.setDuration(400);
 
+        fadeOut.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                ((RotateLoading)getActivity().findViewById(R.id.rotateloading)).stop();
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                frameLayout.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        Animation fadeIn = new AlphaAnimation(0, 1);
+        fadeIn.setInterpolator(new AccelerateInterpolator());
+        fadeIn.setDuration(400);
+
+        fadeIn.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                linearLayout.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        frameLayout.startAnimation(fadeOut);
+        linearLayout.startAnimation(fadeIn);
+    }
 }

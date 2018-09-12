@@ -13,6 +13,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -556,6 +557,7 @@ public class ProfileActivity extends AppCompatActivity {
     private void saveToServer(){
         Gson gson = new Gson();
         String jsonData = gson.toJson(mUser);
+        Log.v("JSON", jsonData);
         String authToken = StaticValues.getCodeChefAuthKey();
         String url = ProjectMateUris.getAuthUrl();
 
