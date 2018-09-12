@@ -15,8 +15,6 @@ import java.util.List;
 public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectViewHolder>{
 
     private List<Project> mProject;
-    private boolean moreAvailable=true;
-
 
     public ProjectAdapter(List<Project> project) {
         this.mProject = project;
@@ -33,9 +31,9 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectV
     @Override
     public void onBindViewHolder(@NonNull ProjectAdapter.ProjectViewHolder holder, int position) {
         holder.tvProjectName.setText(mProject.get(position).getProjectName());
-        holder.tvProjectShortDesc.setText(mProject.get(position).getProjectShortDesc() );
-
-
+        String desc = mProject.get(position).getProjectShortDesc();
+        if(desc==null) desc="";
+        holder.tvProjectShortDesc.setText(desc);
 
 
         // TODO HAVE AT SKILLS

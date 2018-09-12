@@ -98,6 +98,8 @@ public class HomeFragment extends Fragment {
         final RecyclerView recyclerView = new RecyclerView(getContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        recyclerView.setNestedScrollingEnabled(false);
+
         mAdapter = new AllProjectAdapter(mProjects);
 
         recyclerView.setAdapter(mAdapter);

@@ -109,6 +109,8 @@ public class BrowserActivity extends AppCompatActivity {
 
                 };
 
+                //TODO: THIS LOGIC NEEDS TO BE MOVED TO SERVER TO PROTECT CLIENT_SECRET
+
                 ////Running post request on Code Chef to get access token on data
                 OkHttpRequests requests = new OkHttpRequests();
                 Gson gson = new Gson();

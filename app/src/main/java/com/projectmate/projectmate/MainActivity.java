@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.SystemClock;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -120,14 +121,7 @@ public class MainActivity extends AppCompatActivity {
 
         boolean isFirstTime = prefs.getBoolean(DatabaseContract.FIRST_TIME_KEY, true);
 
-        if (isFirstTime) {
-            userFirstTime();
-        }
-        else{
-            mMainPagerAdapter = new MainFragmentsAdapter(getSupportFragmentManager());
-            mViewPager.setAdapter(mMainPagerAdapter);
-
-        }
+        userFirstTime();
 
 
 
@@ -149,41 +143,38 @@ public class MainActivity extends AppCompatActivity {
 
                     final String jsonResponse = response.body().string();
 
-                    MainActivity.this.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Log.v("API KEY", StaticValues.getCodeChefAuthKey());
-                            Log.v("RESPONSE", jsonResponse);
-
-                            if (jsonResponse.equals(ProjectMateAPIContract.AUTHENTICATION_FAILED)) {
-
+                    if (jsonResponse.equals(ProjectMateAPIContract.AUTHENTICATION_FAILED)){
+                        MainActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
                                 mRotateLoading.stop();
-                                //getReAuthenticationDialog().show();
-                                Intent intent = new Intent(MainActivity.this, BrowserActivity.class);
-                                startActivity(intent);
-                                finish();
+                            }
+                        });
+                        Intent intent = new Intent(MainActivity.this, BrowserActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                    else {
+                        Gson gson = new Gson();
+                        User user = gson.fromJson(jsonResponse, User.class);
 
-                            } else {
-                                Gson gson = new Gson();
-                                User user = gson.fromJson(jsonResponse, User.class);
-
-                                StaticValues.setCurrentUser(user);
-                                if (user.getSkills().size() != 0) {
-                                    Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
-                                    startActivity(intent);
-                                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                                    finish();
-                                }else{
+                        StaticValues.setCurrentUser(user);
+                        if (user.getSkills().size() == 0) {
+                            Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                            startActivity(intent);
+                            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                            finish();
+                        }else{
+                            MainActivity.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
                                     mMainPagerAdapter = new MainFragmentsAdapter(getSupportFragmentManager());
                                     mViewPager.setAdapter(mMainPagerAdapter);
-                                    startAnimation();
-
                                 }
+                            });
 
-                            }
                         }
-                    });
-
+                    }
 
                 }
             }
@@ -228,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
 
         Animation fadeOut = new AlphaAnimation(1, 0);
         fadeOut.setInterpolator(new AccelerateInterpolator());
-        fadeOut.setDuration(400);
+        fadeOut.setDuration(500);
 
         fadeOut.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -249,7 +240,7 @@ public class MainActivity extends AppCompatActivity {
 
         Animation fadeIn = new AlphaAnimation(0, 1);
         fadeIn.setInterpolator(new AccelerateInterpolator());
-        fadeIn.setDuration(400);
+        fadeIn.setDuration(500);
 
         fadeIn.setAnimationListener(new Animation.AnimationListener() {
             @Override
