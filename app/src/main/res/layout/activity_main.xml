@@ -7,11 +7,11 @@
 
 
     <FrameLayout
+
         android:id="@+id/main_frame_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorRedDark"
-        android:visibility="gone">
+        android:background="@color/colorRedDark">
 
         <com.victor.loading.rotate.RotateLoading
             android:id="@+id/rotateloading"
@@ -29,7 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:visibility="visible"
+        android:visibility="invisible"
         tools:context=".MainActivity">
 
         <android.support.v4.view.ViewPager
