@@ -41,11 +41,11 @@ import static android.graphics.Color.*;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ImageButton mHomeButton;
-    private ImageButton mMyProjectButton;
-    private ImageButton mChatsButton;
-    private ImageButton mNotificationButton;
-    private ImageButton mProfileButton;
+    private LinearLayout mHomeButton;
+    private LinearLayout mMyProjectButton;
+    private LinearLayout mChatsButton;
+    private LinearLayout mNotificationButton;
+    private LinearLayout mProfileButton;
 
 
     private RotateLoading mRotateLoading;

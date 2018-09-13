@@ -41,18 +41,19 @@
         <!-- TODO CHECK THE ONCLICK METHOD IN EVERY IMAGE BUTTON AND DEFINED IN MAINACTIVITY-->
 
         <LinearLayout
+            android:paddingTop="4dp"
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="54dp">
 
 
             <LinearLayout
+                android:id="@+id/home_button"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/home_button"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_gravity="center_horizontal"
@@ -71,13 +72,13 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/project_button"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/project_button"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_gravity="center_horizontal"
@@ -96,13 +97,14 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/chat_button"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/chat_button"
+
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_gravity="center_horizontal"
@@ -122,13 +124,14 @@
 
 
             <LinearLayout
+                android:id="@+id/notification_button"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/notification_button"
+
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_gravity="center_horizontal"
@@ -147,13 +150,13 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/profile_button"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/profile_button"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_gravity="center_horizontal"

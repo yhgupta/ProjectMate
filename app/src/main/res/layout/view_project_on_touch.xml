@@ -212,37 +212,14 @@
         app:layout_constraintTop_toBottomOf="@+id/textView8">
 
         <TextView
+            android:id="@+id/skill_added"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:textColor="@android:color/white"
             android:background="@drawable/flexbox_item_background"
             android:padding="5dp"
-            android:text="Lucene" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:textColor="@android:color/white"
-            android:background="@drawable/flexbox_item_background"
-            android:padding="5dp"
-            android:text="Lucene" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:textColor="@android:color/white"
-            android:background="@drawable/flexbox_item_background"
-            android:padding="5dp"
-            android:text="Lucene" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:textColor="@android:color/white"
-            android:background="@drawable/flexbox_item_background"
-            android:padding="5dp"
-            android:text="Lucene" />
+            android:text="Lucene"
+            android:textColor="@android:color/white" />
 
 
     </com.google.android.flexbox.FlexboxLayout>
@@ -251,13 +228,17 @@
         android:id="@+id/line2"
         android:layout_width="0dp"
         android:layout_height="1dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@android:color/black"
+        app:layout_constraintBottom_toTopOf="@+id/textView11"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/flexboxLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/flexboxLayout"
+        app:layout_constraintVertical_bias="0.023" />
 
     <LinearLayout
         android:id="@+id/textView11"
@@ -265,15 +246,17 @@
         android:layout_height="48dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="136dp"
         android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="438dp">
+        app:layout_constraintTop_toBottomOf="@+id/line2">
 
         <Button
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:text="SEND A REQUEST" />
 
         <LinearLayout
@@ -282,13 +265,13 @@
 
             <Button
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="ACCEPT" />
 
             <Button
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="REJECT" />
 
