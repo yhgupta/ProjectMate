@@ -14,6 +14,7 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -139,6 +140,7 @@ public class HomeFragment extends Fragment {
     private void startAnimation(){
         final FrameLayout frameLayout = getActivity().findViewById(R.id.main_frame_layout);
         final LinearLayout linearLayout = getActivity().findViewById(R.id.main_layout);
+        //final RelativeLayout relativeLayout = getActivity().findViewById(R.id.main_layout);
 
         Animation fadeOut = new AlphaAnimation(1, 0);
         fadeOut.setInterpolator(new AccelerateInterpolator());
@@ -174,6 +176,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onAnimationEnd(Animation animation) {
                 linearLayout.setVisibility(View.VISIBLE);
+                //relativeLayout.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -184,5 +187,6 @@ public class HomeFragment extends Fragment {
 
         frameLayout.startAnimation(fadeOut);
         linearLayout.startAnimation(fadeIn);
+        //relativeLayout.startAnimation(fadeIn);
     }
 }

@@ -33,7 +33,7 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 
-public class BrowserActivity extends AppCompatActivity {
+public class  BrowserActivity extends AppCompatActivity {
 
     private WebView webView;
     private ProgressBar mProgressBar;

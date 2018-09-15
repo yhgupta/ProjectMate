@@ -1,35 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Fragments.MyProjectFragment">
+    android:layout_height="wrap_content"
+    android:elevation="4dp"
+    app:cardCornerRadius="4dp"
+    app:cardElevation="4dp">
 
-    <!-- TODO: Update blank fragment layout -->
     <RelativeLayout android:id="@+id/accept_card_view"
         android:layout_margin="16dp"
         android:layout_width="match_parent"
-        android:layout_height="140dp"
+        android:layout_height="wrap_content"
         xmlns:android="http://schemas.android.com/apk/res/android">
 
         <TextView
             android:id="@+id/name_view"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:padding="5dp"
-            android:layout_height="40dp"
-            android:text="Name Of Project"
+            android:text="Name Of Person"
             android:textSize="20dp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/last_message_view"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:padding="5dp"
             android:layout_below="@id/name_view"
+            android:layout_width="match_parent"
+            android:padding="5dp"
+            android:layout_height="30dp"
+            android:text="Last_message_to_be_displayed"
             android:textSize="15dp"
-            android:text = "short_description_of_project"/>
+            />
 
     </RelativeLayout>
 
-</FrameLayout>
+</RelativeLayout>

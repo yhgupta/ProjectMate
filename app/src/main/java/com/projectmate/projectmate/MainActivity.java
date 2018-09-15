@@ -1,5 +1,6 @@
 package com.projectmate.projectmate;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,7 +19,10 @@ import android.view.animation.Animation;
 import android.view.autofill.AutofillValue;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.projectmate.projectmate.AlibabaCloud.OkHttpRequests;
@@ -41,11 +45,26 @@ import static android.graphics.Color.*;
 
 public class MainActivity extends AppCompatActivity {
 
-    private LinearLayout mHomeButton;
+
+
+    private TextView mHome;
+    private TextView mProject;
+    private TextView mNotification;
+    private TextView mChat;
+    private TextView mProfile;
+
+    /*private ImageView mHome;
+    private ImageView mProject;
+    private ImageView mNotification;
+    private ImageView mChat;
+    private ImageView mProfile;*/
+
+
+   /* private LinearLayout mHomeButton;
     private LinearLayout mMyProjectButton;
     private LinearLayout mChatsButton;
     private LinearLayout mNotificationButton;
-    private LinearLayout mProfileButton;
+    private LinearLayout mProfileButton;*/
 
 
     private RotateLoading mRotateLoading;
@@ -55,48 +74,97 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mHome = findViewById(R.id.text_home);
+        mChat = findViewById(R.id.text_chat);
+        mProfile = findViewById(R.id.text_profile);
+        mProject = findViewById(R.id.text_project);
+        mNotification = findViewById(R.id.text_notification);
+
+
         //Finding all buttons
-        mHomeButton = findViewById(R.id.home_button);
+        /*mHomeButton = findViewById(R.id.home_button);
         mMyProjectButton = findViewById(R.id.project_button);
         mChatsButton = findViewById(R.id.chat_button);
         mNotificationButton = findViewById(R.id.notification_button);
-        mProfileButton = findViewById(R.id.profile_button);
+        mProfileButton = findViewById(R.id.profile_button)*/;
 
         mRotateLoading = findViewById(R.id.rotateloading);
 
         mRotateLoading.start();
 
-
+        //mViewPager = findViewById(R.id.main)
         mViewPager = findViewById(R.id.main_view_pager);
 
-        mHomeButton.setOnClickListener(new View.OnClickListener() {
+        /*mHomeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mViewPager.setCurrentItem(0);
+            }
+        });*/
+
+        mHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mViewPager.setCurrentItem(0);
             }
         });
-        mMyProjectButton.setOnClickListener(new View.OnClickListener() {
+
+
+        /*mMyProjectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mViewPager.setCurrentItem(1);
+            }
+        });*/
+
+        mProject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mViewPager.setCurrentItem(1);
             }
         });
-        mChatsButton.setOnClickListener(new View.OnClickListener() {
+
+        /*mChatsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mViewPager.setCurrentItem(2);
+            }
+        });*/
+
+        mChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mViewPager.setCurrentItem(2);
             }
         });
-        mNotificationButton.setOnClickListener(new View.OnClickListener() {
+
+
+        /*mNotificationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mViewPager.setCurrentItem(3);
+            }
+        });*/
+
+        mNotification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mViewPager.setCurrentItem(3);
             }
         });
-        mProfileButton.setOnClickListener(new View.OnClickListener() {
+
+        /*mProfileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mViewPager.setCurrentItem(4);
+            }
+        });*/
+
+        mProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mViewPager.setCurrentItem(4);
@@ -108,12 +176,7 @@ public class MainActivity extends AppCompatActivity {
         String userCode = prefs.getString(DatabaseContract.AUTH_CODE_KEY, null);
 
         //userCode is null if code not initialized by Browser Activity
-        if (userCode == null) {
-            Intent intent = new Intent(MainActivity.this, StartActivity.class);
-            startActivity(intent);
-            finish();
-            return;
-        }
+
 
         Log.v("USERCODE", userCode);
 
@@ -215,6 +278,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void startAnimation(){
         final FrameLayout frameLayout = findViewById(R.id.main_frame_layout);
+        //final RelativeLayout relativeLayout = findViewById(R.id.main_layout);
         final LinearLayout linearLayout = findViewById(R.id.main_layout);
 
         Animation fadeOut = new AlphaAnimation(1, 0);
@@ -250,6 +314,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
+                //relativeLayout.setVisibility(View.VISIBLE);
                 linearLayout.setVisibility(View.VISIBLE);
             }
 
@@ -260,6 +325,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         frameLayout.startAnimation(fadeOut);
+        //relativeLayout.startAnimation(fadeIn);
         linearLayout.startAnimation(fadeIn);
     }
 

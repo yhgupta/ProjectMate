@@ -27,7 +27,6 @@ public class SkillAdapter extends RecyclerView.Adapter<SkillAdapter.SkillViewHol
     @Override
     public SkillAdapter.SkillViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_item_skill, parent, false);
-
         return new SkillViewHolder(view);
     }
 

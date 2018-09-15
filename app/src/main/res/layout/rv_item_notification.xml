@@ -49,7 +49,6 @@
             android:layout_height="40dp"
             android:padding="1dp">
             <Button
-                android:layout_below="@id/short_desc_view"
                 android:id="@+id/accept_view"
                 android:layout_weight="1"
                 android:text="ACCEPT"
@@ -57,7 +56,6 @@
                 android:layout_height="match_parent" />
 
             <Button
-                android:layout_below="@id/short_desc_view"
                 android:layout_toRightOf="@id/accept_view"
                 android:layout_weight="1"
                 android:text = "REJECT"
@@ -111,7 +109,6 @@
             android:padding="1dp">
 
             <Button
-                android:layout_below="@id/short_desc_view"
                 android:layout_toRightOf="@id/accept_view"
                 android:text = "CANCEL REQUEST"
                 android:layout_width="match_parent"
