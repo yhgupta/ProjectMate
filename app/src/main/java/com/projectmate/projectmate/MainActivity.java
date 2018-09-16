@@ -150,8 +150,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void userFirstTime() {
-        /*final AlertDialog fetchingDetailsDialog = getFetchingDetailsDialog();
-        fetchingDetailsDialog.show();*/
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -198,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
                                 public void run() {
                                     mMainPagerAdapter = new MainFragmentsAdapter(getSupportFragmentManager());
                                     mViewPager.setAdapter(mMainPagerAdapter);
-                                    startAnimation();
+
                                 }
                             });
 
@@ -210,88 +208,8 @@ public class MainActivity extends AppCompatActivity {
         String authUrl = ProjectMateUris.getAuthUrl();
         OkHttpRequests httpRequests = new OkHttpRequests();
         httpRequests.performGetRequest(authUrl, callback, StaticValues.getCodeChefAuthKey());
-
     }
 
-    private android.app.AlertDialog getFetchingDetailsDialog() {
-        SpotsDialog.Builder dialog = new SpotsDialog.Builder();
-        dialog.setContext(this).
-                setMessage("Fetching Details").
-                setCancelable(false);
-
-        return dialog.build();
-    }
-
-    private AlertDialog getReAuthenticationDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Authentication Failed")
-                //.setMessage("Re-Authentication required.")
-                .setCancelable(false)
-                .setPositiveButton("Re Authenticate", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(MainActivity.this, BrowserActivity.class);
-                        dialog.dismiss();
-                        startActivity(intent);
-                        finish();
-                    }
-                });
-
-        return builder.create();
-    }
-
-    private void startAnimation(){
-        final FrameLayout frameLayout = findViewById(R.id.activity_main_frame_layout);
-        //final RelativeLayout relativeLayout = findViewById(R.id.activity_main_layout);
-        final LinearLayout linearLayout = findViewById(R.id.activity_main_layout);
-
-        Animation fadeOut = new AlphaAnimation(1, 0);
-        fadeOut.setInterpolator(new AccelerateInterpolator());
-        fadeOut.setDuration(500);
-
-        fadeOut.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-                mRotateLoading.stop();
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                frameLayout.setVisibility(View.INVISIBLE);
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-
-        Animation fadeIn = new AlphaAnimation(0, 1);
-        fadeIn.setInterpolator(new AccelerateInterpolator());
-        fadeIn.setDuration(500);
-
-        fadeIn.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                //relativeLayout.setVisibility(View.VISIBLE);
-                linearLayout.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-
-        frameLayout.startAnimation(fadeOut);
-        //relativeLayout.startAnimation(fadeIn);
-        linearLayout.startAnimation(fadeIn);
-    }
 
 }
 

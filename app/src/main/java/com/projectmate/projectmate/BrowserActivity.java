@@ -32,9 +32,13 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
+/**
+ * This Activity directs a user to codechef, then login him and get the auth_token
+ */
 
 public class  BrowserActivity extends AppCompatActivity {
 
+    //Webview to show the page and progressbar indicates progress at the top(small red bar)
     private WebView webView;
     private ProgressBar mProgressBar;
 
@@ -43,11 +47,13 @@ public class  BrowserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browser);
 
+        //Setting toolbar text to CodeChef Login
         ActionBar toolbar = getSupportActionBar();
         toolbar.setDisplayHomeAsUpEnabled(true);
         toolbar.setTitle("CodeChef Login");
         toolbar.setElevation(4);
 
+        //Finding and setting up webview and progressbar
         webView = findViewById(R.id.activity_browser_web_view);
         mProgressBar = findViewById(R.id.activity_browser_progress_bar);
 
@@ -60,9 +66,11 @@ public class  BrowserActivity extends AppCompatActivity {
         webView.getSettings().setBuiltInZoomControls(true);
         webView.getSettings().setDisplayZoomControls(false);
 
+        //Max is set high for smoother loading bar
         mProgressBar.setMax(100 * 100);
         mProgressBar.setProgress(0);
 
+        //Load CodeChef URL
         webView.loadUrl(APIContract.getCodeChefAuthUrl());
 
     }
@@ -88,7 +96,6 @@ public class  BrowserActivity extends AppCompatActivity {
                 dialog.show();
 
                 //Making a call back that will be executed after post request
-
                 Callback callback = new Callback() {
 
                     @Override
@@ -130,6 +137,7 @@ public class  BrowserActivity extends AppCompatActivity {
 
         @Override
         public void onPageFinished(WebView view, String url) {
+            //Progress bar fade out when load complete
             super.onPageFinished(view, url);
             ObjectAnimator animation = ObjectAnimator.ofInt(mProgressBar, "progress", mProgressBar.getProgress(), 100 * 100);
             animation.setDuration(300);
@@ -143,6 +151,7 @@ public class  BrowserActivity extends AppCompatActivity {
 
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            //Progress bar becomes visible when page starts loading
             super.onPageStarted(view, url, favicon);
             mProgressBar.setVisibility(View.VISIBLE);
             mProgressBar.setProgress(0);
@@ -166,6 +175,7 @@ public class  BrowserActivity extends AppCompatActivity {
         editor.putString(DatabaseContract.AUTH_CODE_KEY, code);
         editor.apply();
 
+        //Start MainActivity and also closing StartActivity open in background
         Intent intent = new Intent(BrowserActivity.this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);

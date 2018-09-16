@@ -59,14 +59,14 @@ public class HomeFragment extends Fragment {
                         };
                         ArrayList<Project> projects = gson.fromJson(jsonData, token.getType());
 
+                        if(mProjects.isEmpty()&&moreItemsPresent) startAnimation();
+
                         if(projects.isEmpty()){
                             moreItemsPresent=false;
                             mAdapter.setNoMorePresent();
                             mAdapter.notifyDataSetChanged();
                             return;
                         }
-
-                        if(mProjects.isEmpty()) startAnimation();
 
                         mProjects.addAll(projects);
                         loadingFromServer = false;
@@ -135,19 +135,21 @@ public class HomeFragment extends Fragment {
 
         return recyclerView;
     }
+
     private void startAnimation(){
         final FrameLayout frameLayout = getActivity().findViewById(R.id.activity_main_frame_layout);
+        //final RelativeLayout relativeLayout = findViewById(R.id.activity_main_layout);
         final LinearLayout linearLayout = getActivity().findViewById(R.id.activity_main_layout);
-        //final RelativeLayout relativeLayout = getActivity().findViewById(R.id.activity_main_layout);
 
         Animation fadeOut = new AlphaAnimation(1, 0);
         fadeOut.setInterpolator(new AccelerateInterpolator());
-        fadeOut.setDuration(400);
+        fadeOut.setDuration(500);
 
         fadeOut.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-                ((RotateLoading)getActivity().findViewById(R.id.rotateloading)).stop();
+                RotateLoading loading = getActivity().findViewById(R.id.rotateloading);
+                loading.stop();
             }
 
             @Override
@@ -163,7 +165,7 @@ public class HomeFragment extends Fragment {
 
         Animation fadeIn = new AlphaAnimation(0, 1);
         fadeIn.setInterpolator(new AccelerateInterpolator());
-        fadeIn.setDuration(400);
+        fadeIn.setDuration(500);
 
         fadeIn.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -173,8 +175,8 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                linearLayout.setVisibility(View.VISIBLE);
                 //relativeLayout.setVisibility(View.VISIBLE);
+                linearLayout.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -185,6 +187,5 @@ public class HomeFragment extends Fragment {
 
         frameLayout.startAnimation(fadeOut);
         linearLayout.startAnimation(fadeIn);
-        //relativeLayout.startAnimation(fadeIn);
     }
 }

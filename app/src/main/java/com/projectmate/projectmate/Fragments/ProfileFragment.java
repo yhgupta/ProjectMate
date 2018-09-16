@@ -160,8 +160,6 @@ public class ProfileFragment extends Fragment {
         //Now load all skills in mAllSkills from XML arrays
         String[] arraySkill = getResources().getStringArray(R.array.skillsArray);
         mAllSkills = new ArrayList<>(Arrays.asList(arraySkill));
-        //TODO: Next Time mAllSkills should be skills except in userSkills
-        //TODO: User should be saved when he adds a skill/project
 
         mProjectAdapter = new ProjectAdapter(mUser.getProjects());
 

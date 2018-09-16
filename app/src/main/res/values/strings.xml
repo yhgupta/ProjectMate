@@ -42,8 +42,8 @@
 
     <string name="text_home">Home</string>
     <string name="text_profile">Profile</string>
-    <string name="text_notification">Notification</string>
+    <string name="text_notification">Activities</string>
     <string name="text_chat">Chat</string>
-    <string name="text_project">Project</string>
+    <string name="text_project">My Projects</string>
 
 </resources>
