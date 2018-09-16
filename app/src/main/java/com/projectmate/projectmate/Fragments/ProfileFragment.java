@@ -30,6 +30,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.projectmate.projectmate.Adapters.ProjectAdapter;
+import com.projectmate.projectmate.Adapters.RecyclerViewClickListener;
 import com.projectmate.projectmate.Adapters.SkillAdapter;
 import com.projectmate.projectmate.AlibabaCloud.OkHttpRequests;
 import com.projectmate.projectmate.AlibabaCloud.ProjectMateUris;
@@ -73,7 +74,6 @@ public class ProfileFragment extends Fragment {
     //List and Project Global adapters
     private SkillAdapter mSkillAdapter;
 
-    private ArrayList<String> mAllProjects;
     private ProjectAdapter mProjectAdapter;
 
 
@@ -161,7 +161,17 @@ public class ProfileFragment extends Fragment {
         String[] arraySkill = getResources().getStringArray(R.array.skillsArray);
         mAllSkills = new ArrayList<>(Arrays.asList(arraySkill));
 
-        mProjectAdapter = new ProjectAdapter(mUser.getProjects());
+        for(Skill skill : mUser.getSkills()){
+            mAllSkills.remove(skill.getSkillID());
+        }
+
+        RecyclerViewClickListener listener = new RecyclerViewClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                displayToast(String.valueOf(position));
+            }
+        };
+        mProjectAdapter = new ProjectAdapter(mUser.getProjects(), getContext(), listener);
 
         //Set up layout managers and adapters
         mProjectsRv.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -172,12 +182,14 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if(!mSaveBtnClicked){
-                    saveProfile();
                     mSaveBtnClicked = true;
+                    saveProfile();
                 }
 
             }
         });
+
+
 
         return rootView;
     }
@@ -488,6 +500,7 @@ public class ProfileFragment extends Fragment {
     private void saveProfile(){
         if(!mChangesMade){
             displayToast("No changes to save");
+            mSaveBtnClicked=false;
             return;
         }
         Animation fadeOut = new AlphaAnimation(1, 0);

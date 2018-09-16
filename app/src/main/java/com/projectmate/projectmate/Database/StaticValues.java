@@ -14,6 +14,8 @@ public class StaticValues {
 
     private static User CURRENT_USER;
 
+    private static ArrayList<String> ALL_SKILLS;
+
     public static void setCodeChefAuthKey(String authKey){
         CODECHEF_AUTH_KEY = authKey;
     }
@@ -29,4 +31,11 @@ public class StaticValues {
         return CURRENT_USER;
     }
 
+    public static ArrayList<String> getAllSkills() {
+        return ALL_SKILLS;
+    }
+
+    public static void setAllSkills(ArrayList<String> allSkills) {
+        ALL_SKILLS = allSkills;
+    }
 }

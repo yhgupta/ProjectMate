@@ -1,3 +1,4 @@
+/*
 package com.projectmate.projectmate.Adapters;
 
 import android.support.annotation.NonNull;
@@ -64,3 +65,4 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         }
     }
 }
+*/

@@ -32,6 +32,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.projectmate.projectmate.Adapters.ProjectAdapter;
+import com.projectmate.projectmate.Adapters.RecyclerViewClickListener;
 import com.projectmate.projectmate.Adapters.SkillAdapter;
 import com.projectmate.projectmate.AlibabaCloud.OkHttpRequests;
 import com.projectmate.projectmate.AlibabaCloud.ProjectMateUris;
@@ -67,9 +68,6 @@ public class ProfileActivity extends AppCompatActivity {
     //Initializing a global User object
     private User mUser;
 
-    //String array containing all supported skills
-    private ArrayList<String> mAllSkills;
-
     //List and Project Global adapters
     private SkillAdapter mSkillAdapter;
 
@@ -77,6 +75,7 @@ public class ProfileActivity extends AppCompatActivity {
     private ProjectAdapter mProjectAdapter;
 
 
+    private ArrayList<String> mAllSkills;
 
     //Global toast to prevent overlapping
     private Toast mToast;
@@ -157,11 +156,15 @@ public class ProfileActivity extends AppCompatActivity {
 
         //Now load all skills in mAllSkills from XML arrays
         String[] arraySkill = getResources().getStringArray(R.array.skillsArray);
+        StaticValues.setAllSkills(new ArrayList<>(Arrays.asList(arraySkill)));
         mAllSkills = new ArrayList<>(Arrays.asList(arraySkill));
-        //TODO: Next Time mAllSkills should be skills except in userSkills
-        //TODO: User should be saved when he adds a skill/project
 
-        mProjectAdapter = new ProjectAdapter((mUser.getProjects()));
+        mProjectAdapter = new ProjectAdapter(mUser.getProjects(), this, new RecyclerViewClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+
+            }
+        });
 
         //Set up layout managers and adapters
         mProjectsRv.setLayoutManager(new LinearLayoutManager(this));
@@ -182,9 +185,9 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private User getUser(){
-
         return StaticValues.getCurrentUser();
     }
+
 
     //Create the dialog to add a project
     private Dialog createAddProjectDialog(){
@@ -208,14 +211,17 @@ public class ProfileActivity extends AppCompatActivity {
         //Find Recycler View of list of skills
         RecyclerView skillView = view.findViewById(R.id.dialog_add_project_rv);
 
+
         //Make list of skills and mySkills is the skills added by user
         final ArrayList<Skill> skills = new ArrayList<>(mUser.getSkills());
         final ArrayList<Skill> mySkills = new ArrayList<>();
+
 
         //Configuring the recycler view
         final SkillAdapter skillAdapter = new SkillAdapter(mySkills);
         skillView.setLayoutManager(new LinearLayoutManager(this));
         skillView.setAdapter(skillAdapter);
+
 
         addSkill.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -224,7 +230,6 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        final ArrayList<Integer> skillIds = new ArrayList<>();
 
         //Adding positive and negative buttons
         builder.setPositiveButton(R.string.add_project_dialog_save_and_add_btn, new DialogInterface.OnClickListener() {
@@ -381,7 +386,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         //Check condition
         if(name.isEmpty()) return false;
-        int position = mAllSkills.indexOf(name);
+        int position = StaticValues.getAllSkills().indexOf(name);
 
         if(position<0) return false;
 
@@ -561,6 +566,7 @@ public class ProfileActivity extends AppCompatActivity {
         Log.v("JSON", jsonData);
         String authToken = StaticValues.getCodeChefAuthKey();
         String url = ProjectMateUris.getAuthUrl();
+        Log.v("URL",url);
 
         Callback callback = new Callback() {
             @Override
@@ -571,10 +577,6 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if(response.isSuccessful()){
-                    //User is no longer first time
-                    SharedPreferences.Editor editor = getSharedPreferences(DatabaseContract.SHARED_PREFS, Context.MODE_PRIVATE).edit();
-                    editor.putBoolean(DatabaseContract.FIRST_TIME_KEY, false);
-                    editor.apply();
 
                     //Start Main Activity
                     Intent intent = new Intent(ProfileActivity.this, MainActivity.class);

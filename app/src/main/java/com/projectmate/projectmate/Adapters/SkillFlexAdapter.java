@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.projectmate.projectmate.Classes.Skill;
+import com.projectmate.projectmate.Database.StaticValues;
 import com.projectmate.projectmate.R;
 
 import java.util.ArrayList;
@@ -15,16 +16,12 @@ import java.util.List;
 
 public class SkillFlexAdapter extends RecyclerView.Adapter<SkillFlexAdapter.TestViewHolder> {
 
-    private List<Skill> mSkills;
+    private List<Integer> mSkills;
 
-    public SkillFlexAdapter(ArrayList<Skill> skills) {
+    public SkillFlexAdapter(ArrayList<Integer> skills) {
         this.mSkills=skills;
     }
 
-    public void setSkills(ArrayList<Skill> skills){
-        this.mSkills=skills;
-        this.notifyDataSetChanged();
-    }
     @NonNull
     @Override
     public SkillFlexAdapter.TestViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -34,7 +31,8 @@ public class SkillFlexAdapter extends RecyclerView.Adapter<SkillFlexAdapter.Test
 
     @Override
     public void onBindViewHolder(@NonNull TestViewHolder holder, int position) {
-        holder.tvStringName.setText(mSkills.get(position).getSkillName());
+        String skillName = StaticValues.getAllSkills().get(mSkills.get(position));
+        holder.tvStringName.setText(skillName);
     }
 
     @Override

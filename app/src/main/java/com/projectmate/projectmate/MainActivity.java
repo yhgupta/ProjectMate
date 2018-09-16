@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,6 +31,8 @@ import com.projectmate.projectmate.Fragments.MainFragmentsAdapter;
 import com.victor.loading.rotate.RotateLoading;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import dmax.dialog.SpotsDialog;
 import okhttp3.Call;
@@ -47,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView mBottomNavigation;
 
+    private Toolbar mToolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -61,6 +66,12 @@ public class MainActivity extends AppCompatActivity {
         mViewPager = findViewById(R.id.activity_main_view_pager);
 
         mBottomNavigation = findViewById(R.id.bottom_navigation);
+        mToolbar = findViewById(R.id.main_toolbar);
+        mToolbar.setTitle("Project Mate");
+        mToolbar.setBackgroundColor(getResources().getColor(R.color.colorRed));
+        mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
+
+        setSupportActionBar(mToolbar);
 
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -194,6 +205,8 @@ public class MainActivity extends AppCompatActivity {
                             MainActivity.this.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
+                                    String[] arraySkill = getResources().getStringArray(R.array.skillsArray);
+                                    StaticValues.setAllSkills(new ArrayList<>(Arrays.asList(arraySkill)));
                                     mMainPagerAdapter = new MainFragmentsAdapter(getSupportFragmentManager());
                                     mViewPager.setAdapter(mMainPagerAdapter);
 

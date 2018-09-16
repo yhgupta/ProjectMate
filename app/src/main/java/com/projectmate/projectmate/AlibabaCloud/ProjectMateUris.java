@@ -17,7 +17,7 @@ public class ProjectMateUris {
         .appendPath(ProjectMateAPIContract.USERS_PATH)
         .appendPath(ProjectMateAPIContract.CURRENT_USER_PATH);
 
-        return builder.build().toString();
+        return builder.build().toString()+"/";
     }
 
     //Projects having skills in me projects/<int:offset>/

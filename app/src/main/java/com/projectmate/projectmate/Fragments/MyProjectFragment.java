@@ -21,11 +21,13 @@ import android.widget.TextView;
 
 import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexboxLayoutManager;
-import com.projectmate.projectmate.Adapters.MyProjectAdapter;
+import com.projectmate.projectmate.Adapters.ProjectAdapter;
+import com.projectmate.projectmate.Adapters.RecyclerViewClickListener;
 import com.projectmate.projectmate.Adapters.SkillFlexAdapter;
 import com.projectmate.projectmate.Classes.Project;
 import com.projectmate.projectmate.Classes.ProjectSkills;
 import com.projectmate.projectmate.Classes.Skill;
+import com.projectmate.projectmate.Database.StaticValues;
 import com.projectmate.projectmate.R;
 
 import java.util.ArrayList;
@@ -37,10 +39,8 @@ import java.util.Arrays;
 public class MyProjectFragment extends Fragment {
 
     private FloatingActionButton mFab;
-    private MyProjectAdapter mProjectAdapter;
+    private ProjectAdapter mProjectAdapter;
     private ArrayList<String> mAllSkills;
-
-    private ArrayList<ProjectSkills> mProjects = new ArrayList<>();
 
     private RecyclerView mProjectsRv;
     public MyProjectFragment() {
@@ -64,7 +64,12 @@ public class MyProjectFragment extends Fragment {
             }
         });
 
-        mProjectAdapter = new MyProjectAdapter(mProjects, getContext());
+        mProjectAdapter = new ProjectAdapter(StaticValues.getCurrentUser().getProjects(), getContext(), new RecyclerViewClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+
+            }
+        });
 
         mProjectsRv = rootView.findViewById(R.id.my_projects_recycle_view);
 
@@ -97,18 +102,18 @@ public class MyProjectFragment extends Fragment {
         //Find Recycler View of list of skills
 
         //Make list of skills and mySkills is the skills added by user
-        final SkillFlexAdapter skillAdapter = new SkillFlexAdapter(mySkills);
+        //final SkillFlexAdapter skillAdapter = new SkillFlexAdapter(mySkills, this);
         FlexboxLayoutManager flexboxLayoutManager = new FlexboxLayoutManager(getContext());
         // Set flex direction.
         flexboxLayoutManager.setFlexDirection(FlexDirection.ROW);
 
         skillView.setLayoutManager(flexboxLayoutManager);
-        skillView.setAdapter(skillAdapter);
+        //skillView.setAdapter(skillAdapter);
 
         addSkill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createAllSkillsDialog(skillAdapter,skills,mySkills).show();
+                //createAllSkillsDialog(skillAdapter,skills,mySkills).show();
             }
         });
 
@@ -210,7 +215,7 @@ public class MyProjectFragment extends Fragment {
 
         ProjectSkills projectSkills = new ProjectSkills(project, skills);
 
-        mProjects.add(projectSkills);
+        //mProjects.add(projectSkills);
 
         //Notify adapter
         mProjectAdapter.notifyDataSetChanged();
