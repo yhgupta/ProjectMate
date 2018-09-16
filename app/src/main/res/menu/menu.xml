@@ -11,7 +11,8 @@
         android:id="@+id/action_project"
         android:enabled="true"
         android:icon="@drawable/baseline_code_24"
-        android:title="@string/text_project" />
+        android:title="@string/text_project"
+        app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/action_chat"
         android:enabled="true"
@@ -22,7 +23,8 @@
         android:id="@+id/action_notification"
         android:enabled="true"
         android:icon="@drawable/baseline_notifications_24"
-        android:title="@string/text_notification" />
+        android:title="@string/text_notification"
+        app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/action_profile"
         android:enabled="true"

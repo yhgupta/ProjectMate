@@ -23,8 +23,11 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.flexbox.FlexDirection;
+import com.google.android.flexbox.FlexboxLayoutManager;
 import com.projectmate.projectmate.Adapters.ProjectAdapter;
 import com.projectmate.projectmate.Adapters.SkillAdapter;
+import com.projectmate.projectmate.Adapters.SkillFlexAdapter;
 import com.projectmate.projectmate.Classes.Project;
 import com.projectmate.projectmate.Classes.Skill;
 import com.projectmate.projectmate.Classes.User;
@@ -43,7 +46,6 @@ public class MyProjectFragment extends Fragment {
     private TextView mAddProject;
     private ProjectAdapter mProjectAdapter;
     private ArrayList<String> mAllSkills;
-    private Boolean mChangesMade=false;
 
     public MyProjectFragment() {
         // Required empty public constructor
@@ -64,7 +66,6 @@ public class MyProjectFragment extends Fragment {
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(),"Opening",Toast.LENGTH_LONG).show();
                 createAddProjectDialog().show();
             }
         });
@@ -95,16 +96,18 @@ public class MyProjectFragment extends Fragment {
         //Find Recycler View of list of skills
 
         //Make list of skills and mySkills is the skills added by user
-        final SkillAdapter skillAdapter = new SkillAdapter(mySkills);
-        skillView.setLayoutManager(new LinearLayoutManager(getContext()));
+        final SkillFlexAdapter skillAdapter = new SkillFlexAdapter(mySkills);
+        FlexboxLayoutManager flexboxLayoutManager = new FlexboxLayoutManager(getContext());
+        // Set flex direction.
+        flexboxLayoutManager.setFlexDirection(FlexDirection.ROW);
+
+        skillView.setLayoutManager(flexboxLayoutManager);
         skillView.setAdapter(skillAdapter);
 
         addSkill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(),"Open" ,Toast.LENGTH_SHORT).show();
-                //TODO SHOW SKILLS BOX ON PRSSING +ADD
-               // createAllSkillsDialog(skillAdapter,skills,mySkills).show();
+                createAllSkillsDialog(skillAdapter,skills,mySkills).show();
             }
         });
 
@@ -136,8 +139,8 @@ public class MyProjectFragment extends Fragment {
 
 
     private boolean addProject(View rootView, ArrayList<Skill>skills){
-        //Get all of the views
 
+        //Get all of the views
         EditText tvName = rootView.findViewById(R.id.dialog_addproject_et_name);
         EditText tvShortDesc = rootView.findViewById(R.id.dialog_addproject_short_desc);
         EditText tvCompleteDesc = rootView.findViewById(R.id.dialog_addproject_complete_desc);
@@ -166,12 +169,11 @@ public class MyProjectFragment extends Fragment {
         //Notify adapter
         mProjectAdapter.notifyDataSetChanged();
 
-        mChangesMade=true;
 
         return true;
     }
 
-    private Dialog createAllSkillsDialog(final AutoCompleteTextView textView, ArrayList<String> allSkills){
+    private Dialog createAllSkillsDialog(final SkillFlexAdapter skillAdapter, final ArrayList<String> allSkills, final ArrayList<Skill> mySkills){
 
         //Create new dialog and get inflater
         AlertDialog.Builder listDialog = new AlertDialog.Builder(getContext());
@@ -207,10 +209,12 @@ public class MyProjectFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                textView.setText(((TextView)view).getText().toString());
+                String skillName = allSkills.get(position);
+                allSkills.remove(skillName);
+                Skill newSkill = new Skill(position, skillName);
+                mySkills.add(newSkill);
+                skillAdapter.notifyDataSetChanged();
                 dialog.dismiss();
-                textView.setSelection(textView.getText().toString().length());
-                textView.dismissDropDown();
             }
         });
 

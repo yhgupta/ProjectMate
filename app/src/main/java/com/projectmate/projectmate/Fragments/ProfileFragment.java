@@ -148,8 +148,6 @@ public class ProfileFragment extends Fragment {
         //get him using the CodeChef API sending request to server
         mUser = StaticValues.getCurrentUser();
 
-        displayToast(String.valueOf(mUser.getProjects().size()));
-
         //Setting all edit texts
         mNameEditText.setText(mUser.getName());
         mOrganizationEditText.setText(mUser.getOrganization());

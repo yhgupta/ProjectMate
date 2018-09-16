@@ -7,11 +7,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.SystemClock;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
@@ -47,30 +50,12 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    private TextView mHome;
-    private TextView mProject;
-    private TextView mNotification;
-    private TextView mChat;
-    private TextView mProfile;
-
-    /*private ImageView mHome;
-    private ImageView mProject;
-    private ImageView mNotification;
-    private ImageView mChat;
-    private ImageView mProfile;*/
-
-
-   /* private LinearLayout mHomeButton;
-    private LinearLayout mMyProjectButton;
-    private LinearLayout mChatsButton;
-    private LinearLayout mNotificationButton;
-    private LinearLayout mProfileButton;*/
-
-
     private RotateLoading mRotateLoading;
 
     private FragmentPagerAdapter mMainPagerAdapter;
     private ViewPager mViewPager;
+
+    private BottomNavigationView mBottomNavigation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,19 +63,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mHome = findViewById(R.id.text_home);
-        mChat = findViewById(R.id.text_chat);
-        mProfile = findViewById(R.id.text_profile);
-        mProject = findViewById(R.id.text_project);
-        mNotification = findViewById(R.id.text_notification);
 
-
-        //Finding all buttons
-        /*mHomeButton = findViewById(R.id.home_button);
-        mMyProjectButton = findViewById(R.id.project_button);
-        mChatsButton = findViewById(R.id.chat_button);
-        mNotificationButton = findViewById(R.id.notification_button);
-        mProfileButton = findViewById(R.id.profile_button)*/;
 
         mRotateLoading = findViewById(R.id.rotateloading);
 
@@ -99,75 +72,48 @@ public class MainActivity extends AppCompatActivity {
         //mViewPager = findViewById(R.id.main)
         mViewPager = findViewById(R.id.main_view_pager);
 
-        /*mHomeButton.setOnClickListener(new View.OnClickListener() {
+        mBottomNavigation = findViewById(R.id.bottom_navigation);
+
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onClick(View v) {
-                mViewPager.setCurrentItem(0);
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             }
-        });*/
 
-        mHome.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                mViewPager.setCurrentItem(0);
+            public void onPageSelected(int position) {
+                mBottomNavigation.setSelectedItemId(getItemID(position));
             }
-        });
 
-
-        /*mMyProjectButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                mViewPager.setCurrentItem(1);
-            }
-        });*/
+            public void onPageScrollStateChanged(int state) {
 
-        mProject.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mViewPager.setCurrentItem(1);
-            }
-        });
-
-        /*mChatsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mViewPager.setCurrentItem(2);
-            }
-        });*/
-
-        mChat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mViewPager.setCurrentItem(2);
             }
         });
 
 
-        /*mNotificationButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mViewPager.setCurrentItem(3);
-            }
-        });*/
 
-        mNotification.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mViewPager.setCurrentItem(3);
-            }
-        });
 
-        /*mProfileButton.setOnClickListener(new View.OnClickListener() {
+        mBottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onClick(View v) {
-                mViewPager.setCurrentItem(4);
-            }
-        });*/
-
-        mProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mViewPager.setCurrentItem(4);
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.action_home:
+                        mViewPager.setCurrentItem(0);
+                        return true;
+                    case R.id.action_project:
+                        mViewPager.setCurrentItem(1);
+                        return true;
+                    case R.id.action_chat:
+                        mViewPager.setCurrentItem(2);
+                        return true;
+                    case R.id.action_notification:
+                        mViewPager.setCurrentItem(3);
+                        return true;
+                    case R.id.action_profile:
+                        mViewPager.setCurrentItem(4);
+                        return true;
+                }
+                return false;
             }
         });
 
@@ -189,6 +135,22 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    }
+
+    private int getItemID(int index){
+        switch (index){
+            case 0:
+                return R.id.action_home;
+            case 1:
+                return R.id.action_project;
+            case 2:
+                return R.id.action_chat;
+            case 3:
+                return R.id.action_notification;
+            default:
+                return R.id.action_profile;
+
+        }
     }
 
     private void userFirstTime() {

@@ -120,6 +120,9 @@ public class ProfileActivity extends AppCompatActivity {
         mSkillsRv = findViewById(R.id.profile_rv_skills);
         mProjectsRv = findViewById(R.id.profile_rv_projects);
 
+        mSkillsRv.setNestedScrollingEnabled(false);
+        mProjectsRv.setNestedScrollingEnabled(false);
+
 
         //Setting up buttons click listeners
         mAddSkill.setOnClickListener(new View.OnClickListener() {
