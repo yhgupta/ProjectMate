@@ -15,7 +15,6 @@ package com.projectmate.projectmate.Adapters;
 public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectViewHolder>{
 
     private List<Project> mProject;
-    private boolean moreAvailable=true;
 
 
     public ProjectAdapter(List<Project> project) {

@@ -110,7 +110,12 @@ public class MainActivity extends AppCompatActivity {
         String userCode = prefs.getString(DatabaseContract.AUTH_CODE_KEY, null);
 
         //userCode is null if code not initialized by Browser Activity
-
+        if(userCode==null){
+            Intent intent = new Intent(MainActivity.this, StartActivity.class);
+            startActivity(intent);
+            finish();
+            return;
+        }
 
         if(userCode==null){
             Intent intent = new Intent(MainActivity.this, StartActivity.class);
@@ -122,10 +127,7 @@ public class MainActivity extends AppCompatActivity {
 
         StaticValues.setCodeChefAuthKey(userCode);
 
-        boolean isFirstTime = prefs.getBoolean(DatabaseContract.FIRST_TIME_KEY, true);
-
         userFirstTime();
-
 
 
 
@@ -161,6 +163,12 @@ public class MainActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
 
                     final String jsonResponse = response.body().string();
+                    MainActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Log.v("Response", jsonResponse);
+                        }
+                    });
 
                     if (jsonResponse.equals(ProjectMateAPIContract.AUTHENTICATION_FAILED)){
                         MainActivity.this.runOnUiThread(new Runnable() {
@@ -178,6 +186,7 @@ public class MainActivity extends AppCompatActivity {
                         User user = gson.fromJson(jsonResponse, User.class);
 
                         StaticValues.setCurrentUser(user);
+
                         if (user.getSkills().size() == 0) {
                             Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
                             startActivity(intent);
@@ -189,15 +198,14 @@ public class MainActivity extends AppCompatActivity {
                                 public void run() {
                                     mMainPagerAdapter = new MainFragmentsAdapter(getSupportFragmentManager());
                                     mViewPager.setAdapter(mMainPagerAdapter);
+                                    startAnimation();
                                 }
                             });
 
                         }
                     }
-
-                }
             }
-        };
+        }};
 
         String authUrl = ProjectMateUris.getAuthUrl();
         OkHttpRequests httpRequests = new OkHttpRequests();

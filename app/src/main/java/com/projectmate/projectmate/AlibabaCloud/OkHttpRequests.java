@@ -13,6 +13,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 
 public class OkHttpRequests {
+
     private final OkHttpClient client = new OkHttpClient();
 
     private static final MediaType MEDIA_TYPE = MediaType.parse("application/json");
