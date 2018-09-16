@@ -1,7 +1,6 @@
 
 package com.projectmate.projectmate.Fragments;
 
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -21,17 +20,24 @@ import android.widget.TextView;
 
 import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexboxLayoutManager;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.projectmate.projectmate.Adapters.ProjectAdapter;
 import com.projectmate.projectmate.Adapters.RecyclerViewClickListener;
 import com.projectmate.projectmate.Adapters.SkillFlexAdapter;
 import com.projectmate.projectmate.Classes.Project;
-import com.projectmate.projectmate.Classes.ProjectSkills;
 import com.projectmate.projectmate.Classes.Skill;
 import com.projectmate.projectmate.Database.StaticValues;
 import com.projectmate.projectmate.R;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,7 +48,34 @@ public class MyProjectFragment extends Fragment {
     private ProjectAdapter mProjectAdapter;
     private ArrayList<String> mAllSkills;
 
+    private ArrayList<Project> mProjects;
+
     private RecyclerView mProjectsRv;
+
+    Callback callback = new Callback() {
+        @Override
+        public void onFailure(Call call, IOException e) {
+
+        }
+
+        @Override
+        public void onResponse(Call call, Response response) throws IOException {
+
+            if(response.isSuccessful()){
+                String jsonData = response.body().string();
+                Gson gson = new Gson();
+
+                TypeToken<ArrayList<Project>> token = new TypeToken<ArrayList<Project>>() {
+                };
+                ArrayList<Project> projects = gson.fromJson(jsonData, token.getType());
+
+                mProjects = projects;
+
+                mProjectAdapter.notifyDataSetChanged();
+            }
+
+        }
+    };
     public MyProjectFragment() {
         // Required empty public constructor
     }
@@ -55,6 +88,7 @@ public class MyProjectFragment extends Fragment {
 
         String[] arraySkill = getResources().getStringArray(R.array.skillsArray);
         mAllSkills = new ArrayList<>(Arrays.asList(arraySkill));
+
         mFab = rootView.findViewById(R.id.fab );
 
         mFab.setOnClickListener(new View.OnClickListener() {
@@ -110,10 +144,12 @@ public class MyProjectFragment extends Fragment {
         skillView.setLayoutManager(flexboxLayoutManager);
         //skillView.setAdapter(skillAdapter);
 
+
+
         addSkill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //createAllSkillsDialog(skillAdapter,skills,mySkills).show();
+                //createAllSkillsDialog(skillView ,skills,mySkills).show();
             }
         });
 
@@ -213,9 +249,7 @@ public class MyProjectFragment extends Fragment {
         //Create a new skill and add to user skills
         Project project = new Project(0, name, shortDesc, completeDesc, skillIds);
 
-        ProjectSkills projectSkills = new ProjectSkills(project, skills);
 
-        //mProjects.add(projectSkills);
 
         //Notify adapter
         mProjectAdapter.notifyDataSetChanged();

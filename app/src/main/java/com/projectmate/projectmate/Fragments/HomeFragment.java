@@ -17,7 +17,8 @@ import android.widget.LinearLayout;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.projectmate.projectmate.Adapters.AllProjectAdapter;
+import com.projectmate.projectmate.Adapters.ProjectAdapter;
+import com.projectmate.projectmate.Adapters.RecyclerViewClickListener;
 import com.projectmate.projectmate.AlibabaCloud.OkHttpRequests;
 import com.projectmate.projectmate.AlibabaCloud.ProjectMateUris;
 import com.projectmate.projectmate.Classes.Project;
@@ -35,7 +36,7 @@ import okhttp3.Response;
 
 public class HomeFragment extends Fragment {
 
-    private AllProjectAdapter mAdapter;
+    private ProjectAdapter mAdapter;
     private ArrayList<Project> mProjects = new ArrayList<>();
 
     Callback callback = new Callback() {
@@ -63,7 +64,6 @@ public class HomeFragment extends Fragment {
 
                         if(projects.isEmpty()){
                             moreItemsPresent=false;
-                            mAdapter.setNoMorePresent();
                             mAdapter.notifyDataSetChanged();
                             return;
                         }
@@ -73,7 +73,6 @@ public class HomeFragment extends Fragment {
 
                         if(projects.size()<15){
                             moreItemsPresent=false;
-                            mAdapter.setNoMorePresent();
                         }
                         mAdapter.notifyDataSetChanged();
                     }
@@ -99,7 +98,12 @@ public class HomeFragment extends Fragment {
 
         recyclerView.setNestedScrollingEnabled(false);
 
-        mAdapter = new AllProjectAdapter(mProjects);
+        mAdapter = new ProjectAdapter(mProjects, getContext(), new RecyclerViewClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+
+            }
+        });
 
         recyclerView.setAdapter(mAdapter);
 
@@ -108,7 +112,6 @@ public class HomeFragment extends Fragment {
             requests.performGetRequest(ProjectMateUris.getAllProjects(0), callback, StaticValues.getCodeChefAuthKey());
         }
         else if(mProjects.size()<15){
-            mAdapter.setNoMorePresent();
             mAdapter.notifyDataSetChanged();
         }
 

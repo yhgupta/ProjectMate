@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.projectmate.projectmate.Adapters.AllProjectAdapter;
 import com.projectmate.projectmate.Classes.Project;
 import com.projectmate.projectmate.R;
 
@@ -21,7 +20,7 @@ import java.util.ArrayList;
  */
 public class NotificationFragment extends Fragment {
 
-    private AllProjectAdapter mAdapter;
+    //private AllProjectAdapter mAdapter;
     private ArrayList<Project> mProjects = new ArrayList<>();
 
     public NotificationFragment() {
@@ -36,9 +35,9 @@ public class NotificationFragment extends Fragment {
         final RecyclerView recyclerView = new RecyclerView(getContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        mAdapter = new AllProjectAdapter(mProjects);
+        //mAdapter = new AllProjectAdapter(mProjects);
 
-        recyclerView.setAdapter(mAdapter);
+        //recyclerView.setAdapter(mAdapter);
 
 
         return inflater.inflate(R.layout.fragment_notification, container, false);

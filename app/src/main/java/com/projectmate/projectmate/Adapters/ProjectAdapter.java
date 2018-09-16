@@ -34,6 +34,11 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectV
         this.mListener = listener;
     }
 
+    public void updateProjects(List<Project> projects){
+        this.mProject = projects;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public ProjectAdapter.ProjectViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
