@@ -1,12 +1,9 @@
 package com.projectmate.projectmate;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -19,13 +16,8 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.view.autofill.AutofillValue;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.projectmate.projectmate.AlibabaCloud.OkHttpRequests;
@@ -44,8 +36,6 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-import static android.graphics.Color.*;
-
 public class MainActivity extends AppCompatActivity {
 
 
@@ -63,14 +53,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
         mRotateLoading = findViewById(R.id.rotateloading);
 
         mRotateLoading.start();
 
         //mViewPager = findViewById(R.id.main)
-        mViewPager = findViewById(R.id.main_view_pager);
+        mViewPager = findViewById(R.id.activity_main_view_pager);
 
         mBottomNavigation = findViewById(R.id.bottom_navigation);
 
@@ -124,6 +112,12 @@ public class MainActivity extends AppCompatActivity {
         //userCode is null if code not initialized by Browser Activity
 
 
+        if(userCode==null){
+            Intent intent = new Intent(MainActivity.this, StartActivity.class);
+            startActivity(intent);
+            finish();
+            return;
+        }
         Log.v("USERCODE", userCode);
 
         StaticValues.setCodeChefAuthKey(userCode);
@@ -239,9 +233,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startAnimation(){
-        final FrameLayout frameLayout = findViewById(R.id.main_frame_layout);
-        //final RelativeLayout relativeLayout = findViewById(R.id.main_layout);
-        final LinearLayout linearLayout = findViewById(R.id.main_layout);
+        final FrameLayout frameLayout = findViewById(R.id.activity_main_frame_layout);
+        //final RelativeLayout relativeLayout = findViewById(R.id.activity_main_layout);
+        final LinearLayout linearLayout = findViewById(R.id.activity_main_layout);
 
         Animation fadeOut = new AlphaAnimation(1, 0);
         fadeOut.setInterpolator(new AccelerateInterpolator());

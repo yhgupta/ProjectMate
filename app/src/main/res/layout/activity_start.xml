@@ -8,7 +8,7 @@
 
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/activity_start_imageView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scaleType="matrix"
@@ -19,7 +19,7 @@
         app:srcCompat="@drawable/background" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/activity_start_HARDCODE_welcome"
         android:layout_width="365dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -37,7 +37,7 @@
         app:layout_constraintVertical_bias="0.32" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/activity_start_HARDCODE_findMate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -48,9 +48,9 @@
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/activity_start_imageView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/activity_start_HARDCODE_welcome" />
 
     <android.support.v7.widget.CardView
         android:id="@+id/btn_get_started"
@@ -64,7 +64,7 @@
         android:elevation="8dp"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintBottom_toBottomOf="@+id/activity_start_imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:cardCornerRadius="32sp">

@@ -31,7 +31,6 @@
             android:parentActivityName=".StartActivity"
             android:theme="@style/BrowserTheme" />
         <activity android:name=".ProfileActivity" />
-        <activity android:name=".TestActivity"></activity>
     </application>
 
 </manifest>

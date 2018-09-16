@@ -4,14 +4,22 @@ public class Chat {
 
     private  String name;
     private  String lastMessage;
+    private Boolean WhoseMessage;
 
     public Chat(String name, String lastMessage){
         this.name = name;
         this.lastMessage = lastMessage;
     }
 
+    public Chat(String name, String lastMessage, Boolean whoseMessage){
+        this.name = name;
+        this.lastMessage = lastMessage;
+        this.WhoseMessage = whoseMessage;
+    }
+
     public  String getName() { return name; }
     public  String getLastMessage() { return lastMessage; }
+    public Boolean getWhoseMessage(){ return WhoseMessage; }
 
 
 }

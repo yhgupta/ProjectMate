@@ -58,6 +58,7 @@ public class Project {
         this.projectCompleteDesc = projectCompleteDesc;
     }
 
+
     public ArrayList<Integer> getSkills() {
         return skills;
     }

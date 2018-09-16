@@ -19,7 +19,6 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -28,7 +27,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
-import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -99,10 +97,10 @@ public class ProfileActivity extends AppCompatActivity {
         toolbar.setTitle(R.string.profile_activity_toolbar);
 
         //Initializing all fields in the main View
-        mNameEditText = findViewById(R.id.profile_et_name);
-        mOrganizationEditText = findViewById(R.id.profile_et_organization);
-        mCityEditText = findViewById(R.id.profile_et_city);
-        mCountryEditText = findViewById(R.id.profile_et_country);
+        mNameEditText = findViewById(R.id.activity_profile_et_full_name);
+        mOrganizationEditText = findViewById(R.id.activity_profile_et_organization);
+        mCityEditText = findViewById(R.id.activity_profile_et_city);
+        mCountryEditText = findViewById(R.id.activity_profile_et_country);
 
         mSaveBtn = findViewById(R.id.profile_btn_save);
         mSaveBtnText = findViewById(R.id.profile_btn_text);
@@ -114,11 +112,11 @@ public class ProfileActivity extends AppCompatActivity {
         mCityEditText.setEnabled(false);mCityEditText.setInputType(InputType.TYPE_NULL);
         mCountryEditText.setEnabled(false);mCountryEditText.setInputType(InputType.TYPE_NULL);
 
-        mAddSkill = findViewById(R.id.profile_tv_add_skill);
-        mAddProject = findViewById(R.id.profile_tv_add_project);
+        mAddSkill = findViewById(R.id.activity_profile_tv_add_skill);
+        mAddProject = findViewById(R.id.activity_profile_tv_add_project);
 
-        mSkillsRv = findViewById(R.id.profile_rv_skills);
-        mProjectsRv = findViewById(R.id.profile_rv_projects);
+        mSkillsRv = findViewById(R.id.activity_profile_rv_skills);
+        mProjectsRv = findViewById(R.id.activity_profile_rv_projects);
 
         mSkillsRv.setNestedScrollingEnabled(false);
         mProjectsRv.setNestedScrollingEnabled(false);

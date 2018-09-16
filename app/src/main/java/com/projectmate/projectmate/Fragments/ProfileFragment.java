@@ -3,10 +3,7 @@ package com.projectmate.projectmate.Fragments;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
@@ -39,10 +36,7 @@ import com.projectmate.projectmate.AlibabaCloud.ProjectMateUris;
 import com.projectmate.projectmate.Classes.Project;
 import com.projectmate.projectmate.Classes.Skill;
 import com.projectmate.projectmate.Classes.User;
-import com.projectmate.projectmate.Database.DatabaseContract;
 import com.projectmate.projectmate.Database.StaticValues;
-import com.projectmate.projectmate.MainActivity;
-import com.projectmate.projectmate.ProfileActivity;
 import com.projectmate.projectmate.R;
 
 import java.io.IOException;
@@ -107,10 +101,10 @@ public class ProfileFragment extends Fragment {
         View rootView =  inflater.inflate(R.layout.fragment_profile, container, false);
 
         //Initializing all fields in the main View
-        mNameEditText = rootView.findViewById(R.id.profile_et_name);
-        mOrganizationEditText = rootView.findViewById(R.id.profile_et_organization);
-        mCityEditText = rootView.findViewById(R.id.profile_et_city);
-        mCountryEditText = rootView.findViewById(R.id.profile_et_country);
+        mNameEditText = rootView.findViewById(R.id.activity_profile_et_full_name);
+        mOrganizationEditText = rootView.findViewById(R.id.activity_profile_et_organization);
+        mCityEditText = rootView.findViewById(R.id.activity_profile_et_city);
+        mCountryEditText = rootView.findViewById(R.id.activity_profile_et_country);
 
         mSaveBtn = rootView.findViewById(R.id.profile_btn_save);
         mSaveBtnText = rootView.findViewById(R.id.profile_btn_text);
@@ -122,11 +116,11 @@ public class ProfileFragment extends Fragment {
         mCityEditText.setEnabled(false);mCityEditText.setInputType(InputType.TYPE_NULL);
         mCountryEditText.setEnabled(false);mCountryEditText.setInputType(InputType.TYPE_NULL);
 
-        mAddSkill = rootView.findViewById(R.id.profile_tv_add_skill);
-        mAddProject = rootView.findViewById(R.id.profile_tv_add_project);
+        mAddSkill = rootView.findViewById(R.id.activity_profile_tv_add_skill);
+        mAddProject = rootView.findViewById(R.id.activity_profile_tv_add_project);
 
-        mSkillsRv = rootView.findViewById(R.id.profile_rv_skills);
-        mProjectsRv = rootView.findViewById(R.id.profile_rv_projects);
+        mSkillsRv = rootView.findViewById(R.id.activity_profile_rv_skills);
+        mProjectsRv = rootView.findViewById(R.id.activity_profile_rv_projects);
 
 
         //Setting up buttons click listeners
@@ -621,6 +615,8 @@ public class ProfileFragment extends Fragment {
         OkHttpRequests requests = new OkHttpRequests();
         requests.performPutRequest(url, jsonData, callback, authToken);
     }
+
+
 
     private void displayToast(String message){
         if(mToast==null){

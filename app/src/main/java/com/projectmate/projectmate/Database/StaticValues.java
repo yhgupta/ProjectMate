@@ -1,6 +1,11 @@
 package com.projectmate.projectmate.Database;
 
+import com.projectmate.projectmate.Classes.Skill;
 import com.projectmate.projectmate.Classes.User;
+import com.projectmate.projectmate.R;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class StaticValues {
     private StaticValues(){}

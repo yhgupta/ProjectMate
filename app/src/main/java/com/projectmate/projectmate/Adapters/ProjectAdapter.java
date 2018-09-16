@@ -1,16 +1,16 @@
 package com.projectmate.projectmate.Adapters;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
+        import android.support.annotation.NonNull;
+        import android.support.v7.widget.CardView;
+        import android.support.v7.widget.RecyclerView;
+        import android.view.LayoutInflater;
+        import android.view.View;
+        import android.view.ViewGroup;
+        import android.widget.TextView;
 
-import com.projectmate.projectmate.Classes.Project;
-import com.projectmate.projectmate.R;
-import java.util.ArrayList;
-import java.util.List;
+        import com.projectmate.projectmate.Classes.Project;
+        import com.projectmate.projectmate.R;
+        import java.util.ArrayList;
+        import java.util.List;
 
 public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectViewHolder>{
 
@@ -35,9 +35,6 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectV
         holder.tvProjectName.setText(mProject.get(position).getProjectName());
         holder.tvProjectShortDesc.setText(mProject.get(position).getProjectShortDesc() );
 
-
-
-
         // TODO HAVE AT SKILLS
         //holder.tvSkills.setText(mProject.get(position).getSkillIDs() );
     }
@@ -51,6 +48,7 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectV
     static class ProjectViewHolder extends RecyclerView.ViewHolder {
         TextView tvProjectName;
         TextView tvProjectShortDesc;
+
         //TextView tvSkills;
         //RatingBar ratingBar;
 
@@ -59,8 +57,6 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectV
 
             tvProjectName = itemView.findViewById(R.id.tv_project_name);
             tvProjectShortDesc = itemView.findViewById(R.id.tv_short_desc);
-            //tvSkills = itemView.findViewById(R.id.tv_skills);
-            //ratingBar = itemView.findViewById(R.id.skill_rating);
         }
 
         private void viewClick(int project_id){

@@ -17,7 +17,7 @@
             tools:context=".ProfileActivity">
 
             <EditText
-                android:id="@+id/profile_et_country"
+                android:id="@+id/activity_profile_et_country"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
@@ -27,10 +27,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profile_tv_country" />
+                app:layout_constraintTop_toBottomOf="@+id/activity_profile_tv_country" />
 
             <TextView
-                android:id="@+id/profile_tv_country"
+                android:id="@+id/activity_profile_tv_country"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -40,10 +40,10 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profile_et_city" />
+                app:layout_constraintTop_toBottomOf="@+id/activity_profile_et_city" />
 
             <TextView
-                android:id="@+id/profile_tv_city"
+                android:id="@+id/activity_profile_tv_city"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -53,10 +53,10 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profile_et_organization" />
+                app:layout_constraintTop_toBottomOf="@+id/activity_profile_et_organization" />
 
             <EditText
-                android:id="@+id/profile_et_city"
+                android:id="@+id/activity_profile_et_city"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
@@ -66,10 +66,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profile_tv_city" />
+                app:layout_constraintTop_toBottomOf="@+id/activity_profile_tv_city" />
 
             <TextView
-                android:id="@+id/profile_tv_organization"
+                android:id="@+id/activity_profile_tv_organization"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -79,10 +79,10 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profile_et_name" />
+                app:layout_constraintTop_toBottomOf="@+id/activity_profile_et_full_name" />
 
             <EditText
-                android:id="@+id/profile_et_organization"
+                android:id="@+id/activity_profile_et_organization"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
@@ -92,10 +92,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profile_tv_organization" />
+                app:layout_constraintTop_toBottomOf="@+id/activity_profile_tv_organization" />
 
             <TextView
-                android:id="@+id/profile_tv_name"
+                android:id="@+id/activity_profile_tv_HARDCODE_projects"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -105,10 +105,10 @@
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profile_rv_skills" />
+                app:layout_constraintTop_toBottomOf="@+id/activity_profile_rv_skills" />
 
             <TextView
-                android:id="@+id/profile_tv_name6"
+                android:id="@+id/activity_profile_tv_HARDCODE_skills"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -118,10 +118,10 @@
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profile_et_country" />
+                app:layout_constraintTop_toBottomOf="@+id/activity_profile_et_country" />
 
             <TextView
-                android:id="@+id/profile_tv_name5"
+                android:id="@+id/activity_profile_tv_full_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -134,7 +134,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/profile_et_name"
+                android:id="@+id/activity_profile_et_full_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
@@ -143,11 +143,11 @@
                 android:inputType="textCapWords|textPersonName"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profile_tv_name5" />
+                app:layout_constraintTop_toBottomOf="@+id/activity_profile_tv_full_name" />
 
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/profile_rv_skills"
+                android:id="@+id/activity_profile_rv_skills"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
@@ -155,10 +155,10 @@
                 android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profile_tv_name6" />
+                app:layout_constraintTop_toBottomOf="@+id/activity_profile_tv_HARDCODE_skills" />
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/profile_rv_projects"
+                android:id="@+id/activity_profile_rv_projects"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
@@ -166,7 +166,7 @@
                 android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profile_tv_name" />
+                app:layout_constraintTop_toBottomOf="@+id/activity_profile_tv_HARDCODE_skills" />
 
 
         </android.support.constraint.ConstraintLayout>

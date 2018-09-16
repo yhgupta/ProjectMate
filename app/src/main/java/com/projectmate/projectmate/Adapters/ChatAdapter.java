@@ -1,7 +1,6 @@
 package com.projectmate.projectmate.Adapters;
 
 import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +9,7 @@ import android.widget.TextView;
 
 import com.projectmate.projectmate.Classes.Chat;
 import com.projectmate.projectmate.R;
-import com.projectmate.projectmate.TestActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder> {
@@ -49,8 +46,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
 
         public ChatViewHolder(View itemView) {
             super(itemView);
-            tvName = itemView.findViewById(R.id.name_view);
-            tvLastMessage = itemView.findViewById(R.id.last_message_view);
+            tvName = itemView.findViewById(R.id.tv_name_of_person_to_chat);
+            tvLastMessage = itemView.findViewById(R.id.tv_last_message_to_be_displayed);
 
         }
     }

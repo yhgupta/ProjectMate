@@ -7,7 +7,7 @@
     tools:context=".BrowserActivity">
 
     <WebView
-        android:id="@+id/webview"
+        android:id="@+id/activity_browser_web_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -20,7 +20,7 @@
     </WebView>
 
     <ProgressBar
-        android:id="@+id/progressBar"
+        android:id="@+id/activity_browser_progress_bar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="4dp"
@@ -31,6 +31,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/webview" />
+        app:layout_constraintTop_toTopOf="@+id/activity_browser_web_view" />
 
 </android.support.constraint.ConstraintLayout>

@@ -15,22 +15,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexboxLayoutManager;
-import com.projectmate.projectmate.Adapters.ProjectAdapter;
-import com.projectmate.projectmate.Adapters.SkillAdapter;
+import com.projectmate.projectmate.Adapters.MyProjectAdapter;
 import com.projectmate.projectmate.Adapters.SkillFlexAdapter;
 import com.projectmate.projectmate.Classes.Project;
+import com.projectmate.projectmate.Classes.ProjectSkills;
 import com.projectmate.projectmate.Classes.Skill;
-import com.projectmate.projectmate.Classes.User;
 import com.projectmate.projectmate.R;
 
 import java.util.ArrayList;
@@ -42,16 +37,15 @@ import java.util.Arrays;
 public class MyProjectFragment extends Fragment {
 
     private FloatingActionButton mFab;
-    private User mUser;
-    private TextView mAddProject;
-    private ProjectAdapter mProjectAdapter;
+    private MyProjectAdapter mProjectAdapter;
     private ArrayList<String> mAllSkills;
 
+    private ArrayList<ProjectSkills> mProjects = new ArrayList<>();
+
+    private RecyclerView mProjectsRv;
     public MyProjectFragment() {
         // Required empty public constructor
     }
-
-
 
 
     @Override
@@ -61,7 +55,7 @@ public class MyProjectFragment extends Fragment {
 
         String[] arraySkill = getResources().getStringArray(R.array.skillsArray);
         mAllSkills = new ArrayList<>(Arrays.asList(arraySkill));
-        mFab = rootView.findViewById(R.id.fab);
+        mFab = rootView.findViewById(R.id.fab );
 
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +63,13 @@ public class MyProjectFragment extends Fragment {
                 createAddProjectDialog().show();
             }
         });
+
+        mProjectAdapter = new MyProjectAdapter(mProjects, getContext());
+
+        mProjectsRv = rootView.findViewById(R.id.my_projects_recycle_view);
+
+        mProjectsRv.setLayoutManager(new LinearLayoutManager(getContext()));
+        mProjectsRv.setAdapter(mProjectAdapter);
 
         return rootView;
     }
@@ -136,43 +137,6 @@ public class MyProjectFragment extends Fragment {
 
     }
 
-
-
-    private boolean addProject(View rootView, ArrayList<Skill>skills){
-
-        //Get all of the views
-        EditText tvName = rootView.findViewById(R.id.dialog_addproject_et_name);
-        EditText tvShortDesc = rootView.findViewById(R.id.dialog_addproject_short_desc);
-        EditText tvCompleteDesc = rootView.findViewById(R.id.dialog_addproject_complete_desc);
-
-
-
-        //Get all fields from the views
-        String name = tvName.getText().toString().trim();
-        String shortDesc = tvShortDesc.getText().toString().trim();
-        String completeDesc = tvCompleteDesc.getText().toString().trim();
-
-        //Check condition
-        if(name.isEmpty()) return false;
-        if(skills.size()==0) return false;
-        //TODO: Check other conditions
-
-        ArrayList<Integer> skillIds = new ArrayList<>();
-        for(Skill skill: skills){
-            skillIds.add(skill.getSkillID());
-        }
-        //Create a new skill and add to user skills
-        Project project = new Project(0, name, shortDesc, completeDesc, skillIds);
-        mUser.getProjects().add(project);
-
-
-        //Notify adapter
-        mProjectAdapter.notifyDataSetChanged();
-
-
-        return true;
-    }
-
     private Dialog createAllSkillsDialog(final SkillFlexAdapter skillAdapter, final ArrayList<String> allSkills, final ArrayList<Skill> mySkills){
 
         //Create new dialog and get inflater
@@ -221,5 +185,39 @@ public class MyProjectFragment extends Fragment {
         return dialog;
 
     }
+
+    private boolean addProject(View rootView, ArrayList<Skill>skills){
+
+        //Get all of the views
+        EditText tvName = rootView.findViewById(R.id.dialog_addproject_et_name);
+        EditText tvShortDesc = rootView.findViewById(R.id.dialog_addproject_short_desc);
+        EditText tvCompleteDesc = rootView.findViewById(R.id.dialog_addproject_complete_desc);
+
+
+
+        //Get all fields from the views
+        String name = tvName.getText().toString().trim();
+        String shortDesc = tvShortDesc.getText().toString().trim();
+        String completeDesc = tvCompleteDesc.getText().toString().trim();
+
+
+        ArrayList<Integer> skillIds = new ArrayList<>();
+        for(Skill skill: skills){
+            skillIds.add(skill.getSkillID());
+        }
+        //Create a new skill and add to user skills
+        Project project = new Project(0, name, shortDesc, completeDesc, skillIds);
+
+        ProjectSkills projectSkills = new ProjectSkills(project, skills);
+
+        mProjects.add(projectSkills);
+
+        //Notify adapter
+        mProjectAdapter.notifyDataSetChanged();
+
+        return true;
+
+    }
+
 
 }

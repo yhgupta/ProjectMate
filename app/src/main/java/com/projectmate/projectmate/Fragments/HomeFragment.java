@@ -14,12 +14,10 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.projectmate.projectmate.Adapters.AllProjectAdapter;
-import com.projectmate.projectmate.Adapters.ProjectAdapter;
 import com.projectmate.projectmate.AlibabaCloud.OkHttpRequests;
 import com.projectmate.projectmate.AlibabaCloud.ProjectMateUris;
 import com.projectmate.projectmate.Classes.Project;
@@ -138,9 +136,9 @@ public class HomeFragment extends Fragment {
         return recyclerView;
     }
     private void startAnimation(){
-        final FrameLayout frameLayout = getActivity().findViewById(R.id.main_frame_layout);
-        final LinearLayout linearLayout = getActivity().findViewById(R.id.main_layout);
-        //final RelativeLayout relativeLayout = getActivity().findViewById(R.id.main_layout);
+        final FrameLayout frameLayout = getActivity().findViewById(R.id.activity_main_frame_layout);
+        final LinearLayout linearLayout = getActivity().findViewById(R.id.activity_main_layout);
+        //final RelativeLayout relativeLayout = getActivity().findViewById(R.id.activity_main_layout);
 
         Animation fadeOut = new AlphaAnimation(1, 0);
         fadeOut.setInterpolator(new AccelerateInterpolator());

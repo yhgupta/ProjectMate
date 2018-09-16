@@ -48,8 +48,8 @@ public class  BrowserActivity extends AppCompatActivity {
         toolbar.setTitle("CodeChef Login");
         toolbar.setElevation(4);
 
-        webView = findViewById(R.id.webview);
-        mProgressBar = findViewById(R.id.progressBar);
+        webView = findViewById(R.id.activity_browser_web_view);
+        mProgressBar = findViewById(R.id.activity_browser_progress_bar);
 
         webView.setWebViewClient(new WebViewClientCodeChef());
         webView.setWebChromeClient(new WebChromeClientCodeChef());
