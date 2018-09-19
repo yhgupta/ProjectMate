@@ -48,7 +48,7 @@ public class MyProjectFragment extends Fragment {
     private ProjectAdapter mProjectAdapter;
     private ArrayList<String> mAllSkills;
 
-    private ArrayList<Project> mProjects;
+    private ArrayList<Project> mProjects = new ArrayList<>();
 
     private RecyclerView mProjectsRv;
 

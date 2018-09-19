@@ -5,11 +5,10 @@
         <item>.NET</item>
         <item>AJAX</item>
         <item>ASP</item>
-        <item>ASP</item>
         <item>Android Development</item>
         <item>AngularJS</item>
         <item>Arduino</item>
-        <item>Assembly</item>
+        <item>Assembly Language</item>
         <item>BlockChain</item>
         <item>BootStrap</item>
         <item>C</item>
@@ -17,23 +16,21 @@
         <item>C++</item>
         <item>CSS</item>
         <item>Cloud Computing</item>
-        <item>Computing</item>
-        <item>DataBase</item>
         <item>Deep Learning</item>
         <item>Django</item>
         <item>Fortran</item>
         <item>Go</item>
         <item>HTML</item>
+        <item>iOS Development</item>
         <item>JSON</item>
         <item>Java</item>
         <item>JavaScript</item>
-        <item>Language</item>
+        <item>jQuery</item>
         <item>MATLAB</item>
         <item>Machine Learning</item>
         <item>MongoDB</item>
         <item>MySQL</item>
         <item>Node.js</item>
-        <item>PHP</item>
         <item>PHP</item>
         <item>Pascal</item>
         <item>Perl</item>
@@ -45,7 +42,7 @@
         <item>Ruby</item>
         <item>SQL</item>
         <item>Swift</item>
-        <item>Visual</item>
+        <item>Visual Basic</item>
         <item>Web Development</item>
         <item>XQuery</item>
     </array>

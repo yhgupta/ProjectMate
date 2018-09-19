@@ -130,6 +130,7 @@ public class ProfileFragment extends Fragment {
                 createAddSkillDialog().show();
             }
         });
+
         mAddProject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -168,7 +169,7 @@ public class ProfileFragment extends Fragment {
         RecyclerViewClickListener listener = new RecyclerViewClickListener() {
             @Override
             public void onClick(View view, int position) {
-                displayToast(String.valueOf(position));
+                editAllProjectsDialog();
             }
         };
         mProjectAdapter = new ProjectAdapter(mUser.getProjects(), getContext(), listener);
@@ -627,8 +628,6 @@ public class ProfileFragment extends Fragment {
         requests.performPutRequest(url, jsonData, callback, authToken);
     }
 
-
-
     private void displayToast(String message){
         if(mToast==null){
             mToast = Toast.makeText(getContext(), message, Toast.LENGTH_SHORT);
@@ -639,5 +638,65 @@ public class ProfileFragment extends Fragment {
         }
 
     }
+
+
+
+    private Dialog editAllProjectsDialog(  ){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        LayoutInflater inflater = getLayoutInflater();
+        final View view = inflater.inflate(R.layout.dialog_add_project, null);
+
+        //Set the root view as Dialogs Layout
+        builder.setView(view);
+
+
+        //Find add skill button
+        TextView addSkill = view.findViewById(R.id.dialog_addproject_add_skill);
+
+        //Find Recycler View of list of skills
+        RecyclerView skillView = view.findViewById(R.id.dialog_add_project_rv);
+
+        //Make list of skills and mySkills is the skills added by user
+        final ArrayList<Skill> skills = new ArrayList<>(mUser.getSkills());
+        final ArrayList<Skill> mySkills = new ArrayList<>();
+
+        //Configuring the recycler view
+        final SkillAdapter skillAdapter = new SkillAdapter(mySkills);
+        skillView.setLayoutManager(new LinearLayoutManager(getContext()));
+        skillView.setAdapter(skillAdapter);
+
+        addSkill.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createAllSkillsProjectDialog(skillAdapter, skills, mySkills).show();
+            }
+        });
+
+
+        //Adding positive and negative buttons
+        builder.setPositiveButton(getString(R.string.add_project_dialog_save_btn), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if(addProject(view, mySkills)){
+                    dialog.dismiss();
+                }else{
+                    displayToast("Invalid");
+                    dialog.dismiss();
+                }
+            }
+
+        }).setNegativeButton(getString(R.string.add_project_dialog_cancel_btn), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+
+        });
+
+        return builder.create();
+
+    }
+
+
 
 }
