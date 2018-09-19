@@ -66,6 +66,8 @@ public class MainActivity extends AppCompatActivity {
         //mViewPager = findViewById(R.id.main)
         mViewPager = findViewById(R.id.activity_main_view_pager);
 
+        mViewPager.setOffscreenPageLimit(4);
+
         mBottomNavigation = findViewById(R.id.bottom_navigation);
         mToolbar = findViewById(R.id.main_toolbar);
         mToolbar.setTitle("Project Mate");

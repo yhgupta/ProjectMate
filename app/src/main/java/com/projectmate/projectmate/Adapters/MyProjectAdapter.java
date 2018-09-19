@@ -38,13 +38,15 @@ public class MyProjectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private OnLoadMoreListener onLoadMoreListener;
 
 
+    private boolean mAllowEdit;
 
-
-    public MyProjectAdapter(List<Project> project, RecyclerView recyclerView, Context context, RecyclerViewClickListener listener, OnLoadMoreListener loadMoreListener) {
+    public MyProjectAdapter(List<Project> project, RecyclerView recyclerView, Context context, RecyclerViewClickListener listener, OnLoadMoreListener loadMoreListener, boolean allowEdit) {
         this.mProject = project;
         this.mContext = context;
         this.mListener = listener;
         this.onLoadMoreListener = loadMoreListener;
+
+        this.mAllowEdit = allowEdit;
 
         final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
 
@@ -79,7 +81,7 @@ public class MyProjectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         RecyclerView.ViewHolder vh;
         if(viewType == VIEW_ITEM){
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_item_my_project, parent, false);
-            vh = new ProjectViewHolder(v, mListener);
+            vh = new ProjectViewHolder(v, mListener, mAllowEdit);
 
         }else{
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.progressbar_item, parent, false);
@@ -135,18 +137,22 @@ public class MyProjectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         private RecyclerViewClickListener mListener;
 
-        ProjectViewHolder(View itemView, RecyclerViewClickListener listener) {
+        ProjectViewHolder(View itemView, RecyclerViewClickListener listener, boolean allowEdit) {
             super(itemView);
 
             rootView = itemView.findViewById(R.id.project_item_layout);
             tvProjectName = itemView.findViewById(R.id.tv_project_name);
             tvProjectShortDesc = itemView.findViewById(R.id.tv_short_desc);
             rvSkillsView = itemView.findViewById(R.id.rv_my_skills);
-            btnEditProject = itemView.findViewById(R.id.project_btn_edit);
 
             mListener = listener;
             rootView.setOnClickListener(this);
-            btnEditProject.setOnClickListener(this);
+
+            if(allowEdit){
+                btnEditProject = itemView.findViewById(R.id.project_btn_edit);
+                btnEditProject.setOnClickListener(this);
+            }
+
         }
 
         @Override

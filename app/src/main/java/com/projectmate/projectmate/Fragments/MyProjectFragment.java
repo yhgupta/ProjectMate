@@ -4,7 +4,6 @@ package com.projectmate.projectmate.Fragments;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -20,10 +19,8 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -35,22 +32,16 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.projectmate.projectmate.Adapters.MyProjectAdapter;
 import com.projectmate.projectmate.Adapters.OnLoadMoreListener;
-import com.projectmate.projectmate.Adapters.ProjectAdapter;
 import com.projectmate.projectmate.Adapters.RecyclerViewClickListener;
 import com.projectmate.projectmate.Adapters.SkillFlexAdapter;
 import com.projectmate.projectmate.AlibabaCloud.OkHttpRequests;
 import com.projectmate.projectmate.AlibabaCloud.ProjectMateUris;
-import com.projectmate.projectmate.Classes.BasicSkill;
 import com.projectmate.projectmate.Classes.Project;
-import com.projectmate.projectmate.Classes.Skill;
 import com.projectmate.projectmate.Database.StaticValues;
-import com.projectmate.projectmate.MainActivity;
-import com.projectmate.projectmate.ProfileActivity;
 import com.projectmate.projectmate.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 import okhttp3.Call;
@@ -82,6 +73,9 @@ public class MyProjectFragment extends Fragment {
     private RecyclerViewClickListener mItemClickListener;
     private OnLoadMoreListener mLoadMoreListener;
 
+    private boolean moreItemsPresent = true;
+    private boolean loading;
+
     public MyProjectFragment() {
         // Required empty public constructor
     }
@@ -93,7 +87,7 @@ public class MyProjectFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_my_project, container, false);
 
-        mFab = rootView.findViewById(R.id.fab );
+        mFab = rootView.findViewById(R.id.my_project_fab);
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,10 +95,13 @@ public class MyProjectFragment extends Fragment {
             }
         });
 
+        loading = false;
+
         mSaveBtn = rootView.findViewById(R.id.my_project_btn_save);
         mSaveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.v("json", String.valueOf(mProjects.size()));
                 if(!mChangesMade){
                     displayToast("No changes to save");
                 }
@@ -116,6 +113,7 @@ public class MyProjectFragment extends Fragment {
         mSaveBtnProgress = rootView.findViewById(R.id.my_project_btn_progress);
 
         mProjects = new ArrayList<>();
+
         mCallback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -130,25 +128,38 @@ public class MyProjectFragment extends Fragment {
                     Gson gson = new Gson();
 
                     TypeToken<ArrayList<Project>> token = new TypeToken<ArrayList<Project>>() {};
-                    ArrayList<Project> projects = gson.fromJson(jsonData, token.getType());
+                    final ArrayList<Project> projects = gson.fromJson(jsonData, token.getType());
 
+
+                    mProjects.remove(mProjects.size() - 1);
                     mProjectAdapter.setLoaded();
 
-                    if(!projects.isEmpty()){
-                        mProjects.addAll(projects);
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                mProjectAdapter.notifyDataSetChanged();
-                            }
-                        });
+                    if(projects.isEmpty()) moreItemsPresent = false;
+                    else mProjects.addAll(projects);
 
-                    }
+                    loading = false;
+
+
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(!projects.isEmpty()) mProjectAdapter
+                                    .notifyItemRangeChanged(
+                                            mProjects.size() - projects.size(),
+                                            mProjects.size());
+
+                            else mProjectAdapter.notifyItemRemoved(mProjects.size());
+
+
+                        }
+                    });
+
 
                 }
 
             }
         };
+
         mItemClickListener = new RecyclerViewClickListener() {
             @Override
             public void onClick(View view, int position) {
@@ -157,25 +168,44 @@ public class MyProjectFragment extends Fragment {
                 }
             }
         };
+
         mLoadMoreListener = new OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
+                if(!moreItemsPresent){
+                    mProjectAdapter.setLoaded();
+                    return;
+                }
+                if(loading) return;
                 OkHttpRequests requests = new OkHttpRequests();
                 String url = ProjectMateUris.getAllProjects(mProjects.size());
+
+                mProjects.add(null);
+                loading = true;
+                mProjectsRv.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mProjectAdapter.notifyItemChanged(mProjects.size()-1);
+                    }
+                });
+
+
                 requests.performGetRequest(url, mCallback, StaticValues.getCodeChefAuthKey());
             }
         };
 
 
-        mProjectsRv = rootView.findViewById(R.id.my_projects_recycle_view);
+        mProjectsRv = rootView.findViewById(R.id.my_projects_recycler_view);
         mProjectsRv.setLayoutManager(new LinearLayoutManager(getContext()));
         mProjectsRv.setHasFixedSize(true);
 
-        mProjectAdapter = new MyProjectAdapter(mProjects, mProjectsRv, getContext(), mItemClickListener, mLoadMoreListener);
+        mProjectAdapter = new MyProjectAdapter(mProjects, mProjectsRv,
+                getContext(), mItemClickListener, mLoadMoreListener, true);
 
         mProjectsRv.setAdapter(mProjectAdapter);
 
         mLoadMoreListener.onLoadMore();
+
         return rootView;
     }
 
@@ -328,6 +358,7 @@ public class MyProjectFragment extends Fragment {
     }
 
     private void saveProjects(){
+        Log.v("json", String.valueOf(mProjects.size()));
         mSaveBtnClicked = true;
         Animation fadeOut = new AlphaAnimation(1, 0);
         fadeOut.setInterpolator(new AccelerateInterpolator());
@@ -380,6 +411,7 @@ public class MyProjectFragment extends Fragment {
 
     private void saveToServer(){
         Gson gson = new Gson();
+        Log.v("JSON", String.valueOf(mProjects.size()));
         String jsonData = gson.toJson(mProjects);
         Log.v("JSON", jsonData);
         String authToken = StaticValues.getCodeChefAuthKey();
@@ -395,12 +427,6 @@ public class MyProjectFragment extends Fragment {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if(response.isSuccessful()){
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            saveSuccess();
-                        }
-                    });
                     reloadAll();
                 }
             }
@@ -466,11 +492,21 @@ public class MyProjectFragment extends Fragment {
         String url = ProjectMateUris.getAllProjects(0);
         String authToken = StaticValues.getCodeChefAuthKey();
 
+        moreItemsPresent = true;
+        mProjects.add(null);
+        loading = true;
         requests.performGetRequest(url, mCallback, authToken);
+
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                saveSuccess();
+            }
+        });
 
     }
 
-    private Dialog createEditProjectDialog(int position){
+    private Dialog createEditProjectDialog(final int position){
         //Create a new AlertDialog Builder
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
@@ -545,6 +581,9 @@ public class MyProjectFragment extends Fragment {
                currProject.setProjectCompleteDesc(desc);
                currProject.setSkills(mySkills);
                mProjectAdapter.notifyDataSetChanged();
+
+               mChangesMade = true;
+               dialog.dismiss();
             }
 
         }).setNegativeButton(getString(R.string.add_project_dialog_cancel_btn), new DialogInterface.OnClickListener() {
@@ -556,8 +595,17 @@ public class MyProjectFragment extends Fragment {
         }).setNeutralButton("Delete", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                mProjects.remove(currProject);
+                Log.v("Index", String.valueOf(position));
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mProjects.remove(position);
+                    }
+                });
+                Log.v("json", String.valueOf(mProjects.size()));
                 mProjectAdapter.notifyDataSetChanged();
+                mChangesMade = true;
+                dialog.dismiss();
             }
         });
 
