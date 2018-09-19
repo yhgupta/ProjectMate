@@ -105,6 +105,7 @@ public class MyProjectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             ((ProjectViewHolder) holder).tvProjectName.setText(currentProject.getProjectName());
             ((ProjectViewHolder) holder).tvProjectShortDesc.setText(currentProject.getProjectShortDesc());
 
+            if(mAllowEdit)
             ((ProjectViewHolder) holder).btnEditProject.setVisibility(View.VISIBLE);
 
             SkillFlexAdapter adapter = new SkillFlexAdapter(currentProject.getSkills());

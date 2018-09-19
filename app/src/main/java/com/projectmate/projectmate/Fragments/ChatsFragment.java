@@ -9,16 +9,35 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.projectmate.projectmate.Adapters.ChatAdapter;
+import com.projectmate.projectmate.Adapters.OnLoadMoreListener;
+import com.projectmate.projectmate.Adapters.RecyclerViewClickListener;
 import com.projectmate.projectmate.Classes.Chat;
+import com.projectmate.projectmate.Classes.Message;
+import com.projectmate.projectmate.Classes.Project;
 import com.projectmate.projectmate.R;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
+
+
+
 public class ChatsFragment extends Fragment {
+
+    private ArrayList<Message> mMessages;
+    private ChatAdapter mAdapter;
+
+    private Callback mCallback;
+
+    private RecyclerViewClickListener mItemClickListener;
+    private OnLoadMoreListener mLoadMoreListener;
+
 
 
     public ChatsFragment() {
@@ -31,20 +50,50 @@ public class ChatsFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_chats, container, false);
-        // Inflate the layout for this fragment
 
-        ArrayList<Chat> chat = new ArrayList<>();
-        chat.add(new Chat("Yash","Kill Him") );
-        chat.add(new Chat("Fox","Kill Me") );
-        chat.add(new Chat("Fox","Kill Me") );
-        chat.add(new Chat("Fox","Kill Me") );
-        chat.add(new Chat("Fox","Kill Me") );
-
-        ChatAdapter adapter = new ChatAdapter(chat );
-        RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext());
         RecyclerView recyclerView = rootView.findViewById(R.id.chat_fragment_rv);
-        recyclerView.setLayoutManager(manager);
-        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        recyclerView.setNestedScrollingEnabled(false);
+        recyclerView.setHasFixedSize(true);
+
+
+        mMessages = new ArrayList<>();
+
+        mCallback = new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if(response.isSuccessful()){
+                    String jsonData = response.body().string();
+                    Gson gson = new Gson();
+
+                    TypeToken<ArrayList<Message>> token = new TypeToken<ArrayList<Message>>() {
+                    };
+                    final ArrayList<Message> messages = gson.fromJson(jsonData, token.getType());
+
+                    mMessages.remove(mMessages.size() - 1);
+                    mAdapter.setLoaded();
+
+                    if(!messages.isEmpty()) mMessages.addAll(messages);
+
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                        }
+                    });
+
+                }
+            }
+        };
+
+
+        recyclerView.setAdapter(mAdapter);
 
         return rootView;
     }
