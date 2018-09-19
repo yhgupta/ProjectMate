@@ -1,6 +1,7 @@
 package com.projectmate.projectmate.Fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,9 +15,13 @@ import com.google.gson.reflect.TypeToken;
 import com.projectmate.projectmate.Adapters.ChatAdapter;
 import com.projectmate.projectmate.Adapters.OnLoadMoreListener;
 import com.projectmate.projectmate.Adapters.RecyclerViewClickListener;
+import com.projectmate.projectmate.AlibabaCloud.OkHttpRequests;
+import com.projectmate.projectmate.AlibabaCloud.ProjectMateUris;
+import com.projectmate.projectmate.ChatActivity;
 import com.projectmate.projectmate.Classes.Chat;
 import com.projectmate.projectmate.Classes.Message;
 import com.projectmate.projectmate.Classes.Project;
+import com.projectmate.projectmate.Database.StaticValues;
 import com.projectmate.projectmate.R;
 
 import java.io.IOException;
@@ -36,8 +41,6 @@ public class ChatsFragment extends Fragment {
     private Callback mCallback;
 
     private RecyclerViewClickListener mItemClickListener;
-    private OnLoadMoreListener mLoadMoreListener;
-
 
 
     public ChatsFragment() {
@@ -77,14 +80,13 @@ public class ChatsFragment extends Fragment {
                     final ArrayList<Message> messages = gson.fromJson(jsonData, token.getType());
 
                     mMessages.remove(mMessages.size() - 1);
-                    mAdapter.setLoaded();
 
                     if(!messages.isEmpty()) mMessages.addAll(messages);
 
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-
+                            mAdapter.notifyItemRangeChanged(mMessages.size()-messages.size()-1, mMessages.size()-1);
                         }
                     });
 
@@ -92,8 +94,28 @@ public class ChatsFragment extends Fragment {
             }
         };
 
+        mItemClickListener = new RecyclerViewClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Intent intent = new Intent(getContext(), ChatActivity.class);
+                int myId = StaticValues.getCurrentUser().getId();
+                int otherId = mMessages.get(position).getSender().getId();
+                if(otherId == myId)
+                    otherId = mMessages.get(position).getReceiver().getId();
+
+                intent.putExtra("USER_ID", otherId);
+
+                startActivity(intent);
+            }
+        };
+
+        mAdapter = new ChatAdapter(mMessages, mItemClickListener, StaticValues.getCurrentUser().getId());
 
         recyclerView.setAdapter(mAdapter);
+
+        OkHttpRequests requests = new OkHttpRequests();
+        String url = ProjectMateUris.GetUserChats();
+        requests.performGetRequest(url, mCallback, StaticValues.getCodeChefAuthKey());
 
         return rootView;
     }

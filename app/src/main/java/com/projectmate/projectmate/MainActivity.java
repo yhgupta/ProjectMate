@@ -199,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
 
                         StaticValues.setCurrentUser(user);
 
-                        if (user.getSkills().size() == 0) {
+                        if (user.getSkills()==null || user.getSkills().size() == 0) {
                             Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
                             startActivity(intent);
                             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);

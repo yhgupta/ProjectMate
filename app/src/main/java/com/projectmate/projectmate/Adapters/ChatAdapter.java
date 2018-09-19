@@ -34,46 +34,14 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     private RecyclerViewClickListener mListener;
 
-    private int visibleThreshold = 5;
-    private int lastVisibleItem, totalItemCount;
-    private boolean loading;
-    private OnLoadMoreListener onLoadMoreListener;
 
-
-
-    public ChatAdapter(List<Message> messages, RecyclerView recyclerView, RecyclerViewClickListener listener, OnLoadMoreListener loadMoreListener, int userId) {
+    public ChatAdapter(List<Message> messages, RecyclerViewClickListener listener, int userId) {
         this.mMessages = messages;
         this.mListener = listener;
-        this.onLoadMoreListener = loadMoreListener;
         this.mUserId = userId;
 
-
-        final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-
-                totalItemCount = linearLayoutManager.getItemCount();
-                lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
-
-                if (!loading && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
-
-                    if (onLoadMoreListener != null) {
-                        onLoadMoreListener.onLoadMore();
-                    }
-                    loading = true;
-                }
-
-            }
-        });
     }
 
-
-    public void setLoaded(){
-        this.loading = false;
-    }
 
     @NonNull
     @Override
