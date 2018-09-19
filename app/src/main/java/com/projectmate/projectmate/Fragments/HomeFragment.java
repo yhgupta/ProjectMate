@@ -109,7 +109,7 @@ public class HomeFragment extends Fragment {
 
         if(mProjects.isEmpty()){
             OkHttpRequests requests = new OkHttpRequests();
-            requests.performGetRequest(ProjectMateUris.getAllProjects(0), callback, StaticValues.getCodeChefAuthKey());
+            requests.performGetRequest(ProjectMateUris.getProjectsForMe(0), callback, StaticValues.getCodeChefAuthKey());
         }
         else if(mProjects.size()<15){
             mAdapter.notifyDataSetChanged();

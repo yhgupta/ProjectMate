@@ -4,35 +4,54 @@ package com.projectmate.projectmate.Fragments;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.projectmate.projectmate.Adapters.MyProjectAdapter;
+import com.projectmate.projectmate.Adapters.OnLoadMoreListener;
 import com.projectmate.projectmate.Adapters.ProjectAdapter;
 import com.projectmate.projectmate.Adapters.RecyclerViewClickListener;
 import com.projectmate.projectmate.Adapters.SkillFlexAdapter;
+import com.projectmate.projectmate.AlibabaCloud.OkHttpRequests;
+import com.projectmate.projectmate.AlibabaCloud.ProjectMateUris;
+import com.projectmate.projectmate.Classes.BasicSkill;
 import com.projectmate.projectmate.Classes.Project;
 import com.projectmate.projectmate.Classes.Skill;
 import com.projectmate.projectmate.Database.StaticValues;
+import com.projectmate.projectmate.MainActivity;
+import com.projectmate.projectmate.ProfileActivity;
 import com.projectmate.projectmate.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -45,40 +64,28 @@ import okhttp3.Response;
 public class MyProjectFragment extends Fragment {
 
     private FloatingActionButton mFab;
-    private ProjectAdapter mProjectAdapter;
-    private ArrayList<String> mAllSkills;
-
-    private ArrayList<Project> mProjects;
-
     private RecyclerView mProjectsRv;
 
-    Callback callback = new Callback() {
-        @Override
-        public void onFailure(Call call, IOException e) {
+    private CardView mSaveBtn;
+    private TextView mSaveBtnText;
+    private ProgressBar mSaveBtnProgress;
 
-        }
+    private MyProjectAdapter mProjectAdapter;
+    private ArrayList<Project> mProjects;
 
-        @Override
-        public void onResponse(Call call, Response response) throws IOException {
+    private Toast mToast;
+    private boolean mChangesMade = false;
+    private boolean mSaveBtnClicked = false;
 
-            if(response.isSuccessful()){
-                String jsonData = response.body().string();
-                Gson gson = new Gson();
+    Callback mCallback;
 
-                TypeToken<ArrayList<Project>> token = new TypeToken<ArrayList<Project>>() {
-                };
-                ArrayList<Project> projects = gson.fromJson(jsonData, token.getType());
+    private RecyclerViewClickListener mItemClickListener;
+    private OnLoadMoreListener mLoadMoreListener;
 
-                mProjects = projects;
-
-                mProjectAdapter.notifyDataSetChanged();
-            }
-
-        }
-    };
     public MyProjectFragment() {
         // Required empty public constructor
     }
+
 
 
     @Override
@@ -86,11 +93,7 @@ public class MyProjectFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_my_project, container, false);
 
-        String[] arraySkill = getResources().getStringArray(R.array.skillsArray);
-        mAllSkills = new ArrayList<>(Arrays.asList(arraySkill));
-
         mFab = rootView.findViewById(R.id.fab );
-
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,20 +101,84 @@ public class MyProjectFragment extends Fragment {
             }
         });
 
-        mProjectAdapter = new ProjectAdapter(mProjects, getContext(), new RecyclerViewClickListener() {
+        mSaveBtn = rootView.findViewById(R.id.my_project_btn_save);
+        mSaveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view, int position) {
-
+            public void onClick(View v) {
+                if(!mChangesMade){
+                    displayToast("No changes to save");
+                }
+                else if(!mSaveBtnClicked) saveProjects();
             }
         });
 
-        mProjectsRv = rootView.findViewById(R.id.my_projects_recycle_view);
+        mSaveBtnText = rootView.findViewById(R.id.my_project_btn_text);
+        mSaveBtnProgress = rootView.findViewById(R.id.my_project_btn_progress);
 
+        mProjects = new ArrayList<>();
+        mCallback = new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+                if(response.isSuccessful()){
+                    String jsonData = response.body().string();
+                    Gson gson = new Gson();
+
+                    TypeToken<ArrayList<Project>> token = new TypeToken<ArrayList<Project>>() {};
+                    ArrayList<Project> projects = gson.fromJson(jsonData, token.getType());
+
+                    mProjectAdapter.setLoaded();
+
+                    if(!projects.isEmpty()){
+                        mProjects.addAll(projects);
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                mProjectAdapter.notifyDataSetChanged();
+                            }
+                        });
+
+                    }
+
+                }
+
+            }
+        };
+        mItemClickListener = new RecyclerViewClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                if(view instanceof ImageButton){
+                    createEditProjectDialog(position).show();
+                }
+            }
+        };
+        mLoadMoreListener = new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                OkHttpRequests requests = new OkHttpRequests();
+                String url = ProjectMateUris.getAllProjects(mProjects.size());
+                requests.performGetRequest(url, mCallback, StaticValues.getCodeChefAuthKey());
+            }
+        };
+
+
+        mProjectsRv = rootView.findViewById(R.id.my_projects_recycle_view);
         mProjectsRv.setLayoutManager(new LinearLayoutManager(getContext()));
+        mProjectsRv.setHasFixedSize(true);
+
+        mProjectAdapter = new MyProjectAdapter(mProjects, mProjectsRv, getContext(), mItemClickListener, mLoadMoreListener);
+
         mProjectsRv.setAdapter(mProjectAdapter);
 
+        mLoadMoreListener.onLoadMore();
         return rootView;
     }
+
 
     private Dialog createAddProjectDialog(){
         //Create a new AlertDialog Builder
@@ -127,29 +194,33 @@ public class MyProjectFragment extends Fragment {
         //Set the root view as Dialogs Layout
         builder.setView(view);
 
+        //Find Recycler View of list of skills
         final RecyclerView skillView = view.findViewById(R.id.dialog_add_project_rv);
 
         //Find add skill button
         TextView addSkill = view.findViewById(R.id.dialog_addproject_add_skill);
-        final ArrayList<String> skills = new ArrayList<>(mAllSkills);
-        final ArrayList<Skill> mySkills = new ArrayList<>();
-        //Find Recycler View of list of skills
 
         //Make list of skills and mySkills is the skills added by user
-        //final SkillFlexAdapter skillAdapter = new SkillFlexAdapter(mySkills, this);
+        final ArrayList<String> skills = new ArrayList<>(StaticValues.getAllSkills());
+        final ArrayList<Integer> mySkills = new ArrayList<>();
+
+        final SkillFlexAdapter skillAdapter = new SkillFlexAdapter(mySkills);
+
+
         FlexboxLayoutManager flexboxLayoutManager = new FlexboxLayoutManager(getContext());
         // Set flex direction.
         flexboxLayoutManager.setFlexDirection(FlexDirection.ROW);
 
         skillView.setLayoutManager(flexboxLayoutManager);
-        //skillView.setAdapter(skillAdapter);
+
+        skillView.setAdapter(skillAdapter);
 
 
 
         addSkill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //createAllSkillsDialog(skillView ,skills,mySkills).show();
+                createAllSkillsDialog(skillAdapter ,skills,mySkills).show();
             }
         });
 
@@ -159,8 +230,6 @@ public class MyProjectFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if(addProject(view, mySkills)){
-                    dialog.dismiss();
-                }else{
                     dialog.dismiss();
                 }
             }
@@ -178,7 +247,7 @@ public class MyProjectFragment extends Fragment {
 
     }
 
-    private Dialog createAllSkillsDialog(final SkillFlexAdapter skillAdapter, final ArrayList<String> allSkills, final ArrayList<Skill> mySkills){
+    private Dialog createAllSkillsDialog(final SkillFlexAdapter skillAdapter, final ArrayList<String> allSkills, final ArrayList<Integer> mySkills){
 
         //Create new dialog and get inflater
         AlertDialog.Builder listDialog = new AlertDialog.Builder(getContext());
@@ -215,9 +284,11 @@ public class MyProjectFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String skillName = allSkills.get(position);
-                allSkills.remove(skillName);
-                Skill newSkill = new Skill(position, skillName);
-                mySkills.add(newSkill);
+                int skillId = StaticValues.getAllSkills().indexOf(skillName);
+
+                mySkills.add(skillId);
+                allSkills.remove(position);
+
                 skillAdapter.notifyDataSetChanged();
                 dialog.dismiss();
             }
@@ -227,7 +298,7 @@ public class MyProjectFragment extends Fragment {
 
     }
 
-    private boolean addProject(View rootView, ArrayList<Skill>skills){
+    private boolean addProject(View rootView, ArrayList<Integer>skills){
 
         //Get all of the views
         EditText tvName = rootView.findViewById(R.id.dialog_addproject_et_name);
@@ -242,14 +313,12 @@ public class MyProjectFragment extends Fragment {
         String completeDesc = tvCompleteDesc.getText().toString().trim();
 
 
-        ArrayList<Integer> skillIds = new ArrayList<>();
-        for(Skill skill: skills){
-            skillIds.add(skill.getSkillID());
-        }
         //Create a new skill and add to user skills
-        Project project = new Project(0, name, shortDesc, completeDesc, skillIds);
+        Project project = new Project(0, name, shortDesc, completeDesc, skills);
 
+        mProjects.add(0, project);
 
+        mChangesMade = true;
 
         //Notify adapter
         mProjectAdapter.notifyDataSetChanged();
@@ -258,5 +327,252 @@ public class MyProjectFragment extends Fragment {
 
     }
 
+    private void saveProjects(){
+        mSaveBtnClicked = true;
+        Animation fadeOut = new AlphaAnimation(1, 0);
+        fadeOut.setInterpolator(new AccelerateInterpolator());
+        fadeOut.setDuration(400);
 
+        fadeOut.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                mSaveBtnText.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        Animation fadeIn = new AlphaAnimation(0, 1);
+        fadeIn.setInterpolator(new AccelerateInterpolator());
+        fadeIn.setDuration(400);
+
+        fadeIn.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                mSaveBtnProgress.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        mSaveBtnText.startAnimation(fadeOut);
+        mSaveBtnProgress.startAnimation(fadeIn);
+
+        saveToServer();
+
+    }
+
+    private void saveToServer(){
+        Gson gson = new Gson();
+        String jsonData = gson.toJson(mProjects);
+        Log.v("JSON", jsonData);
+        String authToken = StaticValues.getCodeChefAuthKey();
+        String url = ProjectMateUris.getAllProjects(0);
+        Log.v("URL",url);
+
+        Callback callback = new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if(response.isSuccessful()){
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            saveSuccess();
+                        }
+                    });
+                    reloadAll();
+                }
+            }
+        };
+        OkHttpRequests requests = new OkHttpRequests();
+        requests.performPutRequest(url, jsonData, callback, authToken);
+    }
+
+    private void saveSuccess(){
+        Animation fadeOut = new AlphaAnimation(1, 0);
+        fadeOut.setInterpolator(new AccelerateInterpolator());
+        fadeOut.setDuration(400);
+
+        fadeOut.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                mSaveBtnProgress.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        Animation fadeIn = new AlphaAnimation(0, 1);
+        fadeIn.setInterpolator(new AccelerateInterpolator());
+        fadeIn.setDuration(400);
+
+        fadeIn.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                mSaveBtnText.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        mSaveBtnText.startAnimation(fadeIn);
+        mSaveBtnProgress.startAnimation(fadeOut);
+        displayToast("Save Successful!");
+        mSaveBtnClicked = false;
+        mChangesMade = false;
+    }
+
+    private void reloadAll(){
+        mProjects.clear();
+
+        OkHttpRequests requests = new OkHttpRequests();
+        String url = ProjectMateUris.getAllProjects(0);
+        String authToken = StaticValues.getCodeChefAuthKey();
+
+        requests.performGetRequest(url, mCallback, authToken);
+
+    }
+
+    private Dialog createEditProjectDialog(int position){
+        //Create a new AlertDialog Builder
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+        //Get Layout Inflater
+        LayoutInflater inflater = this.getLayoutInflater();
+
+        //Get the root view using Layout Inflater
+        final View view = inflater.inflate(R.layout.dialog_add_project, null);
+
+
+        //Set the root view as Dialogs Layout
+        builder.setView(view);
+
+        //Find Recycler View of list of skills
+        final RecyclerView skillView = view.findViewById(R.id.dialog_add_project_rv);
+
+        //Find add skill button
+        TextView addSkill = view.findViewById(R.id.dialog_addproject_add_skill);
+
+        //Finding and filling all the views
+        final EditText nameEditText = view.findViewById(R.id.dialog_addproject_et_name);
+        final EditText shortDescription = view.findViewById(R.id.dialog_addproject_short_desc);
+        final EditText description = view.findViewById(R.id.dialog_addproject_complete_desc);
+
+        final Project currProject = mProjects.get(position);
+
+        nameEditText.setText(currProject.getProjectName());
+        shortDescription.setText(currProject.getProjectShortDesc());
+        description.setText(currProject.getProjectCompleteDesc());
+
+        //Make list of skills and mySkills is the skills added by user
+        final ArrayList<String> skills = new ArrayList<>(StaticValues.getAllSkills());
+        final ArrayList<Integer> mySkills = new ArrayList<>(currProject.getSkills());
+
+        final SkillFlexAdapter skillAdapter = new SkillFlexAdapter(mySkills);
+
+        Collections.sort(mySkills, Collections.<Integer>reverseOrder());
+
+        for(int i : mySkills){
+            skills.remove(i);
+        }
+
+
+        FlexboxLayoutManager flexboxLayoutManager = new FlexboxLayoutManager(getContext());
+        // Set flex direction.
+        flexboxLayoutManager.setFlexDirection(FlexDirection.ROW);
+
+        skillView.setLayoutManager(flexboxLayoutManager);
+
+        skillView.setAdapter(skillAdapter);
+
+
+
+        addSkill.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createAllSkillsDialog(skillAdapter ,skills, mySkills).show();
+            }
+        });
+
+
+        //Adding positive and negative buttons
+        builder.setPositiveButton(getString(R.string.add_project_dialog_save_btn), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+               String projectName = nameEditText.getText().toString();
+               String shortDesc = shortDescription.getText().toString();
+               String desc = description.getText().toString();
+
+               currProject.setProjectName(projectName);
+               currProject.setProjectShortDesc(shortDesc);
+               currProject.setProjectCompleteDesc(desc);
+               currProject.setSkills(mySkills);
+               mProjectAdapter.notifyDataSetChanged();
+            }
+
+        }).setNegativeButton(getString(R.string.add_project_dialog_cancel_btn), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+
+        }).setNeutralButton("Delete", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                mProjects.remove(currProject);
+                mProjectAdapter.notifyDataSetChanged();
+            }
+        });
+
+
+        return builder.create();
+    }
+
+    private void displayToast(String message){
+        if(mToast==null){
+            mToast = Toast.makeText(getContext(), message, Toast.LENGTH_SHORT);
+            mToast.show();
+        }else{
+            mToast.setText(message);
+            mToast.show();
+        }
+
+    }
 }

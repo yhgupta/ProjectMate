@@ -15,9 +15,10 @@ public class ProjectMateUris {
                 .authority(ProjectMateAPIContract.SERVER_URL)
                 .appendPath(ProjectMateAPIContract.API_PATH)
         .appendPath(ProjectMateAPIContract.USERS_PATH)
-        .appendPath(ProjectMateAPIContract.CURRENT_USER_PATH);
+        .appendPath(ProjectMateAPIContract.CURRENT_USER_PATH)
+        .appendPath("");
 
-        return builder.build().toString()+"/";
+        return builder.build().toString();
     }
 
     //Projects having skills in me projects/<int:offset>/
@@ -27,7 +28,8 @@ public class ProjectMateUris {
                 .authority(ProjectMateAPIContract.SERVER_URL)
                 .appendPath(ProjectMateAPIContract.API_PATH)
                 .appendPath(ProjectMateAPIContract.PROJECTS_PATH)
-                .appendPath(String.valueOf(offset));
+                .appendPath(String.valueOf(offset))
+                .appendPath("");
 
         return builder.build().toString();
     }
@@ -40,7 +42,8 @@ public class ProjectMateUris {
                 .appendPath(ProjectMateAPIContract.API_PATH)
                 .appendPath(ProjectMateAPIContract.PROJECTS_PATH)
                 .appendPath(ProjectMateAPIContract.All_PROJECTS_PATH)
-                .appendPath(String.valueOf(offset));
+                .appendPath(String.valueOf(offset))
+                .appendPath("");
 
         return builder.build().toString();
     }
@@ -53,7 +56,8 @@ public class ProjectMateUris {
                 .appendPath(ProjectMateAPIContract.API_PATH)
                 .appendPath(ProjectMateAPIContract.PROJECTS_PATH)
                 .appendPath(ProjectMateAPIContract.GET_PROJECTS_PATH)
-                .appendPath(String.valueOf(project_id));
+                .appendPath(String.valueOf(project_id))
+                .appendPath("");
 
         return builder.build().toString();
     }
@@ -67,7 +71,8 @@ public class ProjectMateUris {
                 .appendPath(ProjectMateAPIContract.USERS_PATH)
                 .appendPath(ProjectMateAPIContract.ALL_USERS_PATH)
                 .appendPath(String.valueOf(project_id))
-                .appendPath(String.valueOf(offset));
+                .appendPath(String.valueOf(offset))
+                .appendPath("");
 
         return builder.build().toString();
     }
@@ -80,7 +85,8 @@ public class ProjectMateUris {
                 .appendPath(ProjectMateAPIContract.API_PATH)
                 .appendPath(ProjectMateAPIContract.USERS_PATH)
                 .appendPath(ProjectMateAPIContract.GET_USER_PATH)
-                .appendPath(String.valueOf(user_id));
+                .appendPath(String.valueOf(user_id))
+                .appendPath("");
 
         return builder.build().toString();
     }
@@ -95,7 +101,8 @@ public class ProjectMateUris {
                 .appendPath(ProjectMateAPIContract.GET_PROJECTS_PATH)
                 .appendPath(String.valueOf(project_id))
                 .appendPath(ProjectMateAPIContract.INVITE_PROJECTS_PATH)
-                .appendPath(String.valueOf(user_id));
+                .appendPath(String.valueOf(user_id))
+                .appendPath("");
 
         return builder.build().toString();
     }
@@ -109,7 +116,8 @@ public class ProjectMateUris {
                 .appendPath(ProjectMateAPIContract.PROJECTS_PATH)
                 .appendPath(ProjectMateAPIContract.GET_PROJECTS_PATH)
                 .appendPath(String.valueOf(project_id))
-                .appendPath(ProjectMateAPIContract.JOIN_PROJECTS_PATH);
+                .appendPath(ProjectMateAPIContract.JOIN_PROJECTS_PATH)
+                .appendPath("");
 
         return builder.build().toString();
     }
@@ -122,7 +130,8 @@ public class ProjectMateUris {
                 .appendPath(ProjectMateAPIContract.API_PATH)
                 .appendPath(ProjectMateAPIContract.ACTIVITIES_PATH)
                 .appendPath(ProjectMateAPIContract.GET_ACTIVITIES_PATH)
-                .appendPath(String.valueOf(offset));
+                .appendPath(String.valueOf(offset))
+                .appendPath("");
 
         return builder.build().toString();
     }
@@ -136,7 +145,8 @@ public class ProjectMateUris {
                 .appendPath(ProjectMateAPIContract.ACTIVITIES_PATH)
                 .appendPath(ProjectMateAPIContract.REPLY_ACTIVITIES_PATH)
                 .appendPath(String.valueOf(activity_id))
-                .appendPath(String.valueOf(reply));
+                .appendPath(String.valueOf(reply))
+                .appendPath("");
 
         return builder.build().toString();
     }
@@ -149,7 +159,8 @@ public class ProjectMateUris {
                 .authority(ProjectMateAPIContract.SERVER_URL)
                 .appendPath(ProjectMateAPIContract.API_PATH)
                 .appendPath(ProjectMateAPIContract.CHATS_PATH)
-                .appendPath(ProjectMateAPIContract.All_CHATS_PATH);
+                .appendPath(ProjectMateAPIContract.All_CHATS_PATH)
+                .appendPath("");
 
         return builder.build().toString();
     }
@@ -163,7 +174,8 @@ public class ProjectMateUris {
                 .appendPath(ProjectMateAPIContract.CHATS_PATH)
                 .appendPath(ProjectMateAPIContract.GET_CHATS_PATH)
                 .appendPath(String.valueOf(user_id))
-                .appendPath(String.valueOf(offset));
+                .appendPath(String.valueOf(offset))
+                .appendPath("");
 
         return builder.build().toString();
     }
