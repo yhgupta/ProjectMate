@@ -2,11 +2,52 @@
 <resources>
 
     <array name="skillsArray">
-        <item>Android</item>
+        <item>.NET</item>
+        <item>AJAX</item>
+        <item>ASP</item>
+        <item>ASP</item>
+        <item>Android Development</item>
+        <item>AngularJS</item>
+        <item>Arduino</item>
+        <item>Assembly</item>
+        <item>BlockChain</item>
+        <item>BootStrap</item>
+        <item>C</item>
+        <item>C#</item>
+        <item>C++</item>
+        <item>CSS</item>
+        <item>Cloud Computing</item>
+        <item>Computing</item>
+        <item>DataBase</item>
+        <item>Deep Learning</item>
+        <item>Django</item>
+        <item>Fortran</item>
+        <item>Go</item>
+        <item>HTML</item>
+        <item>JSON</item>
         <item>Java</item>
-        <item>Web</item>
-        <item>None</item>
-        <item>IDK</item>
+        <item>JavaScript</item>
+        <item>Language</item>
+        <item>MATLAB</item>
+        <item>Machine Learning</item>
+        <item>MongoDB</item>
+        <item>MySQL</item>
+        <item>Node.js</item>
+        <item>PHP</item>
+        <item>PHP</item>
+        <item>Pascal</item>
+        <item>Perl</item>
+        <item>PostgreSQL</item>
+        <item>Python</item>
+        <item>R</item>
+        <item>Raspberry Pi</item>
+        <item>React.js</item>
+        <item>Ruby</item>
+        <item>SQL</item>
+        <item>Swift</item>
+        <item>Visual</item>
+        <item>Web Development</item>
+        <item>XQuery</item>
     </array>
 
 

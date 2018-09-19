@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/view_project_HARDCODE_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -19,7 +19,7 @@
         app:layout_constraintTop_toBottomOf="@+id/dialog_addskill_short_desc" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/view_project_project_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -33,7 +33,7 @@
 
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/view_project_HARDCODE_short_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -61,7 +61,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/view_project_HARDCODE_project_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -81,7 +81,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toStartOf="@+id/dialog_addskill_btn_choose"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/view_project_HARDCODE_project_name" />
 
     <RatingBar
         android:id="@+id/dialog_addskill_rating"
@@ -96,7 +96,7 @@
         android:stepSize="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/view_project_project_name" />
 
     <EditText
         android:id="@+id/dialog_addskill_short_desc"
@@ -109,7 +109,7 @@
         android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintTop_toBottomOf="@+id/view_project_HARDCODE_short_desc" />
 
     <EditText
         android:id="@+id/dialog_addskill_courses_taken"
@@ -122,7 +122,7 @@
         android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+        app:layout_constraintTop_toBottomOf="@+id/view_project_HARDCODE_desc" />
 
     <Button
         android:id="@+id/dialog_addskill_btn_choose"
