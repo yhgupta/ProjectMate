@@ -51,6 +51,8 @@ public class HomeFragment extends Fragment {
     private boolean animationDone = false;
     private boolean moreItemsPresent = true;
 
+    private boolean loading = false;
+
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -91,6 +93,8 @@ public class HomeFragment extends Fragment {
                     if(projects.isEmpty()) moreItemsPresent = false;
                     else mProjects.addAll(projects);
 
+                    loading = false;
+
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -125,8 +129,10 @@ public class HomeFragment extends Fragment {
             @Override
             public void onLoadMore() {
                 if(!moreItemsPresent){
+                    mProjectAdapter.setLoaded();
                     return;
                 }
+                if(loading) return;
                 OkHttpRequests requests = new OkHttpRequests();
                 String url = ProjectMateUris.getProjectsForMe(mProjects.size());
                 String authId = StaticValues.getCodeChefAuthKey();

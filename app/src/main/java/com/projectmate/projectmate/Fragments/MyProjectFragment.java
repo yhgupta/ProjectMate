@@ -124,7 +124,7 @@ public class MyProjectFragment extends Fragment {
             public void onResponse(Call call, Response response) throws IOException {
 
                 if(response.isSuccessful()){
-                    String jsonData = response.body().string();
+                    final String jsonData = response.body().string();
                     Gson gson = new Gson();
 
                     TypeToken<ArrayList<Project>> token = new TypeToken<ArrayList<Project>>() {};
@@ -143,6 +143,7 @@ public class MyProjectFragment extends Fragment {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            Log.v("JOSN", jsonData);
                             if(!projects.isEmpty()) mProjectAdapter
                                     .notifyItemRangeChanged(
                                             mProjects.size() - projects.size(),
