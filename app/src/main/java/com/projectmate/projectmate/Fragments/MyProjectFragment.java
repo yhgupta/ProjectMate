@@ -98,7 +98,7 @@ public class MyProjectFragment extends Fragment {
             }
         });
 
-        mProjectAdapter = new ProjectAdapter(StaticValues.getCurrentUser().getProjects(), getContext(), new RecyclerViewClickListener() {
+        mProjectAdapter = new ProjectAdapter(mProjects, getContext(), new RecyclerViewClickListener() {
             @Override
             public void onClick(View view, int position) {
 

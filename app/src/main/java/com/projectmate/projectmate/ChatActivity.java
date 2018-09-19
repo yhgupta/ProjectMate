@@ -13,6 +13,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private int user_id = 1;
 
+    //Callback of response from server
     Callback callback = new Callback() {
         @Override
         public void onFailure(Call call, IOException e) {
