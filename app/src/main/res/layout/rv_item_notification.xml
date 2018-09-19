@@ -1,5 +1,5 @@
 <LinearLayout
-    android:id="@+id/accept_card_view"
+    android:id="@+id/notification_card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"

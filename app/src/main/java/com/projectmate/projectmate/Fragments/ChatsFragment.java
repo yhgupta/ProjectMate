@@ -40,7 +40,7 @@ public class ChatsFragment extends Fragment {
         chat.add(new Chat("Fox","Kill Me") );
         chat.add(new Chat("Fox","Kill Me") );
 
-        ChatAdapter adapter = new ChatAdapter(chat);
+        ChatAdapter adapter = new ChatAdapter(chat );
         RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext());
         RecyclerView recyclerView = rootView.findViewById(R.id.chat_fragment_rv);
         recyclerView.setLayoutManager(manager);

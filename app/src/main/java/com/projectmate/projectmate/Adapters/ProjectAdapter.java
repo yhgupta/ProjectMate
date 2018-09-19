@@ -85,7 +85,6 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectV
             tvProjectShortDesc = itemView.findViewById(R.id.tv_short_desc);
             rvSkillsView = itemView.findViewById(R.id.rv_my_skills);
             mListener = listener;
-
             rootView.setOnClickListener(this);
         }
 
