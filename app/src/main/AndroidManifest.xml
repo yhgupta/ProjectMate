@@ -32,7 +32,7 @@
             android:theme="@style/BrowserTheme" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".ChatActivity" />
-        <activity android:name=".DisplayProjectActivity"></activity>
+        <activity android:name=".DisplayProjectActivity" />
     </application>
 
 </manifest>

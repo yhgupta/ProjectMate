@@ -58,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         mRotateLoading = findViewById(R.id.rotateloading);
 
         mRotateLoading.start();

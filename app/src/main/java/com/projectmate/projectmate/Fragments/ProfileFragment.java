@@ -28,10 +28,13 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.flexbox.FlexDirection;
+import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.gson.Gson;
 import com.projectmate.projectmate.Adapters.ProjectAdapter;
 import com.projectmate.projectmate.Adapters.RecyclerViewClickListener;
 import com.projectmate.projectmate.Adapters.SkillAdapter;
+import com.projectmate.projectmate.Adapters.SkillFlexAdapter;
 import com.projectmate.projectmate.AlibabaCloud.OkHttpRequests;
 import com.projectmate.projectmate.AlibabaCloud.ProjectMateUris;
 import com.projectmate.projectmate.Classes.Project;
@@ -43,6 +46,7 @@ import com.projectmate.projectmate.R;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -75,6 +79,7 @@ public class ProfileFragment extends Fragment {
     private SkillAdapter mSkillAdapter;
 
     private ProjectAdapter mProjectAdapter;
+    private ArrayList<Project> mProjects;
 
 
 
@@ -169,7 +174,7 @@ public class ProfileFragment extends Fragment {
         RecyclerViewClickListener listener = new RecyclerViewClickListener() {
             @Override
             public void onClick(View view, int position) {
-                editAllProjectsDialog();
+                createEditProjectDialog(position).show();
             }
         };
         mProjectAdapter = new ProjectAdapter(mUser.getProjects(), getContext(), listener);
@@ -639,36 +644,64 @@ public class ProfileFragment extends Fragment {
 
     }
 
-
-
-    private Dialog editAllProjectsDialog(  ){
+    private Dialog createEditProjectDialog(int position){
+        //Create a new AlertDialog Builder
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        LayoutInflater inflater = getLayoutInflater();
+
+        //Get Layout Inflater
+        LayoutInflater inflater = this.getLayoutInflater();
+
+        //Get the root view using Layout Inflater
         final View view = inflater.inflate(R.layout.dialog_add_project, null);
+
 
         //Set the root view as Dialogs Layout
         builder.setView(view);
 
+        //Find Recycler View of list of skills
+        final RecyclerView skillView = view.findViewById(R.id.dialog_add_project_rv);
 
         //Find add skill button
         TextView addSkill = view.findViewById(R.id.dialog_addproject_add_skill);
 
-        //Find Recycler View of list of skills
-        RecyclerView skillView = view.findViewById(R.id.dialog_add_project_rv);
+        //Finding and filling all the views
+        final EditText nameEditText = view.findViewById(R.id.dialog_addproject_et_name);
+        final EditText shortDescription = view.findViewById(R.id.dialog_addproject_short_desc);
+        final EditText description = view.findViewById(R.id.dialog_addproject_complete_desc);
+
+        final Project currProject = mProjects.get(position);
+
+        nameEditText.setText(currProject.getProjectName());
+        shortDescription.setText(currProject.getProjectShortDesc());
+        description.setText(currProject.getProjectCompleteDesc());
 
         //Make list of skills and mySkills is the skills added by user
-        final ArrayList<Skill> skills = new ArrayList<>(mUser.getSkills());
-        final ArrayList<Skill> mySkills = new ArrayList<>();
+        final ArrayList<String> skills = new ArrayList<>(StaticValues.getAllSkills());
+        final ArrayList<Integer> mySkills = new ArrayList<>(currProject.getSkills());
 
-        //Configuring the recycler view
-        final SkillAdapter skillAdapter = new SkillAdapter(mySkills);
-        skillView.setLayoutManager(new LinearLayoutManager(getContext()));
+        final SkillFlexAdapter skillAdapter = new SkillFlexAdapter(mySkills);
+
+        Collections.sort(mySkills, Collections.<Integer>reverseOrder());
+
+        for(int i : mySkills){
+            skills.remove(i);
+        }
+
+
+        FlexboxLayoutManager flexboxLayoutManager = new FlexboxLayoutManager(getContext());
+        // Set flex direction.
+        flexboxLayoutManager.setFlexDirection(FlexDirection.ROW);
+
+        skillView.setLayoutManager(flexboxLayoutManager);
+
         skillView.setAdapter(skillAdapter);
+
+
 
         addSkill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createAllSkillsProjectDialog(skillAdapter, skills, mySkills).show();
+                createAllProjectsDialog(skillAdapter ,skills, mySkills).show();
             }
         });
 
@@ -677,12 +710,15 @@ public class ProfileFragment extends Fragment {
         builder.setPositiveButton(getString(R.string.add_project_dialog_save_btn), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if(addProject(view, mySkills)){
-                    dialog.dismiss();
-                }else{
-                    displayToast("Invalid");
-                    dialog.dismiss();
-                }
+                String projectName = nameEditText.getText().toString();
+                String shortDesc = shortDescription.getText().toString();
+                String desc = description.getText().toString();
+
+                currProject.setProjectName(projectName);
+                currProject.setProjectShortDesc(shortDesc);
+                currProject.setProjectCompleteDesc(desc);
+                currProject.setSkills(mySkills);
+                mProjectAdapter.notifyDataSetChanged();
             }
 
         }).setNegativeButton(getString(R.string.add_project_dialog_cancel_btn), new DialogInterface.OnClickListener() {
@@ -691,9 +727,67 @@ public class ProfileFragment extends Fragment {
                 dialog.dismiss();
             }
 
+        }).setNeutralButton("Delete", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                mProjects.remove(currProject);
+                mProjectAdapter.notifyDataSetChanged();
+            }
         });
 
+
         return builder.create();
+
+    }
+
+    private Dialog createAllProjectsDialog(final SkillFlexAdapter skillAdapter, final ArrayList<String> allSkills, final ArrayList<Integer> mySkills){
+
+        //Create new dialog and get inflater
+        AlertDialog.Builder listDialog = new AlertDialog.Builder(getContext());
+        LayoutInflater inflater = getLayoutInflater();
+
+        View view = inflater.inflate(R.layout.dialog_list_skills, null);
+
+        listDialog.setTitle("Select Skill");
+        listDialog.setView(view);
+
+        ListView listView = view.findViewById(R.id.listView);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, allSkills);
+        listView.setAdapter(adapter);
+
+        android.support.v7.widget.SearchView searchView = view.findViewById(R.id.search_view);
+        searchView.setOnQueryTextListener(new android.support.v7.widget.SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return true;
+            }
+        });
+
+
+
+        final Dialog dialog = listDialog.create();
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String skillName = allSkills.get(position);
+                int skillId = StaticValues.getAllSkills().indexOf(skillName);
+
+                mySkills.add(skillId);
+                allSkills.remove(position);
+
+                skillAdapter.notifyDataSetChanged();
+                dialog.dismiss();
+            }
+        });
+
+        return dialog;
 
     }
 
