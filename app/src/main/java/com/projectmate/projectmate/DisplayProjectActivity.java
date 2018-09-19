@@ -19,7 +19,8 @@ public class DisplayProjectActivity extends AppCompatActivity {
 
     private ProgressBar progressBar;
     private ConstraintLayout constraintLayout;
-    private Project mProject ;
+
+    private Project mProject = new Project(1,"Name","Yash","Gupta",new ArrayList<Integer>()) ;
 
 
     @Override

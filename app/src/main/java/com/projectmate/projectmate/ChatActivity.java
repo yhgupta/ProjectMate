@@ -37,8 +37,6 @@ public class ChatActivity extends AppCompatActivity {
 
                 TypeToken<ArrayList<Message>> token = new TypeToken<ArrayList<Message>>() {};
                 ArrayList<Message> messages = gson.fromJson(jsonData, token.getType());
-
-
             }
         }
     };
