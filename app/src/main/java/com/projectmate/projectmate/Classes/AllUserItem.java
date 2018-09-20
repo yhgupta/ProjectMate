@@ -7,27 +7,22 @@ public class AllUserItem {
     private String userName;
     private ArrayList<Integer> listx ;
 
-    public int getUserID() {
-        return userID;
+    public AllUserItem( int userID, String userName , ArrayList<Integer> listx ){
+        this.userID = userID;
+        this.userName = userName;
+        this.listx = listx;
     }
 
-    public void setUserID(int userID) {
-        this.userID = userID;
-    }
+    public int getUserID() { return userID; }
 
     public String getUserName() {
         return userName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
 
     public ArrayList<Integer> getListx() {
         return listx;
     }
 
-    public void setListx(ArrayList<Integer> listx) {
-        this.listx = listx;
-    }
+
 }

@@ -25,168 +25,177 @@
                 tools:context=".ProfileActivity">
 
                 <TextView
-                    android:id="@+id/activity_profile_et_country"
+                    android:id="@+id/activity_all_users_et_country"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="27dp"
                     android:layout_marginEnd="8dp"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="16dp"
                     android:ems="10"
                     android:inputType="textCapWords|textPersonName"
+                    android:paddingBottom="5dp"
+                    android:textSize="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/activity_profile_tv_country" />
+                    app:layout_constraintTop_toBottomOf="@+id/activity_all_users_tv_country" />
 
                 <TextView
-                    android:id="@+id/activity_profile_tv_country"
+                    android:id="@+id/activity_all_users_tv_country"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:fontFamily="sans-serif-condensed"
-                    android:text="@string/activity_profile_country"
-                    android:textSize="16sp"
+                    android:text="@string/country"
+                    android:textSize="20dp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/activity_profile_et_city" />
+                    app:layout_constraintTop_toBottomOf="@+id/activity_all_users_et_city" />
 
                 <!--CITY-->
                 <TextView
-                    android:id="@+id/activity_profile_tv_city"
+                    android:id="@+id/activity_all_users_tv_city"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:fontFamily="sans-serif-condensed"
-                    android:text="@string/activity_profile_city"
-                    android:textSize="16sp"
+                    android:text="City"
+                    android:textSize="20dp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/activity_profile_et_organization" />
+                    app:layout_constraintTop_toBottomOf="@+id/activity_all_users_et_organization" />
 
                 <TextView
-                    android:id="@+id/activity_profile_et_city"
+                    android:id="@+id/activity_all_users_et_city"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="27dp"
                     android:layout_marginEnd="8dp"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="16dp"
                     android:ems="10"
                     android:inputType="textCapWords|textPersonName"
+                    android:paddingBottom="5dp"
+                    android:textSize="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/activity_profile_tv_city" />
+                    app:layout_constraintTop_toBottomOf="@+id/activity_all_users_tv_city" />
 
                 <!--ORGANIZATION-->
                 <TextView
-                    android:id="@+id/activity_profile_tv_organization"
+                    android:id="@+id/activity_all_users_tv_organization"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:fontFamily="sans-serif-condensed"
-                    android:text="@string/activity_profile_organization"
-                    android:textSize="16sp"
+                    android:text="Organisation"
+                    android:textSize="16dp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/activity_profile_et_full_name" />
+                    app:layout_constraintTop_toBottomOf="@+id/activity_all_users_et_full_name" />
 
                 <TextView
-                    android:id="@+id/activity_profile_et_organization"
+                    android:id="@+id/activity_all_users_et_organization"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="27dp"
                     android:layout_marginEnd="8dp"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="16dp"
                     android:ems="10"
+                    android:textSize="16dp"
                     android:inputType="textCapWords|textPersonName"
+                    android:paddingBottom="5dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/activity_profile_tv_organization" />
+                    app:layout_constraintTop_toBottomOf="@+id/activity_all_users_tv_organization" />
 
                 <TextView
-                    android:id="@+id/activity_profile_tv_HARDCODE_projects"
+                    android:id="@+id/activity_all_users_tv_HARDCODE_projects"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:fontFamily="sans-serif-condensed"
-                    android:text="@string/activity_profile_projects"
-                    android:textSize="24sp"
+                    android:text="Projects"
+                    android:textSize="20dp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/activity_profile_rv_skills" />
+                    app:layout_constraintTop_toBottomOf="@+id/activity_all_users_rv_skills" />
 
 
                 <TextView
-                    android:id="@+id/activity_profile_tv_HARDCODE_skills"
+                    android:id="@+id/activity_all_users_tv_HARDCODE_skills"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:fontFamily="sans-serif-condensed"
-                    android:text="@string/activity_profile_skills"
-                    android:textSize="24sp"
+                    android:text="Skills"
+                    android:textSize="20dp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/activity_profile_et_country" />
+                    app:layout_constraintTop_toBottomOf="@+id/activity_all_users_et_country" />
 
                 <!--FULL_NAME-->
                 <TextView
-                    android:id="@+id/activity_profile_tv_full_name"
+                    android:id="@+id/activity_all_users_tv_full_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:fontFamily="sans-serif-condensed"
-                    android:text="@string/activity_profile_full_name"
-                    android:textSize="16sp"
+                    android:text="Name"
+                    android:textSize="20dp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/activity_profile_et_full_name"
+                    android:id="@+id/activity_all_users_et_full_name"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="27dp"
                     android:layout_marginEnd="8dp"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="16dp"
                     android:ems="10"
                     android:inputType="textCapWords|textPersonName"
+                    android:paddingBottom="5dp"
+                    android:textSize="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/activity_profile_tv_full_name" />
+                    app:layout_constraintTop_toBottomOf="@+id/activity_all_users_tv_full_name" />
 
 
 
                 <!--HEADING SKILLS-->
 
 
-
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/activity_profile_rv_skills"
+                    android:id="@+id/activity_all_users_rv_skills"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/activity_profile_tv_HARDCODE_skills" />
+                    app:layout_constraintTop_toBottomOf="@+id/activity_all_users_tv_HARDCODE_skills"
+                    tools:padding="5dp" />
 
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/activity_profile_rv_projects"
+                    android:id="@+id/activity_all_users_rv_projects"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/activity_profile_tv_HARDCODE_projects" />
+                    app:layout_constraintTop_toBottomOf="@+id/activity_all_users_tv_HARDCODE_projects"
+                    tools:padding="5dp" />
 
 
             </android.support.constraint.ConstraintLayout>
@@ -195,7 +204,7 @@
 
         <!--BUTTONS-->
         <android.support.v7.widget.CardView
-            android:id="@+id/profile_btn_save"
+            android:id="@+id/all_users_btn_save"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"

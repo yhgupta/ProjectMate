@@ -210,4 +210,6 @@ public class HomeFragment extends Fragment {
         frameLayout.startAnimation(fadeOut);
         linearLayout.startAnimation(fadeIn);
     }
+
+
 }

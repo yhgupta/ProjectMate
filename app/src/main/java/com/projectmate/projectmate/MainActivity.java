@@ -24,6 +24,7 @@ import com.google.gson.Gson;
 import com.projectmate.projectmate.AlibabaCloud.OkHttpRequests;
 import com.projectmate.projectmate.AlibabaCloud.ProjectMateAPIContract;
 import com.projectmate.projectmate.AlibabaCloud.ProjectMateUris;
+import com.projectmate.projectmate.Classes.AllUserItem;
 import com.projectmate.projectmate.Classes.User;
 import com.projectmate.projectmate.Database.DatabaseContract;
 import com.projectmate.projectmate.Database.StaticValues;
@@ -57,6 +58,13 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if(true){
+            Intent intent = new Intent(MainActivity.this, AllUsersActivity.class);
+            startActivity(intent);
+            finish();
+            return;
+        }
 
         mRotateLoading = findViewById(R.id.rotateloading);
 
