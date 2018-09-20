@@ -30,20 +30,17 @@ public class AllUsersActivity extends AppCompatActivity {
 
     private LinearLayout linearLayout;
     private ArrayList<AllUserItem> allUserItems;
-    private User mUser = new User(1,"yash","MANIT","Khargone","India"
-            ,"yhgupta",1509, new ArrayList<Skill>(), new ArrayList<Project>()) ;
+    private User mUser;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mUser.getSkills().add(new Skill(1,"Fox"));
-        mUser.getSkills().add(new Skill(2,"Kill the Fox"));
-
         setContentView(R.layout.activity_all_users);
         linearLayout = findViewById(R.id.all_user_display_activity);
-        displayUser();
+
+
     }
 
     public void displayUser(){

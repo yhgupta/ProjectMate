@@ -59,13 +59,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if( true ){
-            Intent intent = new Intent(MainActivity.this,AllUsersActivity.class);
-            startActivity(intent);
-            finish();
-            return;
-        }
-
         mRotateLoading = findViewById(R.id.rotateloading);
 
         mRotateLoading.start();

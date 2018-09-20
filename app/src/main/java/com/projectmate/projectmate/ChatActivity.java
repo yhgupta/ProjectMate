@@ -81,7 +81,7 @@ public class ChatActivity extends AppCompatActivity {
 
                     TypeToken<ArrayList<Message>> token = new TypeToken<ArrayList<Message>>() {};
                     ArrayList<Message> messages = gson.fromJson(jsonData, token.getType());
-
+                    mMessages.clear();
                     mMessages.addAll(messages);
 
                     ChatActivity.this.runOnUiThread(new Runnable() {
@@ -98,6 +98,9 @@ public class ChatActivity extends AppCompatActivity {
 
         mRecyclerView.setAdapter(mMessageAdapter);
 
+        mRecyclerView.setNestedScrollingEnabled(false);
+        mRecyclerView.setHasFixedSize(true);
+
         Timer timer = new Timer();
 
         TimerTask timerTask = new TimerTask() {
@@ -112,7 +115,6 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void reload(){
-        mMessages.clear();
         OkHttpRequests requests = new OkHttpRequests();
         String url = ProjectMateUris.GetChat(mUserId, 0);
         requests.performGetRequest(url, mCallback, StaticValues.getCodeChefAuthKey());
