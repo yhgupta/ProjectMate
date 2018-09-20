@@ -33,7 +33,7 @@
         <activity android:name=".ProfileActivity" />
         <activity android:name=".ChatActivity" />
         <activity android:name=".DisplayProjectActivity"/>
-        <activity android:name=".AllUsersActivity"/>
+        <activity android:name=".DisplayUserActivity"/>
         
     </application>
 

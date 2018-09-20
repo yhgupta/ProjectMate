@@ -8,8 +8,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -36,7 +34,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public class AllUsersActivity extends AppCompatActivity {
+public class DisplayUserActivity extends AppCompatActivity {
 
     private LinearLayout linearLayout;
     private ArrayList<AllUserItem> allUserItems;
@@ -48,7 +46,7 @@ public class AllUsersActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_all_users);
+        setContentView(R.layout.activity_display_user);
         linearLayout = findViewById(R.id.all_user_display_activity);
 
         mUserId = getIntent().getIntExtra("USER_ID", 0);
@@ -68,7 +66,7 @@ public class AllUsersActivity extends AppCompatActivity {
 
                     mUser = gson.fromJson(jsonData, User.class);
 
-                    AllUsersActivity.this.runOnUiThread(new Runnable() {
+                    DisplayUserActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             displayUser();
