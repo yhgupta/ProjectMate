@@ -61,6 +61,17 @@ public class DisplayProjectActivity extends AppCompatActivity {
         mSaveBtnText = findViewById(R.id.profile_btn_text);
         mSaveBtnProgress = findViewById(R.id.profile_btn_progress);
 
+        mSaveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!mSaveBtnClicked){
+                    joinProject();
+                    mSaveBtnClicked=true;
+                }
+
+            }
+        });
+
 
         mCallback = new Callback() {
             @Override
