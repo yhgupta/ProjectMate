@@ -70,6 +70,7 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectV
     }
 
     static class ProjectViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
         LinearLayout rootView;
         TextView tvProjectName;
         TextView tvProjectShortDesc;

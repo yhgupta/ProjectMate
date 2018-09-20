@@ -30,11 +30,17 @@ public class AllUsersActivity extends AppCompatActivity {
 
     private LinearLayout linearLayout;
     private ArrayList<AllUserItem> allUserItems;
-    private User mUser ;
+    private User mUser = new User(1,"yash","MANIT","Khargone","India"
+            ,"yhgupta",1509, new ArrayList<Skill>(), new ArrayList<Project>()) ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mUser.getSkills().add(new Skill(1,"Fox"));
+        mUser.getSkills().add(new Skill(2,"Kill the Fox"));
+
         setContentView(R.layout.activity_all_users);
         linearLayout = findViewById(R.id.all_user_display_activity);
         displayUser();
@@ -110,16 +116,15 @@ public class AllUsersActivity extends AppCompatActivity {
 
         LayoutInflater inflater = this.getLayoutInflater();
 
-        final View view = inflater.inflate(R.layout.dialog_add_skill, null);
+        final View rootView = inflater.inflate(R.layout.dialog_add_skill_on_touch, null);
 
-        builder.setView(view);
+        builder.setView(rootView);
 
-        Button btn = findViewById(R.id.dialog_addskill_btn_choose);
-        btn.setVisibility(View.GONE);
-        TextView skillName = findViewById(R.id.dialog_addskill_et_name);
-        RatingBar skillRating = findViewById(R.id.dialog_addskill_rating);
-        TextView skillShortDesc = findViewById(R.id.dialog_addskill_short_desc);
-        TextView skillCoursesTaken = findViewById(R.id.dialog_addskill_courses_taken);
+        TextView skillName = rootView.findViewById(R.id.dialog_addskill_et_name);
+        RatingBar skillRating = rootView.findViewById(R.id.dialog_addskill_rating);
+        skillRating.setEnabled(false);
+        TextView skillShortDesc = rootView.findViewById(R.id.dialog_addskill_short_desc);
+        TextView skillCoursesTaken = rootView.findViewById(R.id.dialog_addskill_courses_taken);
 
         skillName.setText(mUser.getSkills().get(position).getSkillName());
         skillRating.setRating(mUser.getSkills().get(position).getSkillRating());

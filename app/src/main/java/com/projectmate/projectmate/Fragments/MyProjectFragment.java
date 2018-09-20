@@ -131,7 +131,7 @@ public class MyProjectFragment extends Fragment {
                     final ArrayList<Project> projects = gson.fromJson(jsonData, token.getType());
 
 
-                    mProjects.remove(mProjects.size() - 1);
+                    //mProjects.remove(mProjects.size() - 1);
                     mProjectAdapter.setLoaded();
 
                     if(projects.isEmpty()) moreItemsPresent = false;
@@ -174,7 +174,7 @@ public class MyProjectFragment extends Fragment {
                 OkHttpRequests requests = new OkHttpRequests();
                 String url = ProjectMateUris.getAllProjects(mProjects.size());
 
-                mProjects.add(null);
+                //mProjects.add(null);
                 loading = true;
                 mProjectsRv.post(new Runnable() {
                     @Override
@@ -191,11 +191,12 @@ public class MyProjectFragment extends Fragment {
 
         mProjectsRv = rootView.findViewById(R.id.my_projects_recycler_view);
         mProjectsRv.setLayoutManager(new LinearLayoutManager(getContext()));
-        mProjectsRv.setHasFixedSize(true);
+        //mProjectsRv.setHasFixedSize(true);
 
         mProjectAdapter = new MyProjectAdapter(mProjects, mProjectsRv,
                 getContext(), mItemClickListener, mLoadMoreListener, true);
 
+        mProjects.clear();
         mProjectsRv.setAdapter(mProjectAdapter);
 
         mLoadMoreListener.onLoadMore();
