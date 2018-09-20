@@ -428,6 +428,7 @@ public class MyProjectFragment extends Fragment {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if(response.isSuccessful()){
+                    saveSuccess();
                     reloadAll();
                 }
             }
@@ -614,14 +615,20 @@ public class MyProjectFragment extends Fragment {
         return builder.create();
     }
 
-    private void displayToast(String message){
-        if(mToast==null){
-            mToast = Toast.makeText(getContext(), message, Toast.LENGTH_SHORT);
-            mToast.show();
-        }else{
-            mToast.setText(message);
-            mToast.show();
-        }
+    private void displayToast(final String message){
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if(mToast==null){
+                    mToast = Toast.makeText(getContext(), message, Toast.LENGTH_SHORT);
+                    mToast.show();
+                }else{
+                    mToast.setText(message);
+                    mToast.show();
+                }
+            }
+        });
+
 
     }
 }
