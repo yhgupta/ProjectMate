@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
@@ -15,16 +16,25 @@ import android.widget.TextView;
 
 import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexboxLayoutManager;
+import com.google.gson.Gson;
 import com.projectmate.projectmate.Adapters.ProjectAdapter;
 import com.projectmate.projectmate.Adapters.RecyclerViewClickListener;
 import com.projectmate.projectmate.Adapters.SkillAdapter;
 import com.projectmate.projectmate.Adapters.SkillFlexAdapter;
+import com.projectmate.projectmate.AlibabaCloud.OkHttpRequests;
+import com.projectmate.projectmate.AlibabaCloud.ProjectMateUris;
 import com.projectmate.projectmate.Classes.AllUserItem;
 import com.projectmate.projectmate.Classes.Project;
 import com.projectmate.projectmate.Classes.Skill;
 import com.projectmate.projectmate.Classes.User;
+import com.projectmate.projectmate.Database.StaticValues;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class AllUsersActivity extends AppCompatActivity {
 
@@ -32,6 +42,7 @@ public class AllUsersActivity extends AppCompatActivity {
     private ArrayList<AllUserItem> allUserItems;
     private User mUser;
 
+    private int mUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +51,36 @@ public class AllUsersActivity extends AppCompatActivity {
         setContentView(R.layout.activity_all_users);
         linearLayout = findViewById(R.id.all_user_display_activity);
 
+        mUserId = getIntent().getIntExtra("USER_ID", 0);
 
+        Callback callback = new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if(response.isSuccessful()){
+                    String jsonData = response.body().string();
+
+                    Gson gson = new Gson();
+
+                    mUser = gson.fromJson(jsonData, User.class);
+
+                    AllUsersActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            displayUser();
+                        }
+                    });
+                }
+            }
+        };
+
+        OkHttpRequests requests = new OkHttpRequests();
+        String url = ProjectMateUris.getUser(mUserId);
+        requests.performGetRequest(url, callback, StaticValues.getCodeChefAuthKey());
     }
 
     public void displayUser(){
