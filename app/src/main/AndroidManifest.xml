@@ -32,9 +32,9 @@
             android:theme="@style/BrowserTheme" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".ChatActivity" />
-        <activity android:name=".DisplayProjectActivity"/>
-        <activity android:name=".AllUsersActivity"/>
-        
+        <activity android:name=".DisplayProjectActivity" />
+        <activity android:name=".AllUsersActivity" />
+        <activity android:name=".testActivity"></activity>
     </application>
 
 </manifest>
