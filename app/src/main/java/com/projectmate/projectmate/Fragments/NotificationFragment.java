@@ -14,9 +14,13 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.projectmate.projectmate.Adapters.ActivitiesAdapter;
 import com.projectmate.projectmate.Adapters.RecyclerViewClickListener;
+import com.projectmate.projectmate.AlibabaCloud.OkHttpRequests;
+import com.projectmate.projectmate.AlibabaCloud.ProjectMateAPIContract;
+import com.projectmate.projectmate.AlibabaCloud.ProjectMateUris;
 import com.projectmate.projectmate.Classes.Activity;
 import com.projectmate.projectmate.Classes.Message;
 import com.projectmate.projectmate.Classes.Project;
+import com.projectmate.projectmate.Database.StaticValues;
 import com.projectmate.projectmate.R;
 
 import java.io.IOException;
@@ -75,11 +79,16 @@ public class NotificationFragment extends Fragment {
                     };
                     final ArrayList<Activity> activities = gson.fromJson(jsonData, token.getType());
 
-                    mActivities.remove(mActivities.size() - 1);
 
                     if(!activities.isEmpty()) mActivities.addAll(activities);
 
-                    mActivitiesAdapter.notifyDataSetChanged();
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mActivitiesAdapter.notifyDataSetChanged();
+                        }
+                    });
+
 
                 }
             }
@@ -95,6 +104,10 @@ public class NotificationFragment extends Fragment {
         mActivitiesAdapter = new ActivitiesAdapter(mActivities, mItemClickListerner);
 
         recyclerView.setAdapter(mActivitiesAdapter);
+
+        OkHttpRequests requests = new OkHttpRequests();
+        String url = ProjectMateUris.GetActivities(0);
+        requests.performGetRequest(url, mCallback, StaticValues.getCodeChefAuthKey());
 
         return recyclerView;
     }

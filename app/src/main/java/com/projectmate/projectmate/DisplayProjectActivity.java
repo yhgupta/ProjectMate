@@ -1,13 +1,19 @@
 package com.projectmate.projectmate;
 
+import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexboxLayoutManager;
@@ -35,6 +41,12 @@ public class DisplayProjectActivity extends AppCompatActivity {
     private Callback mCallback;
 
 
+    private CardView mSaveBtn;
+    private TextView mSaveBtnText;
+    private ProgressBar mSaveBtnProgress;
+    private Boolean mSaveBtnClicked=false;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +55,12 @@ public class DisplayProjectActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar1);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Join Project");
+
+        mSaveBtn = findViewById(R.id.profile_btn_save);
+        mSaveBtnText = findViewById(R.id.profile_btn_text);
+        mSaveBtnProgress = findViewById(R.id.profile_btn_progress);
+
 
         mCallback = new Callback() {
             @Override
@@ -106,5 +124,80 @@ public class DisplayProjectActivity extends AppCompatActivity {
         this.finish();
         return true;
 
+    }
+
+    private void joinProject(){
+        Animation fadeOut = new AlphaAnimation(1, 0);
+        fadeOut.setInterpolator(new AccelerateInterpolator());
+        fadeOut.setDuration(400);
+
+        fadeOut.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                mSaveBtnText.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        Animation fadeIn = new AlphaAnimation(0, 1);
+        fadeIn.setInterpolator(new AccelerateInterpolator());
+        fadeIn.setDuration(400);
+
+        fadeIn.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                mSaveBtnProgress.setVisibility(View.VISIBLE);
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        mSaveBtnText.startAnimation(fadeOut);
+        mSaveBtnProgress.startAnimation(fadeIn);
+
+    }
+
+    private void sendJoinRequest(){
+        Callback callback = new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if(response.isSuccessful()){
+                    DisplayProjectActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(DisplayProjectActivity.this, "Sent join request", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                    });
+                }
+            }
+        };
+
+        OkHttpRequests requests = new OkHttpRequests();
+        String url = ProjectMateUris.JoinProject(mProject.getId());
+        requests.performGetRequest(url, callback, StaticValues.getCodeChefAuthKey());
     }
 }
