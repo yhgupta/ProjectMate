@@ -34,6 +34,7 @@
         <activity android:name=".ChatActivity" />
         <activity android:name=".DisplayProjectActivity"/>
         <activity android:name=".DisplayUserActivity"/>
+        <activity android:name=".testActivity"/>
         
     </application>
 
