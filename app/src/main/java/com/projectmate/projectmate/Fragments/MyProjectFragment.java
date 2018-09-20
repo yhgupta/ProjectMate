@@ -144,14 +144,7 @@ public class MyProjectFragment extends Fragment {
                         @Override
                         public void run() {
                             Log.v("JOSN", jsonData);
-                            if(!projects.isEmpty()) mProjectAdapter
-                                    .notifyItemRangeChanged(
-                                            mProjects.size() - projects.size(),
-                                            mProjects.size());
-
-                            else mProjectAdapter.notifyItemRemoved(mProjects.size());
-
-
+                            mProjectAdapter.notifyDataSetChanged();
                         }
                     });
 
@@ -186,7 +179,7 @@ public class MyProjectFragment extends Fragment {
                 mProjectsRv.post(new Runnable() {
                     @Override
                     public void run() {
-                        mProjectAdapter.notifyItemChanged(mProjects.size()-1);
+                        mProjectAdapter.notifyDataSetChanged();
                     }
                 });
 

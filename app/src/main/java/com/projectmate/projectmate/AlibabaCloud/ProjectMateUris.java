@@ -159,6 +159,7 @@ public class ProjectMateUris {
                 .authority(ProjectMateAPIContract.SERVER_URL)
                 .appendPath(ProjectMateAPIContract.API_PATH)
                 .appendPath(ProjectMateAPIContract.CHATS_PATH)
+                .appendPath(ProjectMateAPIContract.GET_CHATS_PATH)
                 .appendPath(ProjectMateAPIContract.All_CHATS_PATH)
                 .appendPath("");
 

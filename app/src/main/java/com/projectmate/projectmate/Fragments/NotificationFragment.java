@@ -1,13 +1,16 @@
 package com.projectmate.projectmate.Fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -17,10 +20,12 @@ import com.projectmate.projectmate.Adapters.RecyclerViewClickListener;
 import com.projectmate.projectmate.AlibabaCloud.OkHttpRequests;
 import com.projectmate.projectmate.AlibabaCloud.ProjectMateAPIContract;
 import com.projectmate.projectmate.AlibabaCloud.ProjectMateUris;
+import com.projectmate.projectmate.ChatActivity;
 import com.projectmate.projectmate.Classes.Activity;
 import com.projectmate.projectmate.Classes.Message;
 import com.projectmate.projectmate.Classes.Project;
 import com.projectmate.projectmate.Database.StaticValues;
+import com.projectmate.projectmate.DisplayProjectActivity;
 import com.projectmate.projectmate.R;
 
 import java.io.IOException;
@@ -72,7 +77,8 @@ public class NotificationFragment extends Fragment {
             public void onResponse(Call call, Response response) throws IOException {
 
                 if(response.isSuccessful()){
-                    String jsonData = response.body().string();
+                    final String jsonData = response.body().string();
+
                     Gson gson = new Gson();
 
                     TypeToken<ArrayList<Activity>> token = new TypeToken<ArrayList<Activity>>() {
@@ -85,6 +91,7 @@ public class NotificationFragment extends Fragment {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            Log.v("activity", jsonData);
                             mActivitiesAdapter.notifyDataSetChanged();
                         }
                     });
@@ -97,7 +104,31 @@ public class NotificationFragment extends Fragment {
         mItemClickListerner = new RecyclerViewClickListener() {
             @Override
             public void onClick(View view, int position) {
+                if(view instanceof Button){
+                    if(((Button) view).getText().toString().equals("ACCEPT")){
+                        replyToActivity(position, ProjectMateAPIContract.ACCEPT_CODE);
+                    }
+                    else if(((Button) view).getText().toString().equals("REJECT")){
+                        replyToActivity(position, ProjectMateAPIContract.REJECT_CODE);
+                    }
+                    else{
+                        Intent intent = new Intent(getContext(), ChatActivity.class);
+                        int my_id = StaticValues.getCurrentUser().getId();
 
+                        Activity activity = mActivities.get(position);
+                        int user_id = my_id == activity.getSender().getId()
+                                ? activity.getReceiver().getId()
+                                : activity.getSender().getId();
+                        intent.putExtra("USER_ID", user_id);
+                        startActivity(intent);
+                    }
+                }
+                else {
+                    Intent intent = new Intent(getContext(), DisplayProjectActivity.class);
+                    int proj_id = mActivities.get(position).getProject().getId();
+                    intent.putExtra("PROJECT_ID", proj_id);
+                    startActivity(intent);
+                }
             }
         };
 
@@ -105,11 +136,39 @@ public class NotificationFragment extends Fragment {
 
         recyclerView.setAdapter(mActivitiesAdapter);
 
+        reload();
+
+        return recyclerView;
+    }
+
+
+    private void reload(){
+        mActivities.clear();
         OkHttpRequests requests = new OkHttpRequests();
         String url = ProjectMateUris.GetActivities(0);
         requests.performGetRequest(url, mCallback, StaticValues.getCodeChefAuthKey());
+    }
 
-        return recyclerView;
+
+    private void replyToActivity(int position, int reply){
+        Callback callback = new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if(response.isSuccessful()){
+                    reload();
+                }
+            }
+        };
+
+        OkHttpRequests requests = new OkHttpRequests();
+        String url = ProjectMateUris.ReplyToActivity(mActivities.get(position).getId(), reply);
+        requests.performGetRequest(url, callback, StaticValues.getCodeChefAuthKey());
+
     }
 
 }

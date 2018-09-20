@@ -79,14 +79,12 @@ public class ChatsFragment extends Fragment {
                     };
                     final ArrayList<Message> messages = gson.fromJson(jsonData, token.getType());
 
-                    mMessages.remove(mMessages.size() - 1);
-
                     if(!messages.isEmpty()) mMessages.addAll(messages);
 
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            mAdapter.notifyItemRangeChanged(mMessages.size()-messages.size()-1, mMessages.size()-1);
+                            mAdapter.notifyDataSetChanged();
                         }
                     });
 

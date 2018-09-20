@@ -87,9 +87,9 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<ActivitiesAdapter.Ac
                 holder.rootViewSC.setVisibility(View.VISIBLE);
                 holder.projNameSC.setText(currActivity.getProject().getProject_name());
                 if (isSenderMe) {
-                    holder.permTextN.setText("Your request is accepted for ");
+                    holder.permTextSC.setText("Your request is accepted for ");
                 } else {
-                    holder.permTextAR.setText("You have accepted request from " + currActivity.getSender().getUsername() + " for ");
+                    holder.permTextSC.setText("You have accepted request from " + currActivity.getSender().getUsername() + " for ");
                 }
                 break;
 
@@ -97,9 +97,9 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<ActivitiesAdapter.Ac
                 holder.rootViewSC.setVisibility(View.VISIBLE);
                 holder.projNameSC.setText(currActivity.getProject().getProject_name());
                 if (isSenderMe) {
-                    holder.permTextN.setText(currActivity.getReceiver().getUsername() + " has accepted your invitation for ");
+                    holder.permTextSC.setText(currActivity.getReceiver().getUsername() + " has accepted your invitation for ");
                 } else {
-                    holder.permTextAR.setText("You have accepted invitation from " + currActivity.getSender().getUsername() + " for ");
+                    holder.permTextSC.setText("You have accepted invitation from " + currActivity.getSender().getUsername() + " for ");
                 }
                 break;
 
@@ -176,13 +176,13 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<ActivitiesAdapter.Ac
             reject = itemView.findViewById(R.id.reject_view);
             startChat = itemView.findViewById(R.id.start_chat_view);
 
-            rootViewAR.setOnClickListener((View.OnClickListener) mListener);
-            rootViewSC.setOnClickListener((View.OnClickListener) mListener);
-            rootViewN.setOnClickListener((View.OnClickListener) mListener);
+            rootViewAR.setOnClickListener(this);
+            rootViewSC.setOnClickListener(this);
+            rootViewN.setOnClickListener(this);
 
-            accept.setOnClickListener((View.OnClickListener) mListener);
-            reject.setOnClickListener((View.OnClickListener) mListener);
-            startChat.setOnClickListener((View.OnClickListener) mListener);
+            accept.setOnClickListener(this);
+            reject.setOnClickListener(this);
+            startChat.setOnClickListener(this);
         }
 
         @Override
