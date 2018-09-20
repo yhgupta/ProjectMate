@@ -83,6 +83,7 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView mSaveBtnText;
     private ProgressBar mSaveBtnProgress;
     private Boolean mSaveBtnClicked=false;
+    private Boolean mChangesMade = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,9 +166,34 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+
+        RecyclerViewClickListener listener = new RecyclerViewClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                createEditProjectDialog(position).show();
+            }
+        };
+        mProjectAdapter = new ProjectAdapter(mUser.getProjects(), this , listener);
+
+        RecyclerViewClickListener skillListener = new RecyclerViewClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                createEditSkillDialog(position).show();
+            }
+        };
+
+        mSkillAdapter = new SkillAdapter(mUser.getSkills(), this, skillListener);
+
+        //Set up layout managers and adapters
+        mSkillsRv.setLayoutManager(new LinearLayoutManager(this));
+        mSkillsRv.setAdapter(mSkillAdapter);
+        mSkillsRv.setNestedScrollingEnabled(false);
+
+
         //Set up layout managers and adapters
         mProjectsRv.setLayoutManager(new LinearLayoutManager(this));
         mProjectsRv.setAdapter(mProjectAdapter);
+        mProjectsRv.setNestedScrollingEnabled(false);
 
         mSaveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -598,4 +624,179 @@ public class ProfileActivity extends AppCompatActivity {
         }
 
     }
+
+    private Dialog createEditSkillDialog( final int position ){
+        //Create a new AlertDialog Builder
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        //Get Layout Inflater
+        LayoutInflater inflater = this.getLayoutInflater();
+
+        //Get the root view using Layout Inflater
+        final View view = inflater.inflate(R.layout.dialog_add_skill, null);
+
+
+        //Set the root view as Dialogs Layout
+        builder.setView(view);
+
+        final EditText skillNameEditText = view.findViewById(R.id.dialog_addskill_et_name);
+        final RatingBar ratingSkill = view.findViewById(R.id.dialog_addskill_rating);
+        final EditText shortDescription = view.findViewById(R.id.dialog_addskill_short_desc);
+        final EditText coursesTaken = view.findViewById(R.id.dialog_addskill_courses_taken);
+
+        final Skill currSkill = mUser.getSkills().get(position);
+
+        skillNameEditText.setText(currSkill.getSkillName() );
+        ratingSkill.setRating(currSkill.getSkillRating());
+        shortDescription.setText(currSkill.getShortDescription());
+        coursesTaken.setText(currSkill.getCoursesTaken());
+
+        builder.setPositiveButton(getString(R.string.add_skill_dialog_save_btn), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String skillName = skillNameEditText.getText().toString();
+                String shortDesc = shortDescription.getText().toString();
+                String desc = coursesTaken.getText().toString();
+                int rating = (int) ratingSkill.getRating();
+
+                currSkill.setSkillName(skillName);
+                currSkill.setShortDescription(shortDesc);
+                currSkill.setCoursesTaken(desc);
+                currSkill.setSkillRating(rating);
+
+                mSkillAdapter.notifyDataSetChanged();
+
+                mChangesMade = true;
+                dialog.dismiss();
+            }
+
+        }).setNegativeButton(getString(R.string.add_skill_dialog_cancel_btn), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+
+        }).setNeutralButton("Delete", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if( mUser.getSkills().size()==1 ){
+                    displayToast("Atleast one skill is necessary");
+                    dialog.dismiss();
+                }
+                mUser.getSkills().remove(position);
+                mSkillAdapter.notifyDataSetChanged();
+                mChangesMade = true;
+                dialog.dismiss();
+            }
+        });
+
+
+        return builder.create();
+
+
+
+
+    }
+
+    private Dialog createEditProjectDialog(final int position){
+        //Create a new AlertDialog Builder
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        //Get Layout Inflater
+        LayoutInflater inflater = this.getLayoutInflater();
+
+        //Get the root view using Layout Inflater
+        final View view = inflater.inflate(R.layout.dialog_add_project, null);
+
+
+        //Set the root view as Dialogs Layout
+        builder.setView(view);
+
+        //Find Recycler View of list of skills
+        final RecyclerView skillView = view.findViewById(R.id.dialog_add_project_rv);
+
+        //Find add skill button
+        TextView addSkill = view.findViewById(R.id.dialog_addproject_add_skill);
+
+        //Finding and filling all the views
+        final EditText nameEditText = view.findViewById(R.id.dialog_addproject_et_name);
+        final EditText shortDescription = view.findViewById(R.id.dialog_addproject_short_desc);
+        final EditText description = view.findViewById(R.id.dialog_addproject_complete_desc);
+
+        final Project currProject = mUser.getProjects().get(position);
+
+        nameEditText.setText(currProject.getProjectName());
+        shortDescription.setText(currProject.getProjectShortDesc());
+        description.setText(currProject.getProjectCompleteDesc());
+
+        //Make list of skills and mySkills is the skills added by user
+        final ArrayList<Skill> skills = new ArrayList<>(mUser.getSkills());
+        final ArrayList<Skill> mySkills = new ArrayList<>();
+
+        for(Skill skill : skills){
+            if(currProject.getSkills().contains(skill.getSkillID())){
+                mySkills.add(skill);
+                skills.remove(skill);
+            }
+        }
+
+        final SkillAdapter skillAdapter = new SkillAdapter(mySkills);
+
+
+        skillView.setLayoutManager(new LinearLayoutManager(this));
+
+        skillView.setAdapter(skillAdapter);
+
+
+
+        addSkill.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createAllSkillsProjectDialog(skillAdapter ,skills, mySkills).show();
+            }
+        });
+
+
+        //Adding positive and negative buttons
+        builder.setPositiveButton(getString(R.string.add_project_dialog_save_btn), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String projectName = nameEditText.getText().toString();
+                String shortDesc = shortDescription.getText().toString();
+                String desc = description.getText().toString();
+
+                currProject.setProjectName(projectName);
+                currProject.setProjectShortDesc(shortDesc);
+                currProject.setProjectCompleteDesc(desc);
+
+                currProject.getSkills().clear();
+                for (Skill skill : mySkills){
+                    currProject.getSkills().add(skill.getSkillID());
+                }
+                mProjectAdapter.notifyDataSetChanged();
+
+                mChangesMade = true;
+                dialog.dismiss();
+            }
+
+        }).setNegativeButton(getString(R.string.add_project_dialog_cancel_btn), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+
+        }).setNeutralButton("Delete", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                mUser.getProjects().remove(position);
+                mProjectAdapter.notifyDataSetChanged();
+                mChangesMade = true;
+                dialog.dismiss();
+            }
+        });
+
+
+        return builder.create();
+    }
+
 }

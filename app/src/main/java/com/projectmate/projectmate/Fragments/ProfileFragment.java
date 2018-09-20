@@ -157,10 +157,6 @@ public class ProfileFragment extends Fragment {
         mSkillAdapter = new SkillAdapter(mUser.getSkills());
 
         //Set up layout managers and adapters
-        mSkillsRv.setLayoutManager(new LinearLayoutManager(getContext()));
-        mSkillsRv.setAdapter(mSkillAdapter);
-        mSkillsRv.setNestedScrollingEnabled(false);
-
 
         //Now load all skills in mAllSkills from XML arrays
         String[] arraySkill = getResources().getStringArray(R.array.skillsArray);
@@ -178,10 +174,25 @@ public class ProfileFragment extends Fragment {
         };
         mProjectAdapter = new ProjectAdapter(mUser.getProjects(), getContext(), listener);
 
+        RecyclerViewClickListener skillListener = new RecyclerViewClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Toast.makeText(getContext(),"Opening",Toast.LENGTH_SHORT).show();
+                createEditSkillDialog(position).show();
+            }
+        };
+
+        mSkillAdapter = new SkillAdapter(mUser.getSkills(), getContext(), skillListener);
+
         //Set up layout managers and adapters
         mProjectsRv.setLayoutManager(new LinearLayoutManager(getContext()));
         mProjectsRv.setAdapter(mProjectAdapter);
         mProjectsRv.setNestedScrollingEnabled(false);
+
+        mSkillsRv.setLayoutManager(new LinearLayoutManager(getContext()));
+        mSkillsRv.setAdapter(mSkillAdapter);
+        mSkillsRv.setNestedScrollingEnabled(false);
+
 
         mSaveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -193,8 +204,6 @@ public class ProfileFragment extends Fragment {
 
             }
         });
-
-
 
         return rootView;
     }
@@ -643,7 +652,80 @@ public class ProfileFragment extends Fragment {
 
     }
 
+    private Dialog createEditSkillDialog( final int position ){
+        //Create a new AlertDialog Builder
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
+        //Get Layout Inflater
+        LayoutInflater inflater = this.getLayoutInflater();
+
+        //Get the root view using Layout Inflater
+        final View view = inflater.inflate(R.layout.dialog_add_skill, null);
+
+
+        //Set the root view as Dialogs Layout
+        builder.setView(view);
+
+        final EditText skillNameEditText = view.findViewById(R.id.dialog_addskill_et_name);
+        final RatingBar ratingSkill = view.findViewById(R.id.dialog_addskill_rating);
+        final EditText shortDescription = view.findViewById(R.id.dialog_addskill_short_desc);
+        final EditText coursesTaken = view.findViewById(R.id.dialog_addskill_courses_taken);
+
+        final Skill currSkill = mUser.getSkills().get(position);
+
+        skillNameEditText.setText(currSkill.getSkillName() );
+        ratingSkill.setRating(currSkill.getSkillRating());
+        shortDescription.setText(currSkill.getShortDescription());
+        coursesTaken.setText(currSkill.getCoursesTaken());
+
+        builder.setPositiveButton(getString(R.string.add_skill_dialog_save_btn), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String skillName = skillNameEditText.getText().toString();
+                String shortDesc = shortDescription.getText().toString();
+                String desc = coursesTaken.getText().toString();
+                int rating = (int) ratingSkill.getRating();
+
+                currSkill.setSkillName(skillName);
+                currSkill.setShortDescription(shortDesc);
+                currSkill.setCoursesTaken(desc);
+                currSkill.setSkillRating(rating);
+
+                mSkillAdapter.notifyDataSetChanged();
+
+                mChangesMade = true;
+                dialog.dismiss();
+            }
+
+        }).setNegativeButton(getString(R.string.add_skill_dialog_cancel_btn), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+
+        }).setNeutralButton("Delete", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if( mUser.getSkills().size() == 1 ){
+                    Toast.makeText(getContext(),"Atleast One Skill is Needed",Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                }
+                else {
+                    mUser.getSkills().remove(position);
+                    mSkillAdapter.notifyDataSetChanged();
+                    mChangesMade = true;
+                    dialog.dismiss();
+                }
+            }
+        });
+
+
+        return builder.create();
+
+
+
+
+    }
 
     private Dialog createEditProjectDialog(final int position){
         //Create a new AlertDialog Builder
