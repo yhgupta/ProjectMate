@@ -19,6 +19,8 @@ import com.projectmate.projectmate.Database.StaticValues;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -96,7 +98,16 @@ public class ChatActivity extends AppCompatActivity {
 
         mRecyclerView.setAdapter(mMessageAdapter);
 
-        reload();
+        Timer timer = new Timer();
+
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                reload();
+            }
+        };
+
+        timer.schedule(timerTask, 0, 5000);
 
     }
 
