@@ -40,6 +40,8 @@ public class MyProjectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     private boolean mAllowEdit;
 
+    private boolean firstTime = true;
+
     public MyProjectAdapter(List<Project> project, RecyclerView recyclerView, Context context, RecyclerViewClickListener listener, OnLoadMoreListener loadMoreListener, boolean allowEdit) {
         this.mProject = project;
         this.mContext = context;
@@ -54,6 +56,11 @@ public class MyProjectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
+
+                if(firstTime){
+                    firstTime = false;
+                    return;
+                }
 
                 totalItemCount = linearLayoutManager.getItemCount();
                 lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();

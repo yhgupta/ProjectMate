@@ -30,6 +30,8 @@ import com.projectmate.projectmate.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -136,7 +138,16 @@ public class NotificationFragment extends Fragment {
 
         recyclerView.setAdapter(mActivitiesAdapter);
 
-        reload();
+        Timer timer = new Timer();
+
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                reload();
+            }
+        };
+
+        timer.schedule(timerTask, 0, 10000);
 
         return recyclerView;
     }

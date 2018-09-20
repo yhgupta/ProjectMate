@@ -74,7 +74,6 @@ public class MyProjectFragment extends Fragment {
     private OnLoadMoreListener mLoadMoreListener;
 
     private boolean moreItemsPresent = true;
-    private boolean loading;
 
     public MyProjectFragment() {
         // Required empty public constructor
@@ -94,8 +93,6 @@ public class MyProjectFragment extends Fragment {
                 createAddProjectDialog().show();
             }
         });
-
-        loading = false;
 
         mSaveBtn = rootView.findViewById(R.id.my_project_btn_save);
         mSaveBtn.setOnClickListener(new View.OnClickListener() {
@@ -130,26 +127,26 @@ public class MyProjectFragment extends Fragment {
                     TypeToken<ArrayList<Project>> token = new TypeToken<ArrayList<Project>>() {};
                     final ArrayList<Project> projects = gson.fromJson(jsonData, token.getType());
 
+                    mProjects.remove(mProjects.size() - 1);
 
-                    //mProjects.remove(mProjects.size() - 1);
-                    mProjectAdapter.setLoaded();
 
                     if(projects.isEmpty()) moreItemsPresent = false;
                     else mProjects.addAll(projects);
 
-                    loading = false;
 
 
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             Log.v("JOSN", jsonData);
+                            mProjectAdapter.setLoaded();
                             mProjectAdapter.notifyDataSetChanged();
                         }
                     });
 
 
                 }
+
 
             }
         };
@@ -170,12 +167,11 @@ public class MyProjectFragment extends Fragment {
                     mProjectAdapter.setLoaded();
                     return;
                 }
-                if(loading) return;
                 OkHttpRequests requests = new OkHttpRequests();
                 String url = ProjectMateUris.getAllProjects(mProjects.size());
 
-                //mProjects.add(null);
-                loading = true;
+                mProjects.add(null);
+
                 mProjectsRv.post(new Runnable() {
                     @Override
                     public void run() {
@@ -191,15 +187,19 @@ public class MyProjectFragment extends Fragment {
 
         mProjectsRv = rootView.findViewById(R.id.my_projects_recycler_view);
         mProjectsRv.setLayoutManager(new LinearLayoutManager(getContext()));
-        //mProjectsRv.setHasFixedSize(true);
+        mProjectsRv.setHasFixedSize(true);
 
         mProjectAdapter = new MyProjectAdapter(mProjects, mProjectsRv,
                 getContext(), mItemClickListener, mLoadMoreListener, true);
 
-        mProjects.clear();
         mProjectsRv.setAdapter(mProjectAdapter);
 
-        mLoadMoreListener.onLoadMore();
+        OkHttpRequests requests = new OkHttpRequests();
+        String url = ProjectMateUris.getAllProjects(mProjects.size());
+
+        mProjects.add(null);
+        mProjectAdapter.notifyDataSetChanged();
+        requests.performGetRequest(url, mCallback, StaticValues.getCodeChefAuthKey());
 
         return rootView;
     }
@@ -494,7 +494,6 @@ public class MyProjectFragment extends Fragment {
 
         moreItemsPresent = true;
         mProjects.add(null);
-        loading = true;
         requests.performGetRequest(url, mCallback, authToken);
 
         getActivity().runOnUiThread(new Runnable() {

@@ -26,6 +26,8 @@ import com.projectmate.projectmate.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -110,12 +112,27 @@ public class ChatsFragment extends Fragment {
         mAdapter = new ChatAdapter(mMessages, mItemClickListener, StaticValues.getCurrentUser().getId());
 
         recyclerView.setAdapter(mAdapter);
+        
 
-        OkHttpRequests requests = new OkHttpRequests();
-        String url = ProjectMateUris.GetUserChats();
-        requests.performGetRequest(url, mCallback, StaticValues.getCodeChefAuthKey());
+        Timer timer = new Timer();
+
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                reload();
+            }
+        };
+
+        timer.schedule(timerTask, 0, 10000);
+
 
         return rootView;
     }
 
+    private void reload(){
+        mMessages.clear();
+        OkHttpRequests requests = new OkHttpRequests();
+        String url = ProjectMateUris.GetUserChats();
+        requests.performGetRequest(url, mCallback, StaticValues.getCodeChefAuthKey());
+    }
 }
