@@ -59,9 +59,13 @@ public class DisplayProjectActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Join Project");
 
+        boolean showSaveBtn = getIntent().getBooleanExtra("SHOW_SAVE", true);
+
         mSaveBtn = findViewById(R.id.profile_btn_save);
         mSaveBtnText = findViewById(R.id.profile_btn_text);
         mSaveBtnProgress = findViewById(R.id.profile_btn_progress);
+
+        if(!showSaveBtn) mSaveBtn.setVisibility(View.GONE);
 
         displayPSkill = findViewById(R.id.dialog_add_skill_rv);
 

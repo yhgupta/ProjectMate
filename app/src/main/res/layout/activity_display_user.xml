@@ -220,7 +220,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:padding="8dp"
-                android:text="@string/project_activity_save_btn"
+                android:text="INVITE USER"
                 android:textColor="@android:color/white"
                 android:textSize="16sp" />
 

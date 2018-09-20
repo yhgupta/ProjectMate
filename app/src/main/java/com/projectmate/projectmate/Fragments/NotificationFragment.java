@@ -129,6 +129,7 @@ public class NotificationFragment extends Fragment {
                     Intent intent = new Intent(getContext(), DisplayProjectActivity.class);
                     int proj_id = mActivities.get(position).getProject().getId();
                     intent.putExtra("PROJECT_ID", proj_id);
+                    intent.putExtra("SHOW_SAVE", false);
                     startActivity(intent);
                 }
             }
