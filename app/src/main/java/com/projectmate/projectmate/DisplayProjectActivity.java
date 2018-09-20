@@ -40,7 +40,7 @@ public class DisplayProjectActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_project);
         constraintLayout = findViewById(R.id.activity_main_layout);
-        progressBar= findViewById(R.id.progressBar1);
+        progressBar = findViewById(R.id.progressBar1);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -72,7 +72,7 @@ public class DisplayProjectActivity extends AppCompatActivity {
         requests.performGetRequest(url, mCallback, StaticValues.getCodeChefAuthKey());
     }
 
-    public void displayProject(){
+    public void displayProject() {
         progressBar.setVisibility(View.INVISIBLE);
         constraintLayout.setVisibility(View.VISIBLE);
         TextView displayPName = findViewById(R.id.dialog_addproject_et_name);
@@ -102,10 +102,9 @@ public class DisplayProjectActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.homeAsUp){
-            this.finish();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+
+        this.finish();
+        return true;
+
     }
 }

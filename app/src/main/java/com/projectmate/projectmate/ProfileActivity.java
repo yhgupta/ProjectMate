@@ -71,7 +71,6 @@ public class ProfileActivity extends AppCompatActivity {
     //List and Project Global adapters
     private SkillAdapter mSkillAdapter;
 
-    private ArrayList<String> mAllProjects;
     private ProjectAdapter mProjectAdapter;
 
 

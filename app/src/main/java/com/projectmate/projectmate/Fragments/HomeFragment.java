@@ -102,8 +102,7 @@ public class HomeFragment extends Fragment {
                         @Override
                         public void run() {
                             Log.v("HOME", jsonData);
-                            if(moreItemsPresent) mProjectAdapter.notifyDataSetChanged();
-                            else mProjectAdapter.notifyItemRemoved(mProjects.size());
+                            mProjectAdapter.notifyDataSetChanged();
 
                             if(!animationDone){
                                 startAnimation();
@@ -141,7 +140,7 @@ public class HomeFragment extends Fragment {
                 recyclerView.post(new Runnable() {
                     @Override
                     public void run() {
-                        mProjectAdapter.notifyItemChanged(mProjects.size() - 1);
+                        mProjectAdapter.notifyDataSetChanged();
                     }
                 });
 

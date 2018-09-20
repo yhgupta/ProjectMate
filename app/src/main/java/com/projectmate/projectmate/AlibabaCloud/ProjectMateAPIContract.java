@@ -37,4 +37,14 @@ public class ProjectMateAPIContract {
     //Default Authentication Failed Message
     public static final String AUTHENTICATION_FAILED = "{\"Error\":\"Authentication Failed\"}";
 
+
+    public static final int ACTIVITY_TYPE_REQUEST_INVITE = 500;
+    public static final int ACTIVITY_TYPE_REQUEST_JOIN = 501;
+
+    public static final int ACTIVITY_TYPE_REQUEST_INVITE_ACCEPTED = 503;
+    public static final int ACTIVITY_TYPE_REQUEST_JOIN_ACCEPTED = 504;
+
+    public static final int ACTIVITY_TYPE_REQUEST_INVITE_REJECTED = 505;
+    public static final int ACTIVITY_TYPE_REQUEST_JOIN_REJECTED = 506;
+
 }

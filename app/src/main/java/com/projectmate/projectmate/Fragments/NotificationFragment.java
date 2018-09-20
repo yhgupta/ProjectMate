@@ -10,11 +10,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.projectmate.projectmate.Adapters.ActivitiesAdapter;
+import com.projectmate.projectmate.Adapters.RecyclerViewClickListener;
 import com.projectmate.projectmate.Classes.Activity;
+import com.projectmate.projectmate.Classes.Message;
 import com.projectmate.projectmate.Classes.Project;
 import com.projectmate.projectmate.R;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,6 +32,12 @@ import java.util.ArrayList;
 public class NotificationFragment extends Fragment {
 
     private ArrayList<Activity> mActivities;
+
+    private Callback mCallback;
+
+    private ActivitiesAdapter mActivitiesAdapter;
+
+    private RecyclerViewClickListener mItemClickListerner;
 
     public NotificationFragment() {
         // Required empty public constructor
@@ -36,8 +52,51 @@ public class NotificationFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
+        recyclerView.setNestedScrollingEnabled(false);
+        recyclerView.setHasFixedSize(true);
 
-        return inflater.inflate(R.layout.fragment_notification, container, false);
+
+        mActivities = new ArrayList<>();
+
+        mCallback = new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+                if(response.isSuccessful()){
+                    String jsonData = response.body().string();
+                    Gson gson = new Gson();
+
+                    TypeToken<ArrayList<Activity>> token = new TypeToken<ArrayList<Activity>>() {
+                    };
+                    final ArrayList<Activity> activities = gson.fromJson(jsonData, token.getType());
+
+                    mActivities.remove(mActivities.size() - 1);
+
+                    if(!activities.isEmpty()) mActivities.addAll(activities);
+
+                    mActivitiesAdapter.notifyDataSetChanged();
+
+                }
+            }
+        };
+
+        mItemClickListerner = new RecyclerViewClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+
+            }
+        };
+
+        mActivitiesAdapter = new ActivitiesAdapter(mActivities, mItemClickListerner);
+
+        recyclerView.setAdapter(mActivitiesAdapter);
+
+        return recyclerView;
     }
 
 }

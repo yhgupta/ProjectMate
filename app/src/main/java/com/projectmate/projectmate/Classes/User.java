@@ -24,8 +24,8 @@ public class User {
         this.location = location;
         this.username = username;
         this.ranking = ranking;
-        this.skills = skills;
-        this.projects = projects;
+        this.skills = new ArrayList<>(skills);
+        this.projects = new ArrayList<>(projects);
     }
 
     public int getId() {

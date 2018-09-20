@@ -3,14 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_marginTop="16dp"
+    android:padding="16dp"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/notification_layout_1"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_width="350dp"
+        android:padding="4dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
@@ -18,57 +18,43 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12sp"
-            android:paddingTop="8dp"
-            android:paddingLeft="4dp"
             android:textStyle="bold"
             android:textColor="@android:color/darker_gray"
             android:text="YOU HAVE RECEIVED A REQUEST FOR:-"/>
 
         <TextView
-            android:layout_below="@id/permanent_text_1"
             android:id="@+id/name_of_project_1"
             android:layout_width="match_parent"
-            android:padding="5dp"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:text="Name Of Project"
             android:textSize="20dp"
             android:textStyle="bold"/>
 
-        <TextView
-            android:id="@+id/short_desc_of_project_1"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:padding="5dp"
-            android:layout_below="@id/name_of_project_1"
-            android:textSize="15dp"
-            android:text = "short_description_of_project"/>
-
         <LinearLayout
-            android:layout_below="@id/short_desc_of_project_1"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:padding="1dp">
             <Button
                 android:id="@+id/accept_view"
                 android:layout_weight="1"
                 android:text="ACCEPT"
                 android:layout_width="0dp"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content" />
 
             <Button
-                android:layout_toRightOf="@id/accept_view"
+                android:id="@+id/reject_view"
                 android:layout_weight="1"
                 android:text = "REJECT"
                 android:layout_width="0dp"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
-    </RelativeLayout>
+    </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/notification_layout_2"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
+        android:padding="4dp"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -77,125 +63,51 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12sp"
-            android:paddingTop="8dp"
-            android:paddingLeft="4dp"
             android:textStyle="bold"
             android:textColor="@android:color/darker_gray"
-            android:text="YOU HAVE SENT A REQUEST FOR:-"/>
+            android:text="YOUR REQUEST HAS BEEN ACCEPTED FOR"/>
 
         <TextView
-            android:layout_below="@id/permanent_text_2"
             android:id="@+id/name_of_project_2"
             android:layout_width="match_parent"
-            android:padding="5dp"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:text="Name Of Project"
             android:textSize="20dp"
             android:textStyle="bold"/>
 
-        <TextView
-            android:id="@+id/short_desc_of_project_2"
+        <Button
+            android:id="@+id/start_chat_view"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:padding="5dp"
-            android:layout_below="@id/name_of_project_2"
-            android:textSize="15dp"
-            android:text = "short_description_of_project"/>
+            android:text="START CHAT"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
-        <LinearLayout
-            android:layout_below="@id/short_desc_of_project_2"
-            android:layout_width="350dp"
-            android:layout_height="wrap_content"
-            android:padding="1dp">
-
-            <Button
-                android:layout_toRightOf="@id/accept_view"
-                android:text = "CANCEL REQUEST"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
-
-    </RelativeLayout>
-
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/notification_layout_3"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_width="wrap_content"
+        android:padding="4dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/permanent_text_3"
-            android:textSize="12sp"
-            android:paddingTop="8dp"
-            android:textStyle="bold"
-            android:textColor="@android:color/darker_gray"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="YOUR REQUEST HAS BEEN ACCEPTED FOR"/>
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/darker_gray"
+            android:text="YOUR REQUEST HAS BEEN REJECTED FOR"/>
 
         <TextView
-            android:layout_below="@id/permanent_text_3"
             android:id="@+id/name_of_project_3"
             android:layout_width="match_parent"
-            android:padding="5dp"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:text="Name Of Project"
             android:textSize="20dp"
             android:textStyle="bold"/>
 
-        <TextView
-            android:id="@+id/short_desc_of_project_3"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:padding="5dp"
-            android:layout_below="@id/name_of_project_3"
-            android:textSize="15dp"
-            android:text = "short_description_of_project"/>
-
-        <Button
-            android:layout_below="@id/short_desc_of_project_3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="START CHAT"/>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/notification_layout_4"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:paddingTop="8dp"
-            android:id="@+id/permanent_text_4"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/darker_gray"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="YOUR REQUEST HAS BEEN REJECTED FOR"/>
-        <TextView
-            android:layout_below="@id/permanent_text_4"
-            android:id="@+id/name_of_project_4"
-            android:layout_width="match_parent"
-            android:padding="5dp"
-            android:layout_height="40dp"
-            android:text="Name Of Project"
-            android:textSize="20dp"
-            android:textStyle="bold"/>
-
-        <TextView
-            android:id="@+id/short_desc_of_project_4"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:padding="5dp"
-            android:layout_below="@id/name_of_project_4"
-            android:textSize="15dp"
-            android:text = "short_description_of_project"/>
-
-    </RelativeLayout>
+    </LinearLayout>
 
 </LinearLayout>
