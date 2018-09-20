@@ -431,7 +431,7 @@ public class MyProjectFragment extends Fragment {
     }
 
     private void saveSuccess(){
-        Animation fadeOut = new AlphaAnimation(1, 0);
+        final Animation fadeOut = new AlphaAnimation(1, 0);
         fadeOut.setInterpolator(new AccelerateInterpolator());
         fadeOut.setDuration(400);
 
@@ -452,7 +452,7 @@ public class MyProjectFragment extends Fragment {
             }
         });
 
-        Animation fadeIn = new AlphaAnimation(0, 1);
+        final Animation fadeIn = new AlphaAnimation(0, 1);
         fadeIn.setInterpolator(new AccelerateInterpolator());
         fadeIn.setDuration(400);
 
@@ -472,10 +472,14 @@ public class MyProjectFragment extends Fragment {
 
             }
         });
-
-        mSaveBtnText.startAnimation(fadeIn);
-        mSaveBtnProgress.startAnimation(fadeOut);
-        displayToast("Save Successful!");
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mSaveBtnText.startAnimation(fadeIn);
+                mSaveBtnProgress.startAnimation(fadeOut);
+                displayToast("Save Successful!");
+            }
+        });
         mSaveBtnClicked = false;
         mChangesMade = false;
     }
