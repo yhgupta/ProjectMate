@@ -112,12 +112,10 @@ public class DisplayProjectActivity extends AppCompatActivity {
         displayPShortDesc.setText(mProject.getProjectShortDesc());
         displayPDesc.setText(mProject.getProjectName());
 
-        RecyclerView displayPSkill = findViewById(R.id.dialog_add_project_rv);
+        RecyclerView displayPSkill = findViewById(R.id.dialog_add_skill_rv);
 
         final ArrayList<Integer> mySkills = new ArrayList<>(mProject.getSkills());
-
         final SkillFlexAdapter skillAdapter = new SkillFlexAdapter(mySkills);
-
         FlexboxLayoutManager flexboxLayoutManager = new FlexboxLayoutManager(this);
 
         flexboxLayoutManager.setFlexDirection(FlexDirection.ROW);
@@ -172,6 +170,7 @@ public class DisplayProjectActivity extends AppCompatActivity {
             @Override
             public void onAnimationEnd(Animation animation) {
                 mSaveBtnProgress.setVisibility(View.VISIBLE);
+                sendJoinRequest();
 
             }
 

@@ -45,5 +45,6 @@
     <string name="text_notification">Activities</string>
     <string name="text_chat">Chat</string>
     <string name="text_project">My Projects</string>
+    <string name="country">Country</string>
 
 </resources>
