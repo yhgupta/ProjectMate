@@ -50,6 +50,7 @@ public class SkillAdapter extends RecyclerView.Adapter<SkillAdapter.SkillViewHol
 
     @Override
     public int getItemCount() {
+        if(mSkills==null) return 0;
         return mSkills.size();
     }
 

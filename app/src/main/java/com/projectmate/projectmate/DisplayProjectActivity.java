@@ -36,6 +36,8 @@ public class DisplayProjectActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private ConstraintLayout constraintLayout;
 
+    private RecyclerView displayPSkill;
+
     private Project mProject;
 
     private Callback mCallback;
@@ -60,6 +62,8 @@ public class DisplayProjectActivity extends AppCompatActivity {
         mSaveBtn = findViewById(R.id.profile_btn_save);
         mSaveBtnText = findViewById(R.id.profile_btn_text);
         mSaveBtnProgress = findViewById(R.id.profile_btn_progress);
+
+        displayPSkill = findViewById(R.id.dialog_add_skill_rv);
 
         mSaveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,8 +115,6 @@ public class DisplayProjectActivity extends AppCompatActivity {
         displayPName.setText(mProject.getProjectName());
         displayPShortDesc.setText(mProject.getProjectShortDesc());
         displayPDesc.setText(mProject.getProjectName());
-
-        RecyclerView displayPSkill = findViewById(R.id.dialog_add_project_rv);
 
         final ArrayList<Integer> mySkills = new ArrayList<>(mProject.getSkills());
 
@@ -172,6 +174,7 @@ public class DisplayProjectActivity extends AppCompatActivity {
             @Override
             public void onAnimationEnd(Animation animation) {
                 mSaveBtnProgress.setVisibility(View.VISIBLE);
+                sendJoinRequest();
 
             }
 
