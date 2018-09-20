@@ -32,7 +32,8 @@
             android:theme="@style/BrowserTheme" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".ChatActivity" />
-        <activity android:name=".DisplayProjectActivity" />
+        <activity android:name=".DisplayProjectActivity"
+            android:parentActivityName=".MainActivity"/>
     </application>
 
 </manifest>

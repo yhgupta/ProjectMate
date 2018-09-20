@@ -79,7 +79,6 @@ public class ProfileFragment extends Fragment {
     private SkillAdapter mSkillAdapter;
 
     private ProjectAdapter mProjectAdapter;
-    private ArrayList<Project> mProjects;
 
 
 
@@ -644,7 +643,9 @@ public class ProfileFragment extends Fragment {
 
     }
 
-    private Dialog createEditProjectDialog(int position){
+
+
+    private Dialog createEditProjectDialog(final int position){
         //Create a new AlertDialog Builder
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
@@ -669,30 +670,27 @@ public class ProfileFragment extends Fragment {
         final EditText shortDescription = view.findViewById(R.id.dialog_addproject_short_desc);
         final EditText description = view.findViewById(R.id.dialog_addproject_complete_desc);
 
-        final Project currProject = mProjects.get(position);
+        final Project currProject = mUser.getProjects().get(position);
 
         nameEditText.setText(currProject.getProjectName());
         shortDescription.setText(currProject.getProjectShortDesc());
         description.setText(currProject.getProjectCompleteDesc());
 
         //Make list of skills and mySkills is the skills added by user
-        final ArrayList<String> skills = new ArrayList<>(StaticValues.getAllSkills());
-        final ArrayList<Integer> mySkills = new ArrayList<>(currProject.getSkills());
+        final ArrayList<Skill> skills = new ArrayList<>(mUser.getSkills());
+        final ArrayList<Skill> mySkills = new ArrayList<>();
 
-        final SkillFlexAdapter skillAdapter = new SkillFlexAdapter(mySkills);
-
-        Collections.sort(mySkills, Collections.<Integer>reverseOrder());
-
-        for(int i : mySkills){
-            skills.remove(i);
+        for(Skill skill : skills){
+            if(currProject.getSkills().contains(skill.getSkillID())){
+                mySkills.add(skill);
+                skills.remove(skill);
+            }
         }
 
+        final SkillAdapter skillAdapter = new SkillAdapter(mySkills);
 
-        FlexboxLayoutManager flexboxLayoutManager = new FlexboxLayoutManager(getContext());
-        // Set flex direction.
-        flexboxLayoutManager.setFlexDirection(FlexDirection.ROW);
 
-        skillView.setLayoutManager(flexboxLayoutManager);
+        skillView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         skillView.setAdapter(skillAdapter);
 
@@ -701,7 +699,7 @@ public class ProfileFragment extends Fragment {
         addSkill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createAllProjectsDialog(skillAdapter ,skills, mySkills).show();
+                createAllSkillsProjectDialog(skillAdapter ,skills, mySkills).show();
             }
         });
 
@@ -717,8 +715,15 @@ public class ProfileFragment extends Fragment {
                 currProject.setProjectName(projectName);
                 currProject.setProjectShortDesc(shortDesc);
                 currProject.setProjectCompleteDesc(desc);
-                currProject.setSkills(mySkills);
+
+                currProject.getSkills().clear();
+                for (Skill skill : mySkills){
+                    currProject.getSkills().add(skill.getSkillID());
+                }
                 mProjectAdapter.notifyDataSetChanged();
+
+                mChangesMade = true;
+                dialog.dismiss();
             }
 
         }).setNegativeButton(getString(R.string.add_project_dialog_cancel_btn), new DialogInterface.OnClickListener() {
@@ -730,65 +735,15 @@ public class ProfileFragment extends Fragment {
         }).setNeutralButton("Delete", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                mProjects.remove(currProject);
+                mUser.getProjects().remove(position);
                 mProjectAdapter.notifyDataSetChanged();
+                mChangesMade = true;
+                dialog.dismiss();
             }
         });
 
 
         return builder.create();
-
-    }
-
-    private Dialog createAllProjectsDialog(final SkillFlexAdapter skillAdapter, final ArrayList<String> allSkills, final ArrayList<Integer> mySkills){
-
-        //Create new dialog and get inflater
-        AlertDialog.Builder listDialog = new AlertDialog.Builder(getContext());
-        LayoutInflater inflater = getLayoutInflater();
-
-        View view = inflater.inflate(R.layout.dialog_list_skills, null);
-
-        listDialog.setTitle("Select Skill");
-        listDialog.setView(view);
-
-        ListView listView = view.findViewById(R.id.listView);
-        final ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, allSkills);
-        listView.setAdapter(adapter);
-
-        android.support.v7.widget.SearchView searchView = view.findViewById(R.id.search_view);
-        searchView.setOnQueryTextListener(new android.support.v7.widget.SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                adapter.getFilter().filter(newText);
-                return true;
-            }
-        });
-
-
-
-        final Dialog dialog = listDialog.create();
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String skillName = allSkills.get(position);
-                int skillId = StaticValues.getAllSkills().indexOf(skillName);
-
-                mySkills.add(skillId);
-                allSkills.remove(position);
-
-                skillAdapter.notifyDataSetChanged();
-                dialog.dismiss();
-            }
-        });
-
-        return dialog;
-
     }
 
 

@@ -11,8 +11,8 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_centerInParent="true"
-        android:progressDrawable="@drawable/circular"
         android:visibility="visible"
+        android:indeterminate="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -162,7 +162,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:padding="8dp"
-                android:text="SEND A REQUEST"
+                android:text="REQUEST TO JOIN"
                 android:textColor="@android:color/white"
                 android:textSize="16sp" />
 

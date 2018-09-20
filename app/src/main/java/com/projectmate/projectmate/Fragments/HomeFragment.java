@@ -80,7 +80,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
-                    String jsonData = response.body().string();
+                    final String jsonData = response.body().string();
                     Gson gson = new Gson();
 
                     TypeToken<ArrayList<Project>> token = new TypeToken<ArrayList<Project>>() {
@@ -90,7 +90,10 @@ public class HomeFragment extends Fragment {
                     mProjects.remove(mProjects.size() - 1);
                     mProjectAdapter.setLoaded();
 
-                    if(projects.isEmpty()) moreItemsPresent = false;
+                    moreItemsPresent = true;
+                    if(projects.isEmpty()) {
+                        moreItemsPresent = false;
+                    }
                     else mProjects.addAll(projects);
 
                     loading = false;
@@ -98,11 +101,8 @@ public class HomeFragment extends Fragment {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            if(moreItemsPresent) mProjectAdapter
-                                    .notifyItemRangeChanged(
-                                            mProjects.size() - projects.size() - 1,
-                                            mProjects.size() - 1);
-
+                            Log.v("HOME", jsonData);
+                            if(moreItemsPresent) mProjectAdapter.notifyDataSetChanged();
                             else mProjectAdapter.notifyItemRemoved(mProjects.size());
 
                             if(!animationDone){
