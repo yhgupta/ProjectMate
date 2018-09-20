@@ -172,7 +172,7 @@ public class DisplayProjectActivity extends AppCompatActivity {
             @Override
             public void onAnimationEnd(Animation animation) {
                 mSaveBtnProgress.setVisibility(View.VISIBLE);
-
+                sendJoinRequest();
             }
 
             @Override
