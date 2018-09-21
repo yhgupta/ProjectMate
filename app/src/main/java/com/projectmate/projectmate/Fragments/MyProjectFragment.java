@@ -4,6 +4,7 @@ package com.projectmate.projectmate.Fragments;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -36,6 +37,7 @@ import com.projectmate.projectmate.Adapters.RecyclerViewClickListener;
 import com.projectmate.projectmate.Adapters.SkillFlexAdapter;
 import com.projectmate.projectmate.AlibabaCloud.OkHttpRequests;
 import com.projectmate.projectmate.AlibabaCloud.ProjectMateUris;
+import com.projectmate.projectmate.AllUsersActivity;
 import com.projectmate.projectmate.Classes.Project;
 import com.projectmate.projectmate.Database.StaticValues;
 import com.projectmate.projectmate.R;
@@ -134,11 +136,9 @@ public class MyProjectFragment extends Fragment {
                     else mProjects.addAll(projects);
 
 
-
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Log.v("JOSN", jsonData);
                             mProjectAdapter.setLoaded();
                             mProjectAdapter.notifyDataSetChanged();
                         }
@@ -156,6 +156,12 @@ public class MyProjectFragment extends Fragment {
             public void onClick(View view, int position) {
                 if(view instanceof ImageButton){
                     createEditProjectDialog(position).show();
+                }
+                else{
+                    int projId = mProjects.get(position).getId();
+                    Intent intent = new Intent(getContext(), AllUsersActivity.class);
+                    intent.putExtra("PROJECT_ID", projId);
+                    startActivity(intent);
                 }
             }
         };

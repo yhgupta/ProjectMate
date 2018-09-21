@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.projectmate.projectmate.Classes.AllUserItem;
-import com.projectmate.projectmate.Classes.Project;
 import com.projectmate.projectmate.R;
 
 import java.util.List;
@@ -30,7 +29,7 @@ public class AllUsersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private int visibleThreshold = 5;
     private int lastVisibleItem, totalItemCount;
-    private boolean loading;
+    private boolean loading = false;
     private OnLoadMoreListener onLoadMoreListener;
 
 
@@ -79,7 +78,7 @@ public class AllUsersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder vh;
         if(viewType == VIEW_ITEM){
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_item_my_project, parent, false);
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_item_user, parent, false);
             vh = new UserViewHolder(v, mListener);
 
         }else{
@@ -101,10 +100,10 @@ public class AllUsersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         if(holder instanceof UserViewHolder){
             AllUserItem currentUser = mUsers.get(position);
-            ((UserViewHolder) holder).tvUserName.setText(currentUser.getUserName());
+            ((UserViewHolder) holder).tvUserName.setText(currentUser.getUsername());
 
 
-            SkillFlexAdapter adapter = new SkillFlexAdapter(currentUser.getListx());
+            SkillFlexAdapter adapter = new SkillFlexAdapter(currentUser.getSkills());
 
             FlexboxLayoutManager flexboxLayoutManager = new FlexboxLayoutManager(mContext);
             flexboxLayoutManager.setFlexDirection(FlexDirection.ROW);
@@ -141,6 +140,7 @@ public class AllUsersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
             mListener = listener;
             rootView.setOnClickListener(this);
+            rvSkillsView.setOnClickListener(this);
 
         }
 

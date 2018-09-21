@@ -14,7 +14,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:theme="@style/FullScreenStyle">
+            android:theme="@style/FullScreenStyle"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -35,7 +36,7 @@
         <activity android:name=".DisplayProjectActivity" />
         <activity android:name=".DisplayUserActivity" />
         <activity android:name=".testActivity" />
-        <activity android:name=".AllUsersActivity"></activity>
+        <activity android:name=".AllUsersActivity" />
     </application>
 
 </manifest>

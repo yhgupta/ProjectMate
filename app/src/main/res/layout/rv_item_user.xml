@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--USER ITEM WHEN THE PARTICULAR USER SEARCHES FOR THE STUDENTS WHICH
     HE MAY REQUIRED FOR HIS PROJECT OR WANT TO JOIN SOME OTHERS PROJECT-->
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rv_item_root_view"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="vertical">
 
     <!--NAME OF THE STUDENT-->
     <TextView
@@ -16,24 +18,16 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
-        android:text="@string/name_of_student"
-        android:textStyle=""
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.034"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="@string/name_of_student" />
 
     <!--RECYCLER VIEW TO DISPLAY SKILLS-->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/user_item_skills_recycler_view"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user_item_name_view" />
+        android:layout_marginTop="8dp" />
 
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

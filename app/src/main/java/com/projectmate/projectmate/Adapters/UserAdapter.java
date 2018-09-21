@@ -40,8 +40,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     @Override
     public void onBindViewHolder(@NonNull UserAdapter.UserViewHolder holder, int position) {
         AllUserItem currentUser = mUsers.get(position);
-        holder.nameView.setText(currentUser.getUserName());
-        SkillFlexAdapter adapter = new SkillFlexAdapter(currentUser.getListx());
+        holder.nameView.setText(currentUser.getUsername());
+        SkillFlexAdapter adapter = new SkillFlexAdapter(currentUser.getSkills());
 
         FlexboxLayoutManager flexboxLayoutManager = new FlexboxLayoutManager(mContext);
         flexboxLayoutManager.setFlexDirection(FlexDirection.ROW);
