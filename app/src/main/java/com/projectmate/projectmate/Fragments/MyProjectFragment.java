@@ -143,8 +143,7 @@ public class MyProjectFragment extends Fragment {
                             mProjectAdapter.notifyDataSetChanged();
                         }
                     });
-
-
+                    
                 }
 
 
@@ -173,20 +172,8 @@ public class MyProjectFragment extends Fragment {
                     mProjectAdapter.setLoaded();
                     return;
                 }
-                OkHttpRequests requests = new OkHttpRequests();
-                String url = ProjectMateUris.getAllProjects(mProjects.size());
 
-                mProjects.add(null);
-
-                mProjectsRv.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        mProjectAdapter.notifyDataSetChanged();
-                    }
-                });
-
-
-                requests.performGetRequest(url, mCallback, StaticValues.getCodeChefAuthKey());
+                loadMore();
             }
         };
 
@@ -200,14 +187,19 @@ public class MyProjectFragment extends Fragment {
 
         mProjectsRv.setAdapter(mProjectAdapter);
 
+        loadMore();
+
+        return rootView;
+    }
+
+
+    private void loadMore(){
         OkHttpRequests requests = new OkHttpRequests();
         String url = ProjectMateUris.getAllProjects(mProjects.size());
 
         mProjects.add(null);
         mProjectAdapter.notifyDataSetChanged();
         requests.performGetRequest(url, mCallback, StaticValues.getCodeChefAuthKey());
-
-        return rootView;
     }
 
 
