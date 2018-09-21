@@ -66,6 +66,7 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectV
 
     @Override
     public int getItemCount() {
+        if(mProject==null) return 0;
         return mProject.size();
     }
 

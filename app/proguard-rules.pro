@@ -36,3 +36,6 @@
 -keep class dmax.dialog.** {
     *;
 }
+
+-dontwarn org.w3c.dom.bootstrap.DOMImplementationRegistry
+-dontwarn com.fasterxml.jackson.databind.ext.Java7SupportImpl
