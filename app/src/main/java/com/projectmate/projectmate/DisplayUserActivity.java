@@ -62,6 +62,7 @@ public class DisplayUserActivity extends AppCompatActivity {
         linearLayout = findViewById(R.id.all_user_display_activity);
 
         mUserId = getIntent().getIntExtra("USER_ID", 0);
+        projectId = getIntent().getIntExtra("PROJECT_ID", 0);
 
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -72,6 +73,8 @@ public class DisplayUserActivity extends AppCompatActivity {
         mSaveBtn = findViewById(R.id.profile_btn_save);
         mSaveBtnText = findViewById(R.id.profile_btn_text);
         mSaveBtnProgress = findViewById(R.id.profile_btn_progress);
+
+        if(!showSaveBtn) mSaveBtn.setVisibility(View.GONE);
 
         mSaveBtn.setOnClickListener(new View.OnClickListener() {
             @Override

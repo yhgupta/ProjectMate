@@ -131,12 +131,6 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        if(userCode==null){
-            Intent intent = new Intent(MainActivity.this, StartActivity.class);
-            startActivity(intent);
-            finish();
-            return;
-        }
         Log.v("USERCODE", userCode);
 
         StaticValues.setCodeChefAuthKey(userCode);
