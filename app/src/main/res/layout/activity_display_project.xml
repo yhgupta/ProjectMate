@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--WHEN USER TOUCHES THE PROJECT FOR DETAILS-->
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -6,6 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".DisplayProjectActivity">
 
+    <!--PROGRESS CIRCULAR BAR WHILE THE PROJECT DEATILS OF PROJECT BEING LOADED-->
     <ProgressBar
         android:id="@+id/progressBar1"
         android:layout_width="50dp"
@@ -18,7 +20,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
+    <!--DETAILS OF THE PROJECTS-->
     <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -39,7 +41,7 @@
             android:layout_marginTop="8dp"
             android:fontFamily="sans-serif-condensed"
             android:paddingTop="16dp"
-            android:text="Skills"
+            android:text="@string/skills"
             android:textSize="20dp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -52,7 +54,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:fontFamily="sans-serif-condensed"
-            android:text="Description"
+            android:text="@string/description"
             android:textSize="20dp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -65,7 +67,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:fontFamily="sans-serif-condensed"
-            android:text="Short Description"
+            android:text="@string/short_description"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -92,6 +94,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:paddingLeft="8dp"
+            android:paddingRight="8dp"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -105,7 +108,6 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:ems="10"
-            android:inputType="textMultiLine"
             android:paddingLeft="8dp"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -147,7 +149,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:padding="8dp"
-                android:text="REQUEST TO JOIN"
+                android:text="@string/request_to_join"
                 android:textColor="@android:color/white"
                 android:textSize="16sp" />
 

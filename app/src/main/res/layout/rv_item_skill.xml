@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<!--SKILL ITEM TO DISPLAYS ITS SKILLS AND STRENGTH-->
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:elevation="8dp"
     app:cardCornerRadius="4dp"
     app:cardElevation="4dp">
 
+    <!--LINEARLAYOUT CONTAINING NAME OF SKILL
+        AND STRENGTH OF THAT SKILL-->
     <LinearLayout
         android:id="@+id/root_view_skill"
         android:layout_width="match_parent"
@@ -19,6 +21,7 @@
         android:background="?attr/selectableItemBackground"
         android:padding="8dp">
 
+        <!--NAME OF THE SKILL-->
         <TextView
             android:id="@+id/tv_skill_name"
             android:layout_width="wrap_content"
@@ -27,6 +30,7 @@
             android:textSize="18sp"
             android:textStyle="bold" />
 
+        <!--UPTO WHICH LEVEL USER KNOWS THE SKILL-->
         <RatingBar
             android:id="@+id/skill_rating"
             style="@style/Base.Widget.AppCompat.RatingBar.Small"

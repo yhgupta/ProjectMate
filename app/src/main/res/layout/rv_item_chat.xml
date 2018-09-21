@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<!--DISPLAY THE USER FOR CHAT AND THEIR LAST MESSAGE-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/chat_item_layout"
     android:layout_width="match_parent"
@@ -15,6 +14,7 @@
     android:orientation="vertical"
     android:padding="8dp">
 
+    <!--NAME OF THE USER FOR CHAT-->
     <TextView
         android:id="@+id/tv_name_of_person_to_chat"
         android:layout_width="wrap_content"
@@ -24,6 +24,7 @@
         android:textStyle="bold"
         tools:text="Name of Person" />
 
+    <!--LAST MESSAGE OF CHAT-->
     <TextView
         android:id="@+id/tv_last_message_to_be_displayed"
         android:layout_width="wrap_content"

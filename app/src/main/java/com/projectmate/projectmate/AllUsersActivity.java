@@ -53,8 +53,6 @@ public class AllUsersActivity extends AppCompatActivity {
             public void onResponse(Call call, Response response) throws IOException {
                 if(response.isSuccessful()){
                     String jsonData = response.body().string();
-
-
                 }
             }
         };
@@ -62,15 +60,12 @@ public class AllUsersActivity extends AppCompatActivity {
         mListener = new RecyclerViewClickListener() {
             @Override
             public void onClick(View view, int position) {
-
             }
         };
 
         mLoadMoreListener = new OnLoadMoreListener() {
             @Override
-            public void onLoadMore() {
-
-            }
+            public void onLoadMore() { }
         };
 
         mAdapter = new AllUsersAdapter(mAllUsers, mMainView, this, mListener, mLoadMoreListener);

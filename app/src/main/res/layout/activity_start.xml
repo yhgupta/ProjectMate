@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--START ACTIVITY ( TO BE OPENED WHEN USER START THE APP)-->
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -6,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".StartActivity">
 
-
+    <!--IMAGE DESIPLAYED AT THE BACKGROUND-->
     <ImageView
         android:id="@+id/activity_start_imageView"
         android:layout_width="0dp"
@@ -18,6 +19,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/background" />
 
+    <!--HEADING WELCOME-->
     <TextView
         android:id="@+id/activity_start_HARDCODE_welcome"
         android:layout_width="365dp"
@@ -36,6 +38,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.32" />
 
+    <!--HHEADING MESSAGE-->
     <TextView
         android:id="@+id/activity_start_HARDCODE_findMate"
         android:layout_width="wrap_content"
@@ -52,6 +55,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activity_start_HARDCODE_welcome" />
 
+    <!--CARDVIEW OF BUTTON GET STARTED-->
     <android.support.v7.widget.CardView
         android:id="@+id/btn_get_started"
         android:layout_width="0dp"

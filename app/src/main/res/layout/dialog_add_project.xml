@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <!--HEADING SKILLS-->
     <TextView
         android:id="@+id/view_project_HARDCODE_skills"
         android:layout_width="wrap_content"
@@ -12,12 +13,13 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:fontFamily="sans-serif-condensed"
-        android:text="Skills"
+        android:text="@string/skills"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dialog_addproject_complete_desc" />
 
+    <!--HEADING DESCRIPTION-->
     <TextView
         android:id="@+id/view_project_HARDCODE_desc"
         android:layout_width="wrap_content"
@@ -25,12 +27,13 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:fontFamily="sans-serif-condensed"
-        android:text="Description"
+        android:text="@string/description"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dialog_addproject_short_desc" />
 
+    <!--HEADING SHORT DESCRIPTION-->
     <TextView
         android:id="@+id/view_project_HARDCODE_short_desc"
         android:layout_width="wrap_content"
@@ -38,12 +41,13 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:fontFamily="sans-serif-condensed"
-        android:text="Short Description"
+        android:text="@string/short_description"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dialog_addproject_et_name" />
 
+    <!--HEADING ADD PROJECT-->
     <TextView
         android:id="@+id/dialog_HARDCODE_add_skill"
         android:layout_width="wrap_content"
@@ -52,13 +56,14 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:fontFamily="sans-serif"
-        android:text="Add Project"
+        android:text="@string/add_project"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!--HEADING NAME-->
     <TextView
         android:id="@+id/view_project_HARDCODE_project_name"
         android:layout_width="wrap_content"
@@ -72,6 +77,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dialog_HARDCODE_add_skill" />
 
+    <!--NAME OF THE PROJECT-->
     <EditText
         android:id="@+id/dialog_addproject_et_name"
         android:layout_width="0dp"
@@ -79,10 +85,12 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_project_HARDCODE_project_name" />
 
+    <!--SHORT DESCRIPTION OF PROJECT-->
     <EditText
         android:id="@+id/dialog_addproject_short_desc"
         android:layout_width="0dp"
@@ -96,6 +104,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_project_HARDCODE_short_desc" />
 
+    <!--COMPPLETE DESCRIPTION OF PROJECT-->
     <EditText
         android:id="@+id/dialog_addproject_complete_desc"
         android:layout_width="0dp"
@@ -109,6 +118,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_project_HARDCODE_desc" />
 
+    <!--ADD SKILL BUTTON-->
     <TextView
         android:id="@+id/dialog_addproject_add_skill"
         android:layout_width="wrap_content"
@@ -116,13 +126,14 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp"
         android:fontFamily="sans-serif-smallcaps"
-        android:text="+ Add"
+        android:text="@string/add"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textColor="@color/colorPrimaryDark"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dialog_addproject_complete_desc" />
 
+    <!--RECYCLER VIEW FOR SKILLS-->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/dialog_add_project_rv"
         android:layout_width="368dp"

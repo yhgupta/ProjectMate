@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--DISPLAY OF FLEXBOX LAYOUT FOR SKILLS-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
@@ -9,8 +10,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:background="@drawable/flexbox_item_background"
+        android:text="@string/skills"
         android:padding="5dp"
-        android:text="Luceasdasne"
         android:textColor="@android:color/white" />
 
 </LinearLayout>

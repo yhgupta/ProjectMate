@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--ITEM TO DISPLAY THE PROJECTS IN LIST-->
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:elevation="4dp"
@@ -22,6 +22,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <!--NAME OF THE PROJECT-->
         <TextView
             android:id="@+id/tv_project_name"
             android:layout_width="wrap_content"
@@ -29,8 +30,9 @@
             android:fontFamily="sans-serif-condensed"
             android:textSize="18sp"
             android:textStyle="bold"
-            tools:text="Name" />
+            android:text="@string/name" />
 
+        <!--SHORT DESCRIPTION OF PROJECT-->
         <TextView
             android:id="@+id/tv_short_desc"
             android:layout_width="wrap_content"
@@ -38,8 +40,9 @@
             android:fontFamily="sans-serif-condensed"
             android:paddingBottom="4dp"
             android:textSize="14sp"
-            tools:text="Short Desc" />
+            android:text="@string/short_desc" />
 
+        <!--RECYCLER VIEW FOR SKILLS-->
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_my_skills"
             android:layout_width="wrap_content"
@@ -53,15 +56,15 @@
 
     <ImageButton
         android:id="@+id/project_btn_edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:padding="4dp"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         android:background="?attr/selectableItemBackground"
-        android:focusable="true"
         android:clickable="true"
+        android:focusable="true"
+        android:padding="4dp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/baseline_edit_24" />

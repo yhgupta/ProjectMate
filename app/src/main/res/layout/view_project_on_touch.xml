@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginTop="15dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <!--HEADING SKILLS-->
     <TextView
         android:id="@+id/view_project_HARDCODE_skills"
         android:layout_width="wrap_content"
@@ -13,12 +13,13 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:fontFamily="sans-serif-condensed"
-        android:text="Skills"
+        android:text="@string/skills"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_project_HARDCODE_line3" />
 
+    <!--HEADING DESCRIPTION-->
     <TextView
         android:id="@+id/view_project_HARDCODE_desc"
         android:layout_width="wrap_content"
@@ -26,13 +27,13 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:fontFamily="sans-serif-condensed"
-        android:text="Description"
+        android:text="@string/description"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_project_HARDCODE_line2" />
 
-
+    <!--HEADING SHORT DESCRIPTION-->
     <TextView
         android:id="@+id/view_project_HARDCODE_short_desc"
         android:layout_width="wrap_content"
@@ -40,13 +41,13 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:fontFamily="sans-serif-condensed"
-        android:text="Short Description"
+        android:text="@string/short_description"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_project_HARDCODE_line1" />
 
-
+    <!--HEADING PROJECT NAME-->
     <TextView
         android:id="@+id/view_project_HARDCODE_project_name"
         android:layout_width="wrap_content"
@@ -55,7 +56,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:fontFamily="sans-serif-condensed"
-        android:text="Project Name:"
+        android:text="@string/project_name"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/edit_skill"
@@ -63,6 +64,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!--EDIT BUTTON-->
     <ImageButton
         android:id="@+id/edit_name"
         android:layout_width="wrap_content"
@@ -77,6 +79,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_project_HARDCODE_line1" />
 
+    <!--NAME OF THE PROJECT-->
     <TextView
         android:id="@+id/view_project_project_name"
         android:layout_width="wrap_content"
@@ -84,7 +87,6 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:fontFamily="sans-serif-condensed"
-        android:text="Name of Project from server"
         android:textColor="@android:color/darker_gray"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -104,6 +106,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_project_project_name" />
 
+    <!--EDIT BUTTON-->
     <ImageButton
         android:id="@+id/edit_short_description"
         android:layout_width="wrap_content"
@@ -118,18 +121,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_project_HARDCODE_line2" />
 
+    <!--SHORT DESCRIPTION OF PROJECT-->
     <TextView
         android:id="@+id/view_project_short_desc"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="Short description from server"
         android:textColor="@android:color/darker_gray"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_project_HARDCODE_short_desc" />
 
+    <!--EDIT BUTTON-->
     <ImageButton
         android:id="@+id/edit_complete_description"
         android:layout_width="wrap_content"
@@ -156,6 +160,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_project_short_desc" />
 
+    <!--DESCRIPTION OF THE PROJECT-->
     <TextView
         android:id="@+id/view_project_desc"
         android:layout_width="wrap_content"
@@ -163,7 +168,6 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Description of project from server"
         android:textColor="@android:color/darker_gray"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -171,6 +175,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_project_HARDCODE_desc" />
 
+    <!--EDIT BUTTON-->
     <ImageButton
         android:id="@+id/edit_skill"
         android:layout_width="wrap_content"
@@ -196,7 +201,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_project_desc" />
 
-
+    <!--FLEXBOX LAYOUT TO DISPLAY SKILLS-->
     <com.google.android.flexbox.FlexboxLayout
 
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -222,7 +227,6 @@
             android:layout_margin="5dp"
             android:background="@drawable/flexbox_item_background"
             android:padding="5dp"
-            android:text="Lucene"
             android:textColor="@android:color/white" />
 
 
@@ -244,51 +248,3 @@
         app:layout_constraintVertical_bias="0.023" />
 
 </android.support.constraint.ConstraintLayout>
-
-
-    <!--<LinearLayout
-        android:id="@+id/textView11"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="136dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/line2">
-
-        <Button
-            android:id="@+id/send_a_request"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="SEND A REQUEST" />
-
-        <Button
-            android:id="@+id/search_a_mate_request"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="SEARCH A MATE" />
-
-        <LinearLayout
-            android:id="@+id/accept_or_reject_request"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="ACCEPT" />
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="REJECT" />
-
-        </LinearLayout>
-
-    </LinearLayout>-->

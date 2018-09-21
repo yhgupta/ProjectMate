@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--USER ITEM WHEN THE PARTICULAR USER SEARCHES FOR THE STUDENTS WHICH
+    HE MAY REQUIRED FOR HIS PROJECT OR WANT TO JOIN SOME OTHERS PROJECT-->
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rv_item_root_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!--NAME OF THE STUDENT-->
     <TextView
         android:id="@+id/user_item_name_view"
         android:layout_width="wrap_content"
@@ -13,13 +16,14 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
-        android:text="Name of Student"
+        android:text="@string/name_of_student"
         android:textStyle=""
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.034"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!--RECYCLER VIEW TO DISPLAY SKILLS-->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/user_item_skills_recycler_view"
         android:layout_width="0dp"

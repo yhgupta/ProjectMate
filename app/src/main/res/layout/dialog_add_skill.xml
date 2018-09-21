@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--DIALOG BOX TO BE DISPLAYED TO ADD SKILLS-->
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <!--HEADING COURSES TAKEN-->
     <TextView
         android:id="@+id/view_project_HARDCODE_desc"
         android:layout_width="wrap_content"
@@ -18,6 +20,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dialog_addskill_short_desc" />
 
+    <!--HEADING STRENGTH-->
     <TextView
         android:id="@+id/view_project_project_name"
         android:layout_width="wrap_content"
@@ -31,7 +34,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dialog_addskill_et_name" />
 
-
+    <!--HEADING SHORT DESCRIPTION-->
     <TextView
         android:id="@+id/view_project_HARDCODE_short_desc"
         android:layout_width="wrap_content"
@@ -45,6 +48,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dialog_addskill_rating" />
 
+    <!--HEADING ADD SKILL-->
     <TextView
         android:id="@+id/dialog_HARDCODE_add_skill"
         android:layout_width="wrap_content"
@@ -60,6 +64,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!--HEADING PROJECT NAME-->
     <TextView
         android:id="@+id/view_project_HARDCODE_project_name"
         android:layout_width="wrap_content"
@@ -72,6 +77,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dialog_HARDCODE_add_skill" />
 
+    <!--NAME OF SKILL-->
     <AutoCompleteTextView
         android:id="@+id/dialog_addskill_et_name"
         android:layout_width="0dp"
@@ -83,6 +89,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_project_HARDCODE_project_name" />
 
+    <!--RATING BAR-->
     <RatingBar
         android:id="@+id/dialog_addskill_rating"
         android:layout_width="0dp"
@@ -98,6 +105,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_project_project_name" />
 
+    <!--SHORT DESCRIPTION ABOUT SKILL-->
     <EditText
         android:id="@+id/dialog_addskill_short_desc"
         android:layout_width="0dp"
@@ -111,6 +119,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_project_HARDCODE_short_desc" />
 
+    <!--COURSES TAKEN FOR SKILL TO LEARN-->
     <EditText
         android:id="@+id/dialog_addskill_courses_taken"
         android:layout_width="0dp"
@@ -124,6 +133,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_project_HARDCODE_desc" />
 
+    <!--CHOOSE BUTTON-->
     <Button
         android:id="@+id/dialog_addskill_btn_choose"
         android:layout_width="wrap_content"
