@@ -70,7 +70,7 @@ public class DisplayUserActivity extends AppCompatActivity {
 
         boolean showSaveBtn = getIntent().getBooleanExtra("SHOW_SAVE", true);
 
-        mSaveBtn = findViewById(R.id.profile_btn_save);
+        mSaveBtn = findViewById(R.id.all_users_btn_save);
         mSaveBtnText = findViewById(R.id.profile_btn_text);
         mSaveBtnProgress = findViewById(R.id.profile_btn_progress);
 
@@ -155,7 +155,7 @@ public class DisplayUserActivity extends AppCompatActivity {
 
         LayoutInflater inflater = this.getLayoutInflater();
 
-        final View view = inflater.inflate(R.layout.dialog_add_project, null);
+        final View view = inflater.inflate(R.layout.dialog_add_project_on_touch, null);
 
         builder.setView(view);
 

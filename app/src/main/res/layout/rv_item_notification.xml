@@ -24,7 +24,7 @@
             android:id="@+id/permanent_text_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="13dp"
+            android:textSize="13sp"
             android:textStyle="bold"
             android:textColor="@android:color/darker_gray"
             android:text="@string/you_have_received_a_request_for"/>
@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/name_of_project"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textStyle="bold"/>
 
         <!--LINEARLAYOUT TO DISPLAY BUTTONS OF ACCEPT AND REJECT-->
@@ -81,7 +81,7 @@
             android:id="@+id/permanent_text_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="13dp"
+            android:textSize="13sp"
             android:textStyle="bold"
             android:textColor="@android:color/darker_gray"
             android:text="@string/your_request_has_been_accepted_for"/>
@@ -93,7 +93,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/name_of_project"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textStyle="bold"/>
 
         <Button
@@ -123,7 +123,7 @@
             android:id="@+id/permanent_text_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="13dp"
+            android:textSize="13sp"
             android:textStyle="bold"
             android:textColor="@android:color/darker_gray"
             android:text="@string/your_request_has_been_rejected_for"/>
@@ -133,7 +133,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/name_of_project"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textStyle="bold"/>
 
     </LinearLayout>

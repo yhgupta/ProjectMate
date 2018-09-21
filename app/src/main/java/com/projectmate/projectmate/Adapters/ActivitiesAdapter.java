@@ -34,27 +34,31 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<ActivitiesAdapter.Ac
         this.mListener = listener;
     }
 
+    //Inflating view of rv_item_notification
     @NonNull
     @Override
     public ActivitiesAdapter.ActivitiesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_item_notification, parent, false);
-
         return new ActivitiesAdapter.ActivitiesViewHolder(view, mListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ActivitiesViewHolder holder, int position) {
+        //getting position which is touched
         Activity currActivity = mActivities.get(position);
 
         int activityType = currActivity.getActivity_type();
         boolean isSenderMe = currActivity.getSender().getId() == StaticValues.getCurrentUser().getId();
 
+        //setting visibliity
         holder.rootViewAR.setVisibility(View.GONE);
         holder.rootViewSC.setVisibility(View.GONE);
         holder.rootViewN.setVisibility(View.GONE);
 
+
         switch (activityType) {
 
+            //activity  for request to join project
             case ProjectMateAPIContract.ACTIVITY_TYPE_REQUEST_JOIN:
                 if (isSenderMe) {
                     holder.rootViewN.setVisibility(View.VISIBLE);
@@ -69,6 +73,7 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<ActivitiesAdapter.Ac
                 }
                 break;
 
+            //activity to invite for project
             case ProjectMateAPIContract.ACTIVITY_TYPE_REQUEST_INVITE:
                 if (isSenderMe) {
                     holder.rootViewN.setVisibility(View.VISIBLE);
@@ -83,6 +88,7 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<ActivitiesAdapter.Ac
                 }
                 break;
 
+            //activity to display that join request has accepted
             case ProjectMateAPIContract.ACTIVITY_TYPE_REQUEST_JOIN_ACCEPTED:
                 holder.rootViewSC.setVisibility(View.VISIBLE);
                 holder.projNameSC.setText(currActivity.getProject().getProject_name());
@@ -93,6 +99,7 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<ActivitiesAdapter.Ac
                 }
                 break;
 
+            //activity to display that invite request has accepted
             case ProjectMateAPIContract.ACTIVITY_TYPE_REQUEST_INVITE_ACCEPTED:
                 holder.rootViewSC.setVisibility(View.VISIBLE);
                 holder.projNameSC.setText(currActivity.getProject().getProject_name());
@@ -103,31 +110,30 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<ActivitiesAdapter.Ac
                 }
                 break;
 
+            //activity to display that join request has been rejected
             case ProjectMateAPIContract.ACTIVITY_TYPE_REQUEST_JOIN_REJECTED:
                 holder.rootViewN.setVisibility(View.VISIBLE);
                 holder.projNameN.setText(currActivity.getProject().getProject_name());
 
-                if(isSenderMe){
+                if (isSenderMe) {
                     holder.permTextN.setText("Your join request has been rejected for ");
-                }else{
+                } else {
                     holder.permTextN.setText("Your have rejected " + currActivity.getSender().getUsername() + " for ");
                 }
                 break;
 
+            //activity to display that invite request has been rejected
             case ProjectMateAPIContract.ACTIVITY_TYPE_REQUEST_INVITE_REJECTED:
                 holder.rootViewN.setVisibility(View.VISIBLE);
                 holder.projNameN.setText(currActivity.getProject().getProject_name());
 
-                if(isSenderMe){
+                if (isSenderMe) {
                     holder.permTextN.setText("Your invite request has been rejected by " + currActivity.getReceiver().getUsername() + " for ");
-                }else{
+                } else {
                     holder.permTextN.setText("Your have rejected invite request from" + currActivity.getSender().getUsername() + " for ");
                 }
                 break;
-
         }
-
-
     }
 
 
@@ -160,26 +166,32 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<ActivitiesAdapter.Ac
 
             this.mListener = listener;
 
+            //initalizing notification layouts
             rootViewAR = itemView.findViewById(R.id.notification_layout_1);
             rootViewSC = itemView.findViewById(R.id.notification_layout_2);
             rootViewN = itemView.findViewById(R.id.notification_layout_3);
 
+            //displaying fixed message at the top
             permTextAR = itemView.findViewById(R.id.permanent_text_1);
             permTextSC = itemView.findViewById(R.id.permanent_text_2);
             permTextN = itemView.findViewById(R.id.permanent_text_3);
 
+            //name of the project
             projNameAR = itemView.findViewById(R.id.name_of_project_1);
             projNameSC = itemView.findViewById(R.id.name_of_project_2);
             projNameN = itemView.findViewById(R.id.name_of_project_3);
 
+            //accept_reject_startChat_buttons
             accept = itemView.findViewById(R.id.accept_view);
             reject = itemView.findViewById(R.id.reject_view);
             startChat = itemView.findViewById(R.id.start_chat_view);
 
+            //onClick for layouts
             rootViewAR.setOnClickListener(this);
             rootViewSC.setOnClickListener(this);
             rootViewN.setOnClickListener(this);
 
+            //onClick for accept_reject_startChat_buttons
             accept.setOnClickListener(this);
             reject.setOnClickListener(this);
             startChat.setOnClickListener(this);
