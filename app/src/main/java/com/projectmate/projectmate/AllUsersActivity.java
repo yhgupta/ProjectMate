@@ -90,6 +90,7 @@ public class AllUsersActivity extends AppCompatActivity {
                 int userId = mAllUsers.get(position).getId();
                 Intent intent = new Intent(AllUsersActivity.this, DisplayUserActivity.class);
                 intent.putExtra("USER_ID", userId);
+                intent.putExtra("PROJECT_ID", mProjectId);
                 startActivity(intent);
             }
         };
