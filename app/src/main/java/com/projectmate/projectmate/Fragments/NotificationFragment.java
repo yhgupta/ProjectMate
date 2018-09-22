@@ -85,7 +85,7 @@ public class NotificationFragment extends Fragment {
                     };
                     final ArrayList<Activity> activities = gson.fromJson(jsonData, token.getType());
 
-
+                    mActivities.clear();
                     if (!activities.isEmpty()) mActivities.addAll(activities);
 
                     getActivity().runOnUiThread(new Runnable() {
@@ -169,7 +169,6 @@ public class NotificationFragment extends Fragment {
 
 
     private void reload() {
-        mActivities.clear();
         OkHttpRequests requests = new OkHttpRequests();
         String url = ProjectMateUris.GetActivities(0);
         requests.performGetRequest(url, mCallback, StaticValues.getCodeChefAuthKey());
@@ -184,7 +183,7 @@ public class NotificationFragment extends Fragment {
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
+            public void onResponse(Call call, Response response) {
                 if (response.isSuccessful()) {
                     reload();
                 }

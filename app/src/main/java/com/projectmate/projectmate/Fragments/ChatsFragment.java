@@ -76,7 +76,7 @@ public class ChatsFragment extends Fragment {
                     TypeToken<ArrayList<Message>> token = new TypeToken<ArrayList<Message>>() {
                     };
                     final ArrayList<Message> messages = gson.fromJson(jsonData, token.getType());
-
+                    mMessages.clear();
                     if (!messages.isEmpty()) mMessages.addAll(messages);
 
                     getActivity().runOnUiThread(new Runnable() {
@@ -126,7 +126,6 @@ public class ChatsFragment extends Fragment {
     }
 
     private void reload() {
-        mMessages.clear();
         OkHttpRequests requests = new OkHttpRequests();
         String url = ProjectMateUris.GetUserChats();
         requests.performGetRequest(url, mCallback, StaticValues.getCodeChefAuthKey());

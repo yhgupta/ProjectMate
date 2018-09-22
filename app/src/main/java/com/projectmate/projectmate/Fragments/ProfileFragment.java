@@ -161,7 +161,7 @@ public class ProfileFragment extends Fragment {
         mAllSkills = new ArrayList<>(StaticValues.getAllSkills());
 
         for (Skill skill : mUser.getSkills()) {
-            mAllSkills.remove(skill.getSkillID());
+            mAllSkills.remove(skill.getSkillID() - 1);
         }
 
         //opening the project dialog box to edit the once saved projects
