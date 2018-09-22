@@ -81,7 +81,6 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView mSaveBtnText;
     private ProgressBar mSaveBtnProgress;
     private Boolean mSaveBtnClicked = false;
-    private Boolean mChangesMade = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -413,7 +412,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         //Check condition
         if (name.isEmpty()) return false;
-        int position = StaticValues.getAllSkills().indexOf(name);
+        int position = mAllGlobalSkill.indexOf(name);
 
         if (position < 0) return false;
 
@@ -601,7 +600,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
+            public void onResponse(Call call, Response response) {
                 if (response.isSuccessful()) {
 
                     //Start Main Activity
@@ -656,6 +655,11 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String skillName = skillNameEditText.getText().toString();
+
+                if (mAllGlobalSkill.contains(skillName)) {
+                    displayToast("Invalid Skill");
+                    return;
+                }
                 String shortDesc = shortDescription.getText().toString();
                 String desc = coursesTaken.getText().toString();
                 int rating = (int) ratingSkill.getRating();
@@ -667,7 +671,6 @@ public class ProfileActivity extends AppCompatActivity {
 
                 mSkillAdapter.notifyDataSetChanged();
 
-                mChangesMade = true;
                 dialog.dismiss();
             }
 
@@ -685,8 +688,9 @@ public class ProfileActivity extends AppCompatActivity {
                     dialog.dismiss();
                 }
                 mUser.getSkills().remove(position);
+                mAllSkills.add(currSkill.getSkillName());
                 mSkillAdapter.notifyDataSetChanged();
-                mChangesMade = true;
+                mSkillAdapter.notifyDataSetChanged();
                 dialog.dismiss();
             }
         });
@@ -775,7 +779,6 @@ public class ProfileActivity extends AppCompatActivity {
                 }
                 mProjectAdapter.notifyDataSetChanged();
 
-                mChangesMade = true;
                 dialog.dismiss();
             }
 
@@ -790,7 +793,6 @@ public class ProfileActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 mUser.getProjects().remove(position);
                 mProjectAdapter.notifyDataSetChanged();
-                mChangesMade = true;
                 dialog.dismiss();
             }
         });

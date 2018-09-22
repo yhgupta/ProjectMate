@@ -578,7 +578,7 @@ public class ProfileFragment extends Fragment {
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
+            public void onResponse(Call call, Response response) {
                 if (response.isSuccessful()) {
 
                     getActivity().runOnUiThread(new Runnable() {
@@ -712,6 +712,7 @@ public class ProfileFragment extends Fragment {
                     dialog.dismiss();
                 } else {
                     mUser.getSkills().remove(position);
+                    mAllSkills.add(currSkill.getSkillName());
                     mSkillAdapter.notifyDataSetChanged();
                     mChangesMade = true;
                     dialog.dismiss();
