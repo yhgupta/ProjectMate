@@ -46,11 +46,11 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<ActivitiesAdapter.Ac
 
         //setting visibliity
         holder.rootViewAR.setVisibility(View.GONE);
-        holder.rootViewAR.setTag(100, false);
+        holder.rootViewAR.setTag(R.id.activity_main_layout, false);
         holder.rootViewSC.setVisibility(View.GONE);
-        holder.rootViewSC.setTag(100, false);
+        holder.rootViewSC.setTag(R.id.activity_main_layout, false);
         holder.rootViewN.setVisibility(View.GONE);
-        holder.rootViewN.setTag(100, false);
+        holder.rootViewN.setTag(R.id.activity_main_layout, false);
 
 
         switch (activityType) {
@@ -64,7 +64,7 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<ActivitiesAdapter.Ac
                     holder.projNameN.setText(currActivity.getProject().getProject_name());
                 } else {
                     holder.rootViewAR.setVisibility(View.VISIBLE);
-                    holder.rootViewAR.setTag(100, true);
+                    holder.rootViewAR.setTag(R.id.activity_main_layout, true);
 
                     holder.permTextAR.setText("You have a join request from " + currActivity.getSender().getUsername() + " for ");
                     holder.projNameAR.setText(currActivity.getProject().getProject_name());
@@ -75,7 +75,7 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<ActivitiesAdapter.Ac
             case ProjectMateAPIContract.ACTIVITY_TYPE_REQUEST_INVITE:
                 if (isSenderMe) {
                     holder.rootViewN.setVisibility(View.VISIBLE);
-                    holder.rootViewN.setTag(100, true);
+                    holder.rootViewN.setTag(R.id.activity_main_layout, true);
 
                     holder.permTextN.setText("You have sent invitation to " + currActivity.getReceiver().getUsername() + " request for ");
                     holder.projNameN.setText(currActivity.getProject().getProject_name());
@@ -95,7 +95,7 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<ActivitiesAdapter.Ac
                     holder.permTextSC.setText("Your join request is accepted for ");
                 } else {
                     holder.permTextSC.setText("You have accepted join request from " + currActivity.getSender().getUsername() + " for ");
-                    holder.rootViewSC.setTag(100, true);
+                    holder.rootViewSC.setTag(R.id.activity_main_layout, true);
                 }
                 break;
 
@@ -104,7 +104,7 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<ActivitiesAdapter.Ac
                 holder.rootViewSC.setVisibility(View.VISIBLE);
                 holder.projNameSC.setText(currActivity.getProject().getProject_name());
                 if (isSenderMe) {
-                    holder.rootViewSC.setTag(100, true);
+                    holder.rootViewSC.setTag(R.id.activity_main_layout, true);
                     holder.permTextSC.setText(currActivity.getReceiver().getUsername() + " has accepted your invitation for ");
                 } else {
                     holder.permTextSC.setText("You have accepted invitation from " + currActivity.getSender().getUsername() + " for ");
@@ -120,7 +120,7 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<ActivitiesAdapter.Ac
                     holder.permTextN.setText("Your join request has been rejected for ");
                 } else {
                     holder.permTextN.setText("Your have rejected " + currActivity.getSender().getUsername() + " for ");
-                    holder.rootViewSC.setTag(100, true);
+                    holder.rootViewSC.setTag(R.id.activity_main_layout, true);
                 }
                 break;
 
@@ -130,7 +130,7 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<ActivitiesAdapter.Ac
                 holder.projNameN.setText(currActivity.getProject().getProject_name());
 
                 if (isSenderMe) {
-                    holder.rootViewSC.setTag(100, true);
+                    holder.rootViewSC.setTag(R.id.activity_main_layout, true);
                     holder.permTextN.setText("Your invite request has been rejected by " + currActivity.getReceiver().getUsername() + " for ");
                 } else {
                     holder.permTextN.setText("Your have rejected invite request from" + currActivity.getSender().getUsername() + " for ");

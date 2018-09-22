@@ -24,6 +24,7 @@ import com.projectmate.projectmate.Classes.Activity;
 import com.projectmate.projectmate.Database.StaticValues;
 import com.projectmate.projectmate.DisplayProjectActivity;
 import com.projectmate.projectmate.DisplayUserActivity;
+import com.projectmate.projectmate.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -120,7 +121,7 @@ public class NotificationFragment extends Fragment {
                         startActivity(intent);
                     }
                 } else {
-                    if ((boolean) (view.getTag(100))) {
+                    if ((boolean) (view.getTag(R.id.activity_main_layout))) {
                         Intent intent = new Intent(getContext(), DisplayUserActivity.class);
 
                         int my_id = StaticValues.getCurrentUser().getId();

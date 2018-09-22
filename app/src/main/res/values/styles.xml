@@ -5,7 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorRed</item>
         <item name="colorPrimaryDark">@color/colorRedDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@android:color/holo_purple</item>
 
     </style>
 
@@ -13,7 +13,7 @@
     <style name="FullScreenStyle" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorBlue</item>
         <item name="colorPrimaryDark">@color/colorRedDark</item>
-        <item name="colorAccent">@color/colorYellow</item>
+        <item name="colorAccent">@android:color/holo_purple</item>
     </style>
 
     <style name="BrowserTheme" parent="Theme.AppCompat.Light.DarkActionBar">
