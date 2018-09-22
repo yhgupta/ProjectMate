@@ -74,5 +74,6 @@
     <string name="projects">Projects</string>
     <string name="invite_user">INVITE USER</string>
     <string name="request_to_join">REQUEST TO JOIN</string>
+    <string name="editbtn">EditBtn</string>
 
 </resources>

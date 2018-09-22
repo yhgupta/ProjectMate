@@ -731,6 +731,8 @@ public class ProfileActivity extends AppCompatActivity {
         final ArrayList<Skill> skills = new ArrayList<>(mUser.getSkills());
         final ArrayList<Skill> mySkills = new ArrayList<>();
 
+        ArrayList<Skill> toRemove = new ArrayList<>();
+
         for(Skill skill : skills){
             if(currProject.getSkills().contains(skill.getSkillID())){
                 mySkills.add(skill);

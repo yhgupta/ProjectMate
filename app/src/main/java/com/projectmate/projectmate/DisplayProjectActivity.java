@@ -126,7 +126,7 @@ public class DisplayProjectActivity extends AppCompatActivity {
 
         displayPName.setText(mProject.getProjectName());
         displayPShortDesc.setText(mProject.getProjectShortDesc());
-        displayPDesc.setText(mProject.getProjectName());
+        displayPDesc.setText(mProject.getProjectCompleteDesc());
 
         final ArrayList<Integer> mySkills = new ArrayList<>(mProject.getSkills());
 

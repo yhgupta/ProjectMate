@@ -5,7 +5,7 @@ public class ProjectMateAPIContract {
     //All the paths for interacting with the ProjectMate API on Alibaba Cloud
     public static final String SERVER_SCHEME = "http";
 
-    public static final String SERVER_URL = "149.129.137.69";
+    public static final String SERVER_URL = "149.129.133.253";
     public static final String API_PATH = "api";
 
     public static final String USERS_PATH = "users";

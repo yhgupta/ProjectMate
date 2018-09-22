@@ -40,6 +40,7 @@ import okhttp3.Response;
 
 public class HomeFragment extends Fragment {
 
+    //initialization of variables
     private ArrayList<Project> mProjects;
     private MyProjectAdapter mProjectAdapter;
 
@@ -61,7 +62,7 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        //setting of recyclerView
         final RecyclerView recyclerView = new RecyclerView(getContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 

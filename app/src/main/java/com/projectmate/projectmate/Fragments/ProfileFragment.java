@@ -159,8 +159,8 @@ public class ProfileFragment extends Fragment {
         //Set up layout managers and adapters
 
         //Now load all skills in mAllSkills from XML arrays
-        String[] arraySkill = getResources().getStringArray(R.array.skillsArray);
-        mAllSkills = new ArrayList<>(Arrays.asList(arraySkill));
+
+        mAllSkills = new ArrayList<>(StaticValues.getAllSkills());
 
         for(Skill skill : mUser.getSkills()){
             mAllSkills.remove(skill.getSkillID());
@@ -387,7 +387,7 @@ public class ProfileFragment extends Fragment {
 
         //Check condition
         if(name.isEmpty()) return false;
-        int position = mAllSkills.indexOf(name);
+        int position = StaticValues.getAllSkills().indexOf(name);
 
         if(position<0) return false;
 
@@ -770,12 +770,15 @@ public class ProfileFragment extends Fragment {
         final ArrayList<Skill> skills = new ArrayList<>(mUser.getSkills());
         final ArrayList<Skill> mySkills = new ArrayList<>();
 
+        ArrayList<Skill> toRemove = new ArrayList<>();
+
         for(Skill skill : skills){
             if(currProject.getSkills().contains(skill.getSkillID())){
                 mySkills.add(skill);
-                skills.remove(skill);
+                toRemove.add(skill);
             }
         }
+        skills.removeAll(mySkills);
 
         //skills in skillAdapter
         final SkillAdapter skillAdapter = new SkillAdapter(mySkills);
