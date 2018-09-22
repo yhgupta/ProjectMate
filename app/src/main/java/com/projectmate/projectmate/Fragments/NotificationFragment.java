@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -26,6 +27,7 @@ import com.projectmate.projectmate.Classes.Message;
 import com.projectmate.projectmate.Classes.Project;
 import com.projectmate.projectmate.Database.StaticValues;
 import com.projectmate.projectmate.DisplayProjectActivity;
+import com.projectmate.projectmate.DisplayUserActivity;
 import com.projectmate.projectmate.R;
 
 import java.io.IOException;
@@ -126,11 +128,31 @@ public class NotificationFragment extends Fragment {
                     }
                 }
                 else {
-                    Intent intent = new Intent(getContext(), DisplayProjectActivity.class);
-                    int proj_id = mActivities.get(position).getProject().getId();
-                    intent.putExtra("PROJECT_ID", proj_id);
-                    intent.putExtra("SHOW_SAVE", false);
-                    startActivity(intent);
+                    if((boolean)(view.getTag(100))){
+                        Intent intent = new Intent(getContext(), DisplayUserActivity.class);
+
+                        int my_id = StaticValues.getCurrentUser().getId();
+
+                        Activity activity = mActivities.get(position);
+
+                        int user_id = my_id == activity.getSender().getId()
+                                ? activity.getReceiver().getId()
+                                : activity.getSender().getId();
+                        int proj_id = activity.getProject().getId();
+
+                        intent.putExtra("USER_ID", user_id);
+                        intent.putExtra("PROJECT_ID", proj_id);
+                        intent.putExtra("SHOW_SAVE", false);
+                        startActivity(intent);
+                    }
+                    else{
+                        Intent intent = new Intent(getContext(), DisplayProjectActivity.class);
+                        int proj_id = mActivities.get(position).getProject().getId();
+                        intent.putExtra("PROJECT_ID", proj_id);
+                        intent.putExtra("SHOW_SAVE", false);
+                        startActivity(intent);
+                    }
+
                 }
             }
         };
