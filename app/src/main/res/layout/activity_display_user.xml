@@ -27,7 +27,7 @@
                 <TextView
                     android:id="@+id/activity_all_users_et_country"
                     android:layout_width="0dp"
-                    android:layout_height="27dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="16dp"
                     android:ems="10"
@@ -45,7 +45,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:fontFamily="sans-serif-condensed"
-                    android:text="@string/activity_profile_country"
+                    android:text="@string/location"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
@@ -68,7 +68,7 @@
                 <TextView
                     android:id="@+id/activity_all_users_et_city"
                     android:layout_width="0dp"
-                    android:layout_height="27dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="16dp"
                     android:ems="10"
@@ -96,7 +96,7 @@
                 <TextView
                     android:id="@+id/activity_all_users_et_organization"
                     android:layout_width="0dp"
-                    android:layout_height="27dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="16dp"
                     android:ems="10"
@@ -151,7 +151,7 @@
                 <TextView
                     android:id="@+id/activity_all_users_et_full_name"
                     android:layout_width="0dp"
-                    android:layout_height="27dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="16dp"
                     android:ems="10"
