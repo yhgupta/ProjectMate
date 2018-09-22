@@ -306,7 +306,7 @@ public class MyProjectFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String skillName = allSkills.get(position);
+                String skillName = adapter.getItem(position);
                 int skillId = StaticValues.getAllSkills().indexOf(skillName);
 
                 mySkills.add(skillId);
