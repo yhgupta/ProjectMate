@@ -1,6 +1,8 @@
-package com.projectmate.projectmate.Classes;
 
-import android.content.Intent;
+//variables initialization and its getters and setters with constructors
+
+
+package com.projectmate.projectmate.Classes;
 
 import com.google.gson.annotations.SerializedName;
 

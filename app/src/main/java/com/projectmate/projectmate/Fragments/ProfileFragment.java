@@ -166,6 +166,7 @@ public class ProfileFragment extends Fragment {
             mAllSkills.remove(skill.getSkillID());
         }
 
+        //opening the project dialog box to edit the once saved projects
         RecyclerViewClickListener listener = new RecyclerViewClickListener() {
             @Override
             public void onClick(View view, int position) {
@@ -174,10 +175,10 @@ public class ProfileFragment extends Fragment {
         };
         mProjectAdapter = new ProjectAdapter(mUser.getProjects(), getContext(), listener);
 
+        //Opening skill dialog box to edit the once saved skill
         RecyclerViewClickListener skillListener = new RecyclerViewClickListener() {
             @Override
             public void onClick(View view, int position) {
-                Toast.makeText(getContext(),"Opening",Toast.LENGTH_SHORT).show();
                 createEditSkillDialog(position).show();
             }
         };
@@ -194,6 +195,7 @@ public class ProfileFragment extends Fragment {
         mSkillsRv.setNestedScrollingEnabled(false);
 
 
+        //saving the profile
         mSaveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -511,6 +513,7 @@ public class ProfileFragment extends Fragment {
 
     }
 
+    //saving profile
     private void saveProfile(){
         if(!mChangesMade){
             displayToast("No changes to save");
@@ -565,6 +568,7 @@ public class ProfileFragment extends Fragment {
 
     }
 
+    //saving user details to server
     private void saveToServer(){
         Gson gson = new Gson();
         String jsonData = gson.toJson(mUser);
@@ -641,6 +645,7 @@ public class ProfileFragment extends Fragment {
         requests.performPutRequest(url, jsonData, callback, authToken);
     }
 
+    //display toast message ( one function instead of writing whole function again and again
     private void displayToast(String message){
         if(mToast==null){
             mToast = Toast.makeText(getContext(), message, Toast.LENGTH_SHORT);
@@ -652,6 +657,7 @@ public class ProfileFragment extends Fragment {
 
     }
 
+    //dialog box to edit skill
     private Dialog createEditSkillDialog( final int position ){
         //Create a new AlertDialog Builder
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -727,7 +733,9 @@ public class ProfileFragment extends Fragment {
 
     }
 
+    //dialog box to edit project
     private Dialog createEditProjectDialog(final int position){
+
         //Create a new AlertDialog Builder
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
@@ -769,13 +777,10 @@ public class ProfileFragment extends Fragment {
             }
         }
 
+        //skills in skillAdapter
         final SkillAdapter skillAdapter = new SkillAdapter(mySkills);
-
-
         skillView.setLayoutManager(new LinearLayoutManager(getContext()));
-
         skillView.setAdapter(skillAdapter);
-
 
 
         addSkill.setOnClickListener(new View.OnClickListener() {
@@ -787,6 +792,7 @@ public class ProfileFragment extends Fragment {
 
 
         //Adding positive and negative buttons
+        //Also updates the field with new values
         builder.setPositiveButton(getString(R.string.add_project_dialog_save_btn), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

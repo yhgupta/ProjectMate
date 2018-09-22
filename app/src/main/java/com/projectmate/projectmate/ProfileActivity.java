@@ -2,10 +2,8 @@ package com.projectmate.projectmate;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -166,7 +164,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-
+        //calls the dialog box to edit the project dialog
         RecyclerViewClickListener listener = new RecyclerViewClickListener() {
             @Override
             public void onClick(View view, int position) {
@@ -435,10 +433,12 @@ public class ProfileActivity extends AppCompatActivity {
         AlertDialog.Builder listDialog = new AlertDialog.Builder(ProfileActivity.this);
         LayoutInflater inflater = getLayoutInflater();
 
+        //inflates the layout
         View view = inflater.inflate(R.layout.dialog_list_skills, null);
 
         listDialog.setTitle("Select Skill");
         listDialog.setView(view);
+
 
         ListView listView = view.findViewById(R.id.listView);
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, allSkills);
@@ -457,8 +457,6 @@ public class ProfileActivity extends AppCompatActivity {
                 return true;
             }
         });
-
-
 
         final Dialog dialog = listDialog.create();
 

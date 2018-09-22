@@ -16,12 +16,15 @@ import java.util.List;
 
 public class SkillFlexAdapter extends RecyclerView.Adapter<SkillFlexAdapter.TestViewHolder> {
 
+    //initializing variables
     private List<Integer> mSkills;
 
+    //constructor
     public SkillFlexAdapter(ArrayList<Integer> skills) {
         this.mSkills=skills;
     }
 
+    //inflating the rv_item_flexbox_item layout
     @NonNull
     @Override
     public SkillFlexAdapter.TestViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -31,6 +34,7 @@ public class SkillFlexAdapter extends RecyclerView.Adapter<SkillFlexAdapter.Test
 
     @Override
     public void onBindViewHolder(@NonNull TestViewHolder holder, int position) {
+        //getting the position
         String skillName = StaticValues.getAllSkills().get(mSkills.get(position));
         holder.tvStringName.setText(skillName);
     }
@@ -41,10 +45,12 @@ public class SkillFlexAdapter extends RecyclerView.Adapter<SkillFlexAdapter.Test
     }
 
     static class TestViewHolder extends RecyclerView.ViewHolder {
+        //initializing the variables
         TextView tvStringName;
 
         public TestViewHolder(View itemView) {
             super(itemView);
+            //setting the fields in their particular view
             tvStringName = itemView.findViewById(R.id.skill_added);
         }
     }

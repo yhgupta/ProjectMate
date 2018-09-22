@@ -19,28 +19,32 @@ import java.util.List;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
 
+    //initializing variables
     private List<AllUserItem> mUsers;
     private Context mContext;
     private RecyclerViewClickListener mListener;
 
+    //Constructor
     public UserAdapter( ArrayList<AllUserItem> users, Context mContext, RecyclerViewClickListener mListener){
         this.mUsers = users;
         this.mContext = mContext;
         this.mListener = mListener;
     }
 
+    //inflating the rv_item_user layout
     @NonNull
     @Override
     public UserAdapter.UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_item_user, parent, false);
-
         return new UserAdapter.UserViewHolder(view,mListener );
     }
 
     @Override
     public void onBindViewHolder(@NonNull UserAdapter.UserViewHolder holder, int position) {
+        //getting the position
         AllUserItem currentUser = mUsers.get(position);
         holder.nameView.setText(currentUser.getUsername());
+        //skill flex adapter to display the skill in flexBox
         SkillFlexAdapter adapter = new SkillFlexAdapter(currentUser.getSkills());
 
         FlexboxLayoutManager flexboxLayoutManager = new FlexboxLayoutManager(mContext);
@@ -57,6 +61,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
     static class UserViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+        //initializing the variables
         LinearLayout rootView;
         TextView nameView;
         RecyclerView skillView;
@@ -66,6 +71,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
         public UserViewHolder(View itemView, RecyclerViewClickListener listener) {
             super(itemView);
+            //setting the fields in their particular view
             rootView = itemView.findViewById(R.id.project_item_layout);
             nameView = itemView.findViewById(R.id.user_item_name_view);
             skillView = itemView.findViewById(R.id.user_item_skills_recycler_view);
@@ -74,6 +80,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             rootView.setOnClickListener(this);
         }
 
+        //onClick view
         @Override
         public void onClick(View v) {
             mListener.onClick(v, getAdapterPosition());

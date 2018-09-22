@@ -24,6 +24,7 @@ import java.util.List;
 
 public class MyProjectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
+    //Initializing variables
     private final int VIEW_ITEM = 1;
     private final int VIEW_PROG = 0;
 
@@ -39,9 +40,9 @@ public class MyProjectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 
     private boolean mAllowEdit;
-
     private boolean firstTime = true;
 
+    //Constructor
     public MyProjectAdapter(List<Project> project, RecyclerView recyclerView, Context context, RecyclerViewClickListener listener, OnLoadMoreListener loadMoreListener, boolean allowEdit) {
         this.mProject = project;
         this.mContext = context;

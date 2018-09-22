@@ -49,13 +49,14 @@ public class ChatsFragment extends Fragment {
         // Required empty public constructor
     }
 
-
+    //inflating the fragments_chats layout to display the details
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_chats, container, false);
 
+        //recyclerview to display chat
         RecyclerView recyclerView = rootView.findViewById(R.id.chat_fragment_rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -67,9 +68,7 @@ public class ChatsFragment extends Fragment {
 
         mCallback = new Callback() {
             @Override
-            public void onFailure(Call call, IOException e) {
-
-            }
+            public void onFailure(Call call, IOException e) { }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {

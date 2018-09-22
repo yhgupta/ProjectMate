@@ -33,6 +33,7 @@ import okhttp3.Response;
 
 public class DisplayProjectActivity extends AppCompatActivity {
 
+    //initialization of data types
     private ProgressBar progressBar;
     private ConstraintLayout constraintLayout;
 
@@ -52,7 +53,10 @@ public class DisplayProjectActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //setting of layout
         setContentView(R.layout.activity_display_project);
+
+        //finding view for constraintlayout and progressBar
         constraintLayout = findViewById(R.id.activity_main_layout);
         progressBar = findViewById(R.id.progressBar1);
 
@@ -61,14 +65,17 @@ public class DisplayProjectActivity extends AppCompatActivity {
 
         boolean showSaveBtn = getIntent().getBooleanExtra("SHOW_SAVE", true);
 
+        //finding button fields
         mSaveBtn = findViewById(R.id.profile_btn_save);
         mSaveBtnText = findViewById(R.id.profile_btn_text);
         mSaveBtnProgress = findViewById(R.id.profile_btn_progress);
 
+        //checks if it is pressed on not
         if(!showSaveBtn) mSaveBtn.setVisibility(View.GONE);
 
         displayPSkill = findViewById(R.id.dialog_add_skill_rv);
 
+        //onClick of button
         mSaveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,7 +87,7 @@ public class DisplayProjectActivity extends AppCompatActivity {
             }
         });
 
-
+        //checks for response and its data requesting by sending project id
         mCallback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -109,6 +116,7 @@ public class DisplayProjectActivity extends AppCompatActivity {
         requests.performGetRequest(url, mCallback, StaticValues.getCodeChefAuthKey());
     }
 
+    //dialog box to show the  project
     public void displayProject() {
         progressBar.setVisibility(View.INVISIBLE);
         constraintLayout.setVisibility(View.VISIBLE);
@@ -131,8 +139,6 @@ public class DisplayProjectActivity extends AppCompatActivity {
         displayPSkill.setLayoutManager(flexboxLayoutManager);
 
         displayPSkill.setAdapter(skillAdapter);
-
-
     }
 
     @Override
@@ -143,11 +149,13 @@ public class DisplayProjectActivity extends AppCompatActivity {
 
     }
 
+    //join request and its animation
     private void joinProject(){
+        /*fadein and fadeout animation works and further
+        data retrieving and notification sending and receiving works*/
         Animation fadeOut = new AlphaAnimation(1, 0);
         fadeOut.setInterpolator(new AccelerateInterpolator());
         fadeOut.setDuration(400);
-
         fadeOut.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {

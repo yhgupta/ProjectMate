@@ -1,3 +1,4 @@
+
 package com.projectmate.projectmate.Database;
 
 public class DatabaseContract {

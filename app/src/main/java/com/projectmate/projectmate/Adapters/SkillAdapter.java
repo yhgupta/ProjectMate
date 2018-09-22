@@ -20,20 +20,24 @@ import java.util.List;
 
 public class SkillAdapter extends RecyclerView.Adapter<SkillAdapter.SkillViewHolder>{
 
+    //initializing variables
     private List<Skill> mSkills;
     private Context mContext;
     private RecyclerViewClickListener mListener;
 
+    //Constructor
     public SkillAdapter(List<Skill> skill, Context context, RecyclerViewClickListener listener ){
         this.mSkills = skill;
         this.mContext = context;
         this.mListener = listener;
     }
 
+    //Constructor Overloading
     public SkillAdapter(List<Skill> skills) {
         this.mSkills = skills;
     }
 
+    //inflating the rv_item_skill layout
     @NonNull
     @Override
     public SkillAdapter.SkillViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -41,13 +45,15 @@ public class SkillAdapter extends RecyclerView.Adapter<SkillAdapter.SkillViewHol
         return new SkillViewHolder(view,mListener);
     }
 
+
     @Override
     public void onBindViewHolder(@NonNull SkillViewHolder holder, int position) {
+        //holding the text
         holder.tvStringName.setText(mSkills.get(position).getSkillName());
         holder.ratingBar.setRating(mSkills.get(position).getSkillRating());
     }
 
-
+    //returns item size
     @Override
     public int getItemCount() {
         if(mSkills==null) return 0;
@@ -55,6 +61,8 @@ public class SkillAdapter extends RecyclerView.Adapter<SkillAdapter.SkillViewHol
     }
 
     static class SkillViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        //initializing the variables
         LinearLayout rootView;
         private RecyclerViewClickListener mListener;
         TextView tvStringName;
@@ -62,6 +70,7 @@ public class SkillAdapter extends RecyclerView.Adapter<SkillAdapter.SkillViewHol
 
         SkillViewHolder(View itemView, RecyclerViewClickListener listener) {
             super(itemView);
+            //setting the fields in their particular view
             rootView = itemView.findViewById(R.id.root_view_skill);
 
             tvStringName = itemView.findViewById(R.id.tv_skill_name);
@@ -69,10 +78,9 @@ public class SkillAdapter extends RecyclerView.Adapter<SkillAdapter.SkillViewHol
 
             mListener = listener;
             rootView.setOnClickListener(this);
-
-
         }
 
+        //onClick view
         @Override
         public void onClick(View v) {
             mListener.onClick(v, getAdapterPosition());

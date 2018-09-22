@@ -1,3 +1,7 @@
+
+
+//variables initialization and its getters and setters
+
 package com.projectmate.projectmate.CodeChefAPI;
 
 public class AuthPostDataClass {

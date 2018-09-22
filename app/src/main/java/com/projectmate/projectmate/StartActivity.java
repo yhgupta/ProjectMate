@@ -14,15 +14,20 @@ import android.view.View;
 
 public class StartActivity extends AppCompatActivity {
 
+    //cardview initialization
     private CardView getStartedView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //inflating layout activity_start
         setContentView(R.layout.activity_start);
 
+        //finding the button
         getStartedView = findViewById(R.id.btn_get_started);
 
+        //Changes the activity using intent
         getStartedView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

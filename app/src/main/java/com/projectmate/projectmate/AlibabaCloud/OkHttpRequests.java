@@ -19,7 +19,7 @@ public class OkHttpRequests {
     private static final MediaType MEDIA_TYPE = MediaType.parse("application/json");
 
 
-
+    //performs the get request
     public void performGetRequest(String url, Callback callback, String authToken){
         Request request = new Request.Builder()
                 .url(url)
@@ -32,6 +32,7 @@ public class OkHttpRequests {
 
     }
 
+    //performs the put request
     public void performPutRequest(String url, String postdata, Callback callback, String authToken){
 
         RequestBody body = RequestBody.create(MEDIA_TYPE, postdata);
@@ -46,6 +47,7 @@ public class OkHttpRequests {
         client.newCall(request).enqueue(callback);
     }
 
+    //performs the post request
     public void performPostRequestCodeChef(String url, String postdata, Callback callback){
 
         Log.v("POST", postdata);

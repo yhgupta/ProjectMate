@@ -1,3 +1,5 @@
+
+//variables initialization and its getters and setters with constructors and constructor overloading
 package com.projectmate.projectmate.Classes;
 
 public class Chat {

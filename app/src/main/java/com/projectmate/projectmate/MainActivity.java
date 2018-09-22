@@ -43,7 +43,7 @@ import okhttp3.Response;
 public class MainActivity extends AppCompatActivity {
 
 
-
+    //Initialization of data types
     private RotateLoading mRotateLoading;
 
     private FragmentPagerAdapter mMainPagerAdapter;
@@ -56,9 +56,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        //inflating layout
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //finding particular view
         mRotateLoading = findViewById(R.id.rotateloading);
 
         mRotateLoading.start();
@@ -68,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
         mViewPager.setOffscreenPageLimit(4);
 
+        //Set the title and its name and other properties
         mBottomNavigation = findViewById(R.id.bottom_navigation);
         mToolbar = findViewById(R.id.main_toolbar);
         mToolbar.setTitle("Project Mate");
@@ -92,9 +95,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
-
+        //sets the bottom navigation bar and changes on touch and slide
         mBottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -141,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //gets the itemsID nd changes the layout according to it
     private int getItemID(int index){
         switch (index){
             case 0:
@@ -157,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //when user logins for first time
     private void userFirstTime() {
         Callback callback = new Callback() {
             @Override
@@ -166,6 +169,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+                //checks if authentication is successful or not
                 if (response.isSuccessful()) {
 
                     final String jsonResponse = response.body().string();
@@ -176,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
 
-                    if (jsonResponse.equals(ProjectMateAPIContract.AUTHENTICATION_FAILED)){
+                    if (jsonResponse.equals(ProjectMateAPIContract.AUTHENTICATION_FAILED)) {
                         MainActivity.this.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -186,19 +190,18 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent = new Intent(MainActivity.this, BrowserActivity.class);
                         startActivity(intent);
                         finish();
-                    }
-                    else {
+                    } else {
                         Gson gson = new Gson();
                         User user = gson.fromJson(jsonResponse, User.class);
 
                         StaticValues.setCurrentUser(user);
 
-                        if (user.getSkills()==null || user.getSkills().size() == 0) {
+                        if (user.getSkills() == null || user.getSkills().size() == 0) {
                             Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
                             startActivity(intent);
                             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                             finish();
-                        }else{
+                        } else {
                             MainActivity.this.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
@@ -212,8 +215,9 @@ public class MainActivity extends AppCompatActivity {
 
                         }
                     }
+                }
             }
-        }};
+        };
 
         String authUrl = ProjectMateUris.getAuthUrl();
         OkHttpRequests httpRequests = new OkHttpRequests();
