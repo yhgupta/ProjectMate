@@ -1,7 +1,7 @@
 package com.projectmate.projectmate;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -14,7 +14,6 @@ import com.projectmate.projectmate.Adapters.MessageAdapter;
 import com.projectmate.projectmate.AlibabaCloud.OkHttpRequests;
 import com.projectmate.projectmate.AlibabaCloud.ProjectMateUris;
 import com.projectmate.projectmate.Classes.Message;
-import com.projectmate.projectmate.Classes.Project;
 import com.projectmate.projectmate.Database.StaticValues;
 
 import java.io.IOException;
@@ -74,12 +73,13 @@ public class ChatActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     String jsonData = response.body().string();
 
                     Gson gson = new Gson();
 
-                    TypeToken<ArrayList<Message>> token = new TypeToken<ArrayList<Message>>() {};
+                    TypeToken<ArrayList<Message>> token = new TypeToken<ArrayList<Message>>() {
+                    };
                     ArrayList<Message> messages = gson.fromJson(jsonData, token.getType());
                     mMessages.clear();
                     mMessages.addAll(messages);
@@ -114,13 +114,13 @@ public class ChatActivity extends AppCompatActivity {
 
     }
 
-    private void reload(){
+    private void reload() {
         OkHttpRequests requests = new OkHttpRequests();
         String url = ProjectMateUris.GetChat(mUserId, 0);
         requests.performGetRequest(url, mCallback, StaticValues.getCodeChefAuthKey());
     }
 
-    private void sendMessage(){
+    private void sendMessage() {
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -133,11 +133,11 @@ public class ChatActivity extends AppCompatActivity {
             }
         };
         String message = mMessageText.getText().toString().trim();
-        if(!message.isEmpty()){
+        if (!message.isEmpty()) {
             mMessageText.setText("");
             OkHttpRequests requests = new OkHttpRequests();
             String url = ProjectMateUris.GetChat(mUserId, 0);
-            String data = "{\"message\":\""+message+"\"}";
+            String data = "{\"message\":\"" + message + "\"}";
 
             requests.performPutRequest(url, data, callback, StaticValues.getCodeChefAuthKey());
         }

@@ -2,10 +2,6 @@ package com.projectmate.projectmate.AlibabaCloud;
 
 import android.util.Log;
 
-import com.google.gson.JsonObject;
-
-import org.json.JSONObject;
-
 import okhttp3.Callback;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -20,7 +16,7 @@ public class OkHttpRequests {
 
 
     //performs the get request
-    public void performGetRequest(String url, Callback callback, String authToken){
+    public void performGetRequest(String url, Callback callback, String authToken) {
         Request request = new Request.Builder()
                 .url(url)
                 .get()
@@ -33,7 +29,7 @@ public class OkHttpRequests {
     }
 
     //performs the put request
-    public void performPutRequest(String url, String postdata, Callback callback, String authToken){
+    public void performPutRequest(String url, String postdata, Callback callback, String authToken) {
 
         RequestBody body = RequestBody.create(MEDIA_TYPE, postdata);
 
@@ -48,7 +44,7 @@ public class OkHttpRequests {
     }
 
     //performs the post request
-    public void performPostRequestCodeChef(String url, String postdata, Callback callback){
+    public void performPostRequestCodeChef(String url, String postdata, Callback callback) {
 
         Log.v("POST", postdata);
         RequestBody body = RequestBody.create(MEDIA_TYPE, postdata);

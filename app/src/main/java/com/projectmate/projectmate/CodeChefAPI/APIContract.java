@@ -1,8 +1,8 @@
 package com.projectmate.projectmate.CodeChefAPI;
 
 /*
-* This is a contract class for interacting with the CodeChef API
-*/
+ * This is a contract class for interacting with the CodeChef API
+ */
 
 import android.net.Uri;
 
@@ -13,7 +13,7 @@ public class APIContract {
 
     public static final String CODECHEF_TOKEN_URL = "https://api.codechef.com/oauth/token/";
 
-    public static String getCodeChefAuthUrl(){
+    public static String getCodeChefAuthUrl() {
         Uri.Builder builder = new Uri.Builder();
         builder.scheme("https")
                 .authority("api.codechef.com")
@@ -28,7 +28,7 @@ public class APIContract {
         return builder.build().toString();
     }
 
-    public static String getCodeChefAuthTokenUrl(){
+    public static String getCodeChefAuthTokenUrl() {
         return CODECHEF_TOKEN_URL;
     }
 }

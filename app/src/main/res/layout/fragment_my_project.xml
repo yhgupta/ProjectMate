@@ -36,11 +36,10 @@
         android:id="@+id/my_project_btn_save"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorBlue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:backgroundTint="@color/colorBlue"
-        >
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
             android:id="@+id/my_project_btn_text"

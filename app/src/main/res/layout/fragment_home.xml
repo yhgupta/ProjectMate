@@ -6,32 +6,29 @@
     tools:context=".Fragments.MyProjectFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <RelativeLayout
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/accept_card_view"
-        android:layout_margin="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        xmlns:android="http://schemas.android.com/apk/res/android">
+        android:layout_margin="16dp">
 
         <TextView
             android:id="@+id/name_view"
             android:layout_width="match_parent"
-            android:padding="2dp"
             android:layout_height="30dp"
+            android:padding="2dp"
             android:textSize="20sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/last_message_view"
             android:layout_width="match_parent"
             android:layout_height="30sp"
-            android:padding="5dp"
             android:layout_below="@id/name_view"
-            android:textSize="15sp"
-            />
+            android:padding="5dp"
+            android:textSize="15sp" />
 
     </RelativeLayout>
-
 
 
 </FrameLayout>

@@ -12,13 +12,15 @@ public class AllUserItem {
     private String username;
     private ArrayList<Integer> skills;
 
-    public AllUserItem(int id, String username, ArrayList<Integer> skills){
+    public AllUserItem(int id, String username, ArrayList<Integer> skills) {
         this.id = id;
         this.username = username;
         this.skills = skills;
     }
 
-    public int getId() { return id; }
+    public int getId() {
+        return id;
+    }
 
     public String getUsername() {
         return username;

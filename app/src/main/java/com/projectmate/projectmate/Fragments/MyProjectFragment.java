@@ -82,7 +82,6 @@ public class MyProjectFragment extends Fragment {
     }
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -101,10 +100,9 @@ public class MyProjectFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.v("json", String.valueOf(mProjects.size()));
-                if(!mChangesMade){
+                if (!mChangesMade) {
                     displayToast("No changes to save");
-                }
-                else if(!mSaveBtnClicked) saveProjects();
+                } else if (!mSaveBtnClicked) saveProjects();
             }
         });
 
@@ -122,17 +120,18 @@ public class MyProjectFragment extends Fragment {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
 
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     final String jsonData = response.body().string();
                     Gson gson = new Gson();
 
-                    TypeToken<ArrayList<Project>> token = new TypeToken<ArrayList<Project>>() {};
+                    TypeToken<ArrayList<Project>> token = new TypeToken<ArrayList<Project>>() {
+                    };
                     final ArrayList<Project> projects = gson.fromJson(jsonData, token.getType());
 
                     mProjects.remove(mProjects.size() - 1);
 
 
-                    if(projects.isEmpty()) moreItemsPresent = false;
+                    if (projects.isEmpty()) moreItemsPresent = false;
                     else mProjects.addAll(projects);
 
 
@@ -143,7 +142,7 @@ public class MyProjectFragment extends Fragment {
                             mProjectAdapter.notifyDataSetChanged();
                         }
                     });
-                    
+
                 }
 
 
@@ -153,10 +152,9 @@ public class MyProjectFragment extends Fragment {
         mItemClickListener = new RecyclerViewClickListener() {
             @Override
             public void onClick(View view, int position) {
-                if(view instanceof ImageButton){
+                if (view instanceof ImageButton) {
                     createEditProjectDialog(position).show();
-                }
-                else{
+                } else {
                     int projId = mProjects.get(position).getId();
                     Intent intent = new Intent(getContext(), AllUsersActivity.class);
                     intent.putExtra("PROJECT_ID", projId);
@@ -168,7 +166,7 @@ public class MyProjectFragment extends Fragment {
         mLoadMoreListener = new OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
-                if(!moreItemsPresent){
+                if (!moreItemsPresent) {
                     mProjectAdapter.setLoaded();
                     return;
                 }
@@ -193,7 +191,7 @@ public class MyProjectFragment extends Fragment {
     }
 
 
-    private void loadMore(){
+    private void loadMore() {
         OkHttpRequests requests = new OkHttpRequests();
         String url = ProjectMateUris.getAllProjects(mProjects.size());
 
@@ -203,7 +201,7 @@ public class MyProjectFragment extends Fragment {
     }
 
 
-    private Dialog createAddProjectDialog(){
+    private Dialog createAddProjectDialog() {
         //Create a new AlertDialog Builder
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
@@ -239,11 +237,10 @@ public class MyProjectFragment extends Fragment {
         skillView.setAdapter(skillAdapter);
 
 
-
         addSkill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createAllSkillsDialog(skillAdapter ,skills,mySkills).show();
+                createAllSkillsDialog(skillAdapter, skills, mySkills).show();
             }
         });
 
@@ -252,7 +249,7 @@ public class MyProjectFragment extends Fragment {
         builder.setPositiveButton(getString(R.string.add_project_dialog_save_btn), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if(addProject(view, mySkills)){
+                if (addProject(view, mySkills)) {
                     dialog.dismiss();
                 }
             }
@@ -270,7 +267,7 @@ public class MyProjectFragment extends Fragment {
 
     }
 
-    private Dialog createAllSkillsDialog(final SkillFlexAdapter skillAdapter, final ArrayList<String> allSkills, final ArrayList<Integer> mySkills){
+    private Dialog createAllSkillsDialog(final SkillFlexAdapter skillAdapter, final ArrayList<String> allSkills, final ArrayList<Integer> mySkills) {
 
         //Create new dialog and get inflater
         AlertDialog.Builder listDialog = new AlertDialog.Builder(getContext());
@@ -300,7 +297,6 @@ public class MyProjectFragment extends Fragment {
         });
 
 
-
         final Dialog dialog = listDialog.create();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -321,13 +317,12 @@ public class MyProjectFragment extends Fragment {
 
     }
 
-    private boolean addProject(View rootView, ArrayList<Integer>skills){
+    private boolean addProject(View rootView, ArrayList<Integer> skills) {
 
         //Get all of the views
         EditText tvName = rootView.findViewById(R.id.dialog_addproject_et_name);
         EditText tvShortDesc = rootView.findViewById(R.id.dialog_addproject_short_desc);
         EditText tvCompleteDesc = rootView.findViewById(R.id.dialog_addproject_complete_desc);
-
 
 
         //Get all fields from the views
@@ -350,7 +345,7 @@ public class MyProjectFragment extends Fragment {
 
     }
 
-    private void saveProjects(){
+    private void saveProjects() {
         Log.v("json", String.valueOf(mProjects.size()));
         mSaveBtnClicked = true;
         Animation fadeOut = new AlphaAnimation(1, 0);
@@ -402,14 +397,14 @@ public class MyProjectFragment extends Fragment {
 
     }
 
-    private void saveToServer(){
+    private void saveToServer() {
         Gson gson = new Gson();
         Log.v("JSON", String.valueOf(mProjects.size()));
         String jsonData = gson.toJson(mProjects);
         Log.v("JSON", jsonData);
         String authToken = StaticValues.getCodeChefAuthKey();
         String url = ProjectMateUris.getAllProjects(0);
-        Log.v("URL",url);
+        Log.v("URL", url);
 
         Callback callback = new Callback() {
             @Override
@@ -419,7 +414,7 @@ public class MyProjectFragment extends Fragment {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     saveSuccess();
                     reloadAll();
                 }
@@ -429,7 +424,7 @@ public class MyProjectFragment extends Fragment {
         requests.performPutRequest(url, jsonData, callback, authToken);
     }
 
-    private void saveSuccess(){
+    private void saveSuccess() {
         final Animation fadeOut = new AlphaAnimation(1, 0);
         fadeOut.setInterpolator(new AccelerateInterpolator());
         fadeOut.setDuration(400);
@@ -483,7 +478,7 @@ public class MyProjectFragment extends Fragment {
         mChangesMade = false;
     }
 
-    private void reloadAll(){
+    private void reloadAll() {
         mProjects.clear();
 
         OkHttpRequests requests = new OkHttpRequests();
@@ -503,7 +498,7 @@ public class MyProjectFragment extends Fragment {
 
     }
 
-    private Dialog createEditProjectDialog(final int position){
+    private Dialog createEditProjectDialog(final int position) {
         //Create a new AlertDialog Builder
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
@@ -542,7 +537,7 @@ public class MyProjectFragment extends Fragment {
 
         Collections.sort(mySkills, Collections.<Integer>reverseOrder());
 
-        for(int i : mySkills){
+        for (int i : mySkills) {
             skills.remove(i);
         }
 
@@ -556,11 +551,10 @@ public class MyProjectFragment extends Fragment {
         skillView.setAdapter(skillAdapter);
 
 
-
         addSkill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createAllSkillsDialog(skillAdapter ,skills, mySkills).show();
+                createAllSkillsDialog(skillAdapter, skills, mySkills).show();
             }
         });
 
@@ -569,18 +563,18 @@ public class MyProjectFragment extends Fragment {
         builder.setPositiveButton(getString(R.string.add_project_dialog_save_btn), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-               String projectName = nameEditText.getText().toString();
-               String shortDesc = shortDescription.getText().toString();
-               String desc = description.getText().toString();
+                String projectName = nameEditText.getText().toString();
+                String shortDesc = shortDescription.getText().toString();
+                String desc = description.getText().toString();
 
-               currProject.setProjectName(projectName);
-               currProject.setProjectShortDesc(shortDesc);
-               currProject.setProjectCompleteDesc(desc);
-               currProject.setSkills(mySkills);
-               mProjectAdapter.notifyDataSetChanged();
+                currProject.setProjectName(projectName);
+                currProject.setProjectShortDesc(shortDesc);
+                currProject.setProjectCompleteDesc(desc);
+                currProject.setSkills(mySkills);
+                mProjectAdapter.notifyDataSetChanged();
 
-               mChangesMade = true;
-               dialog.dismiss();
+                mChangesMade = true;
+                dialog.dismiss();
             }
 
         }).setNegativeButton(getString(R.string.add_project_dialog_cancel_btn), new DialogInterface.OnClickListener() {
@@ -610,14 +604,14 @@ public class MyProjectFragment extends Fragment {
         return builder.create();
     }
 
-    private void displayToast(final String message){
+    private void displayToast(final String message) {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if(mToast==null){
+                if (mToast == null) {
                     mToast = Toast.makeText(getContext(), message, Toast.LENGTH_SHORT);
                     mToast.show();
-                }else{
+                } else {
                     mToast.setText(message);
                     mToast.show();
                 }

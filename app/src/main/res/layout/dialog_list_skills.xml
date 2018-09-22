@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--LIOST OF SKILLS FROM WHICH USER WILL SELECT SKILLS-->
+<?xml version="1.0" encoding="utf-8"?><!--LIOST OF SKILLS FROM WHICH USER WILL SELECT SKILLS-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <!--SEARCH VIEW TO SEARCH FOR PARTICULAR SKILL-->
@@ -11,14 +10,13 @@
         android:id="@+id/search_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:queryHint="Search"
-        app:iconifiedByDefault="false">
+        app:iconifiedByDefault="false"
+        app:queryHint="Search">
 
     </android.support.v7.widget.SearchView>
 
     <!--VIEW IN WHICH LISTIS GOING TO BE DISPLAYED-->
-    <ListView
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <ListView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="0dp"

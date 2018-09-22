@@ -2,8 +2,8 @@ package com.projectmate.projectmate;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -221,7 +221,7 @@ public class DisplayUserActivity extends AppCompatActivity {
     //when clicked on invite user button
     private void inviteUser() {
         /*animation on button when clicked
-        * when to start the animation and when to stop the animation*/
+         * when to start the animation and when to stop the animation*/
 
 
         //fade in and fade out works for this

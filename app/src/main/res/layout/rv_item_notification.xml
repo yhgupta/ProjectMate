@@ -1,33 +1,32 @@
 <!--DISPLAYS HOW THE NOTIFICATION GOING TO BE
     DISPLAYED WHEN A USER GETS ONE-->
-<LinearLayout
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/notification_card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:padding="8dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="8dp">
 
     <!--TYPE ONE NOTIFICATION-->
     <LinearLayout
         android:id="@+id/notification_layout_1"
-        android:padding="4dp"
-        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:orientation="vertical"
+        android:padding="4dp">
 
         <!--DISPLAYS MESSAGE-->
         <TextView
             android:id="@+id/permanent_text_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="13sp"
-            android:textStyle="bold"
+            android:text="@string/you_have_received_a_request_for"
             android:textColor="@android:color/darker_gray"
-            android:text="@string/you_have_received_a_request_for"/>
+            android:textSize="13sp"
+            android:textStyle="bold" />
 
         <!--NAME OF THE PROJECT ON TOUCHING IT DISPLAYS
             THE INFORMATION ABOUT THE PROJECT-->
@@ -37,30 +36,31 @@
             android:layout_height="wrap_content"
             android:text="@string/name_of_project"
             android:textSize="20sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <!--LINEARLAYOUT TO DISPLAY BUTTONS OF ACCEPT AND REJECT-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="1dp">
-            <Button
-                android:backgroundTint="@android:color/black"
-                android:textColor="@android:color/white"
-                android:id="@+id/accept_view"
-                android:layout_weight="1"
-                android:text="@string/accept"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
 
             <Button
-                android:backgroundTint="@android:color/black"
-                android:textColor="@android:color/white"
-                android:id="@+id/reject_view"
-                android:layout_weight="1"
-                android:text = "@string/reject"
+                android:id="@+id/accept_view"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@android:color/black"
+                android:text="@string/accept"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/reject_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@android:color/black"
+                android:text="@string/reject"
+                android:textColor="@android:color/white" />
         </LinearLayout>
 
     </LinearLayout>
@@ -68,23 +68,23 @@
     <!--TYPE TWO NOTIFICATION-->
     <LinearLayout
         android:id="@+id/notification_layout_2"
-        android:padding="4dp"
-        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:orientation="vertical"
+        android:padding="4dp">
 
         <!--DISPLAYS MESSAGE-->
         <TextView
             android:id="@+id/permanent_text_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="13sp"
-            android:textStyle="bold"
+            android:text="@string/your_request_has_been_accepted_for"
             android:textColor="@android:color/darker_gray"
-            android:text="@string/your_request_has_been_accepted_for"/>
+            android:textSize="13sp"
+            android:textStyle="bold" />
 
         <!--NAME OF THE PROJECT ON TOUCHING IT DISPLAYS
         THE INFORMATION ABOUT THE PROJECT-->
@@ -94,39 +94,39 @@
             android:layout_height="wrap_content"
             android:text="@string/name_of_project"
             android:textSize="20sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/start_chat_view"
             android:layout_width="match_parent"
-            android:text="@string/start_chat"
-            android:backgroundTint="@android:color/black"
-            android:textColor="@android:color/white"
-            android:layout_marginRight="8dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
-            android:layout_height="wrap_content" />
+            android:layout_marginRight="8dp"
+            android:backgroundTint="@android:color/black"
+            android:text="@string/start_chat"
+            android:textColor="@android:color/white" />
     </LinearLayout>
 
     <!--TYPE THREE NOTIFICATION-->
     <LinearLayout
         android:id="@+id/notification_layout_3"
-        android:padding="4dp"
-        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:orientation="vertical"
+        android:padding="4dp">
 
         <!--DISPLAYS MESSAGE-->
         <TextView
             android:id="@+id/permanent_text_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="13sp"
-            android:textStyle="bold"
+            android:text="@string/your_request_has_been_rejected_for"
             android:textColor="@android:color/darker_gray"
-            android:text="@string/your_request_has_been_rejected_for"/>
+            android:textSize="13sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/name_of_project_3"
@@ -134,7 +134,7 @@
             android:layout_height="wrap_content"
             android:text="@string/name_of_project"
             android:textSize="20sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
     </LinearLayout>
 

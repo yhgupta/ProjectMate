@@ -13,14 +13,11 @@ import android.view.ViewGroup;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.projectmate.projectmate.Adapters.ChatAdapter;
-import com.projectmate.projectmate.Adapters.OnLoadMoreListener;
 import com.projectmate.projectmate.Adapters.RecyclerViewClickListener;
 import com.projectmate.projectmate.AlibabaCloud.OkHttpRequests;
 import com.projectmate.projectmate.AlibabaCloud.ProjectMateUris;
 import com.projectmate.projectmate.ChatActivity;
-import com.projectmate.projectmate.Classes.Chat;
 import com.projectmate.projectmate.Classes.Message;
-import com.projectmate.projectmate.Classes.Project;
 import com.projectmate.projectmate.Database.StaticValues;
 import com.projectmate.projectmate.R;
 
@@ -32,7 +29,6 @@ import java.util.TimerTask;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
-
 
 
 public class ChatsFragment extends Fragment {
@@ -68,11 +64,12 @@ public class ChatsFragment extends Fragment {
 
         mCallback = new Callback() {
             @Override
-            public void onFailure(Call call, IOException e) { }
+            public void onFailure(Call call, IOException e) {
+            }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     String jsonData = response.body().string();
                     Gson gson = new Gson();
 
@@ -80,7 +77,7 @@ public class ChatsFragment extends Fragment {
                     };
                     final ArrayList<Message> messages = gson.fromJson(jsonData, token.getType());
 
-                    if(!messages.isEmpty()) mMessages.addAll(messages);
+                    if (!messages.isEmpty()) mMessages.addAll(messages);
 
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
@@ -99,7 +96,7 @@ public class ChatsFragment extends Fragment {
                 Intent intent = new Intent(getContext(), ChatActivity.class);
                 int myId = StaticValues.getCurrentUser().getId();
                 int otherId = mMessages.get(position).getSender().getId();
-                if(otherId == myId)
+                if (otherId == myId)
                     otherId = mMessages.get(position).getReceiver().getId();
 
                 intent.putExtra("USER_ID", otherId);
@@ -111,7 +108,7 @@ public class ChatsFragment extends Fragment {
         mAdapter = new ChatAdapter(mMessages, mItemClickListener, StaticValues.getCurrentUser().getId());
 
         recyclerView.setAdapter(mAdapter);
-        
+
 
         Timer timer = new Timer();
 
@@ -128,7 +125,7 @@ public class ChatsFragment extends Fragment {
         return rootView;
     }
 
-    private void reload(){
+    private void reload() {
         mMessages.clear();
         OkHttpRequests requests = new OkHttpRequests();
         String url = ProjectMateUris.GetUserChats();

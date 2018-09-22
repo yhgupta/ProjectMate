@@ -11,8 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -23,12 +21,9 @@ import com.projectmate.projectmate.AlibabaCloud.ProjectMateAPIContract;
 import com.projectmate.projectmate.AlibabaCloud.ProjectMateUris;
 import com.projectmate.projectmate.ChatActivity;
 import com.projectmate.projectmate.Classes.Activity;
-import com.projectmate.projectmate.Classes.Message;
-import com.projectmate.projectmate.Classes.Project;
 import com.projectmate.projectmate.Database.StaticValues;
 import com.projectmate.projectmate.DisplayProjectActivity;
 import com.projectmate.projectmate.DisplayUserActivity;
-import com.projectmate.projectmate.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -80,7 +75,7 @@ public class NotificationFragment extends Fragment {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
 
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     final String jsonData = response.body().string();
 
                     Gson gson = new Gson();
@@ -90,7 +85,7 @@ public class NotificationFragment extends Fragment {
                     final ArrayList<Activity> activities = gson.fromJson(jsonData, token.getType());
 
 
-                    if(!activities.isEmpty()) mActivities.addAll(activities);
+                    if (!activities.isEmpty()) mActivities.addAll(activities);
 
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
@@ -108,14 +103,12 @@ public class NotificationFragment extends Fragment {
         mItemClickListerner = new RecyclerViewClickListener() {
             @Override
             public void onClick(View view, int position) {
-                if(view instanceof Button){
-                    if(((Button) view).getText().toString().equals("ACCEPT")){
+                if (view instanceof Button) {
+                    if (((Button) view).getText().toString().equals("ACCEPT")) {
                         replyToActivity(position, ProjectMateAPIContract.ACCEPT_CODE);
-                    }
-                    else if(((Button) view).getText().toString().equals("REJECT")){
+                    } else if (((Button) view).getText().toString().equals("REJECT")) {
                         replyToActivity(position, ProjectMateAPIContract.REJECT_CODE);
-                    }
-                    else{
+                    } else {
                         Intent intent = new Intent(getContext(), ChatActivity.class);
                         int my_id = StaticValues.getCurrentUser().getId();
 
@@ -126,9 +119,8 @@ public class NotificationFragment extends Fragment {
                         intent.putExtra("USER_ID", user_id);
                         startActivity(intent);
                     }
-                }
-                else {
-                    if((boolean)(view.getTag(100))){
+                } else {
+                    if ((boolean) (view.getTag(100))) {
                         Intent intent = new Intent(getContext(), DisplayUserActivity.class);
 
                         int my_id = StaticValues.getCurrentUser().getId();
@@ -144,8 +136,7 @@ public class NotificationFragment extends Fragment {
                         intent.putExtra("PROJECT_ID", proj_id);
                         intent.putExtra("SHOW_SAVE", false);
                         startActivity(intent);
-                    }
-                    else{
+                    } else {
                         Intent intent = new Intent(getContext(), DisplayProjectActivity.class);
                         int proj_id = mActivities.get(position).getProject().getId();
                         intent.putExtra("PROJECT_ID", proj_id);
@@ -176,7 +167,7 @@ public class NotificationFragment extends Fragment {
     }
 
 
-    private void reload(){
+    private void reload() {
         mActivities.clear();
         OkHttpRequests requests = new OkHttpRequests();
         String url = ProjectMateUris.GetActivities(0);
@@ -184,7 +175,7 @@ public class NotificationFragment extends Fragment {
     }
 
 
-    private void replyToActivity(int position, int reply){
+    private void replyToActivity(int position, int reply) {
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -193,7 +184,7 @@ public class NotificationFragment extends Fragment {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     reload();
                 }
             }

@@ -15,13 +15,13 @@ public class Skill {
     private String skillName;
 
     @SerializedName("skill_rating")
-    private float skillRating=0;
+    private float skillRating = 0;
 
     @SerializedName("skill_short_desc")
-    private String shortDescription="";
+    private String shortDescription = "";
 
     @SerializedName("skill_courses_taken")
-    private String coursesTaken="";
+    private String coursesTaken = "";
 
     public Skill(Integer skillID, String skillName, float skillRating, String shortDescription, String coursesTaken) {
         this.skillID = skillID;

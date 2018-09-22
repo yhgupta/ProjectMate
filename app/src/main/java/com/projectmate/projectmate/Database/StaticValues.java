@@ -1,10 +1,12 @@
 package com.projectmate.projectmate.Database;
 
 import com.projectmate.projectmate.Classes.User;
+
 import java.util.ArrayList;
 
 public class StaticValues {
-    private StaticValues(){}
+    private StaticValues() {
+    }
 
     private static String CODECHEF_AUTH_KEY;
 
@@ -12,18 +14,19 @@ public class StaticValues {
 
     private static ArrayList<String> ALL_SKILLS;
 
-    public static void setCodeChefAuthKey(String authKey){
+    public static void setCodeChefAuthKey(String authKey) {
         CODECHEF_AUTH_KEY = authKey;
     }
 
-    public static String getCodeChefAuthKey(){
+    public static String getCodeChefAuthKey() {
         return CODECHEF_AUTH_KEY;
     }
 
-    public static void setCurrentUser(User user){
+    public static void setCurrentUser(User user) {
         CURRENT_USER = user;
     }
-    public static User getCurrentUser(){
+
+    public static User getCurrentUser() {
         return CURRENT_USER;
     }
 

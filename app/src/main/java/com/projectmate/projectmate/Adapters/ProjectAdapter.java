@@ -1,23 +1,20 @@
 package com.projectmate.projectmate.Adapters;
-        import android.content.Context;
-        import android.content.Intent;
-        import android.support.annotation.NonNull;
-        import android.support.v7.widget.CardView;
-        import android.support.v7.widget.RecyclerView;
-        import android.util.Log;
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.view.ViewGroup;
-        import android.widget.LinearLayout;
-        import android.widget.TextView;
-        import android.widget.Toast;
 
-        import com.google.android.flexbox.FlexDirection;
-        import com.google.android.flexbox.FlexboxLayoutManager;
-        import com.projectmate.projectmate.Classes.Project;
-        import com.projectmate.projectmate.R;
-        import java.util.ArrayList;
-        import java.util.List;
+import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.google.android.flexbox.FlexDirection;
+import com.google.android.flexbox.FlexboxLayoutManager;
+import com.projectmate.projectmate.Classes.Project;
+import com.projectmate.projectmate.R;
+
+import java.util.List;
 
 public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectViewHolder>{
 

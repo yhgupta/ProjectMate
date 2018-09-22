@@ -1,30 +1,21 @@
 package com.projectmate.projectmate;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 
 import com.google.gson.Gson;
 import com.projectmate.projectmate.AlibabaCloud.OkHttpRequests;
 import com.projectmate.projectmate.AlibabaCloud.ProjectMateAPIContract;
 import com.projectmate.projectmate.AlibabaCloud.ProjectMateUris;
-import com.projectmate.projectmate.Classes.AllUserItem;
 import com.projectmate.projectmate.Classes.User;
 import com.projectmate.projectmate.Database.DatabaseContract;
 import com.projectmate.projectmate.Database.StaticValues;
@@ -35,7 +26,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import dmax.dialog.SpotsDialog;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
@@ -99,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         mBottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.action_home:
                         mViewPager.setCurrentItem(0);
                         return true;
@@ -125,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
         String userCode = prefs.getString(DatabaseContract.AUTH_CODE_KEY, null);
 
         //userCode is null if code not initialized by Browser Activity
-        if(userCode==null){
+        if (userCode == null) {
             Intent intent = new Intent(MainActivity.this, StartActivity.class);
             startActivity(intent);
             finish();
@@ -139,12 +129,11 @@ public class MainActivity extends AppCompatActivity {
         userFirstTime();
 
 
-
     }
 
     //gets the itemsID nd changes the layout according to it
-    private int getItemID(int index){
-        switch (index){
+    private int getItemID(int index) {
+        switch (index) {
             case 0:
                 return R.id.action_home;
             case 1:

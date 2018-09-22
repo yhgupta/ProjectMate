@@ -1,8 +1,8 @@
 package com.projectmate.projectmate;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -12,11 +12,9 @@ import com.google.gson.reflect.TypeToken;
 import com.projectmate.projectmate.Adapters.AllUsersAdapter;
 import com.projectmate.projectmate.Adapters.OnLoadMoreListener;
 import com.projectmate.projectmate.Adapters.RecyclerViewClickListener;
-import com.projectmate.projectmate.Adapters.UserAdapter;
 import com.projectmate.projectmate.AlibabaCloud.OkHttpRequests;
 import com.projectmate.projectmate.AlibabaCloud.ProjectMateUris;
 import com.projectmate.projectmate.Classes.AllUserItem;
-import com.projectmate.projectmate.Classes.Project;
 import com.projectmate.projectmate.Database.StaticValues;
 
 import java.io.IOException;
@@ -62,16 +60,17 @@ public class AllUsersActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                if(response.isSuccessful()){
-                    mAllUsers.remove(mAllUsers.size()-1);
+                if (response.isSuccessful()) {
+                    mAllUsers.remove(mAllUsers.size() - 1);
                     String jsonData = response.body().string();
 
                     Gson gson = new Gson();
 
-                    TypeToken<ArrayList<AllUserItem>> token = new TypeToken<ArrayList<AllUserItem>>() {};
+                    TypeToken<ArrayList<AllUserItem>> token = new TypeToken<ArrayList<AllUserItem>>() {
+                    };
                     final ArrayList<AllUserItem> allUsers = gson.fromJson(jsonData, token.getType());
 
-                    if(!allUsers.isEmpty()) mAllUsers.addAll(allUsers);
+                    if (!allUsers.isEmpty()) mAllUsers.addAll(allUsers);
 
                     runOnUiThread(new Runnable() {
                         @Override
@@ -109,7 +108,7 @@ public class AllUsersActivity extends AppCompatActivity {
     }
 
 
-    private void loadMore(){
+    private void loadMore() {
         OkHttpRequests requests = new OkHttpRequests();
         String url = ProjectMateUris.getUsersForProject(mProjectId, mAllUsers.size());
 

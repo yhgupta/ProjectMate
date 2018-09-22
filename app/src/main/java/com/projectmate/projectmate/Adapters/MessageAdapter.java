@@ -11,8 +11,6 @@ import com.projectmate.projectmate.Classes.Message;
 import com.projectmate.projectmate.Database.StaticValues;
 import com.projectmate.projectmate.R;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHolder> {
@@ -45,12 +43,12 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             and comparing with my_id
          */
 
-        if(currMessage.getSender().getId()==my_id){
+        if (currMessage.getSender().getId() == my_id) {
             holder.myMessage.setVisibility(View.VISIBLE);
             holder.theirMessage.setVisibility(View.GONE);
 
             holder.myMessage.setText(currMessage.getMessage());
-        }else{
+        } else {
             holder.theirMessage.setVisibility(View.VISIBLE);
             holder.myMessage.setVisibility(View.GONE);
 

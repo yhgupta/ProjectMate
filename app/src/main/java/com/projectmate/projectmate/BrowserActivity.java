@@ -5,9 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -36,7 +36,7 @@ import okhttp3.Response;
  * This Activity directs a user to codechef, then login him and get the auth_token
  */
 
-public class  BrowserActivity extends AppCompatActivity {
+public class BrowserActivity extends AppCompatActivity {
 
     //Webview to show the page and progressbar indicates progress at the top(small red bar)
     private WebView webView;
@@ -106,7 +106,7 @@ public class  BrowserActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         JsonParser parser = new JsonParser();
-                        JsonObject root = (JsonObject)parser.parse(response.body().string());
+                        JsonObject root = (JsonObject) parser.parse(response.body().string());
                         String token = root.getAsJsonObject("result").getAsJsonObject("data").get("access_token").getAsString();
 
                         Log.v("TAG", response.body().toString());
@@ -126,7 +126,7 @@ public class  BrowserActivity extends AppCompatActivity {
                 requests.performPostRequestCodeChef(APIContract.CODECHEF_TOKEN_URL,
                         gson.toJson(authPostDataClass), callback);
 
-            }else{
+            } else {
                 //Normally load the url if its other than the Auth Code
                 view.loadUrl(url);
             }
@@ -169,7 +169,7 @@ public class  BrowserActivity extends AppCompatActivity {
         }
     }
 
-    private void authComplete(String code){
+    private void authComplete(String code) {
         //Save the obtained code in local database as SharedPreference
         SharedPreferences.Editor editor = getSharedPreferences(DatabaseContract.SHARED_PREFS, Context.MODE_PRIVATE).edit();
         editor.putString(DatabaseContract.AUTH_CODE_KEY, code);
@@ -182,7 +182,7 @@ public class  BrowserActivity extends AppCompatActivity {
         finish();
     }
 
-    private android.app.AlertDialog getVerifyingDialog(){
+    private android.app.AlertDialog getVerifyingDialog() {
         SpotsDialog.Builder dialog = new SpotsDialog.Builder();
         dialog.setContext(this).
                 setMessage("Verifying").

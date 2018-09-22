@@ -1,29 +1,20 @@
 package com.projectmate.projectmate.Adapters;
-import android.content.Context;
-import android.content.Intent;
+
 import android.support.annotation.NonNull;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.flexbox.FlexDirection;
-import com.google.android.flexbox.FlexboxLayoutManager;
 import com.projectmate.projectmate.Classes.Message;
-import com.projectmate.projectmate.Classes.Project;
 import com.projectmate.projectmate.R;
-import java.util.ArrayList;
+
 import java.util.List;
 
-public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final int VIEW_ITEM = 1;
     private final int VIEW_PROG = 0;
@@ -45,11 +36,11 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder vh;
-        if(viewType == VIEW_ITEM){
+        if (viewType == VIEW_ITEM) {
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_item_chat, parent, false);
             vh = new MessageViewHolder(v, mListener);
 
-        }else{
+        } else {
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.progressbar_item, parent, false);
             vh = new ProgressBarViewHolder(v);
 
@@ -69,7 +60,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
         //takes the position of chat
-        if(holder instanceof MessageViewHolder){
+        if (holder instanceof MessageViewHolder) {
             Message currentMessage = mMessages.get(position);
 
             String name = currentMessage.getSender().getId() == mUserId ?
@@ -79,8 +70,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             //takes the name of sender and last message of chat
             ((MessageViewHolder) holder).senderName.setText(name);
             ((MessageViewHolder) holder).lastMessage.setText(currentMessage.getMessage());
-        }
-        else {
+        } else {
             ((ProgressBarViewHolder) holder).progressBar.setIndeterminate(true);
         }
     }
@@ -121,7 +111,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         }
     }
 
-    static class ProgressBarViewHolder extends RecyclerView.ViewHolder{
+    static class ProgressBarViewHolder extends RecyclerView.ViewHolder {
 
         ProgressBar progressBar;
 

@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.projectmate.projectmate.Classes.Skill;
 import com.projectmate.projectmate.Database.StaticValues;
 import com.projectmate.projectmate.R;
 
@@ -21,14 +20,14 @@ public class SkillFlexAdapter extends RecyclerView.Adapter<SkillFlexAdapter.Test
 
     //constructor
     public SkillFlexAdapter(ArrayList<Integer> skills) {
-        this.mSkills=skills;
+        this.mSkills = skills;
     }
 
     //inflating the rv_item_flexbox_item layout
     @NonNull
     @Override
     public SkillFlexAdapter.TestViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_item_flexbox_item , parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_item_flexbox_item, parent, false);
         return new SkillFlexAdapter.TestViewHolder(view);
     }
 

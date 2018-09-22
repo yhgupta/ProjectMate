@@ -20,7 +20,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.projectmate.projectmate.Adapters.MyProjectAdapter;
 import com.projectmate.projectmate.Adapters.OnLoadMoreListener;
-import com.projectmate.projectmate.Adapters.ProjectAdapter;
 import com.projectmate.projectmate.Adapters.RecyclerViewClickListener;
 import com.projectmate.projectmate.AlibabaCloud.OkHttpRequests;
 import com.projectmate.projectmate.AlibabaCloud.ProjectMateUris;
@@ -92,10 +91,9 @@ public class HomeFragment extends Fragment {
                     mProjectAdapter.setLoaded();
 
                     moreItemsPresent = true;
-                    if(projects.isEmpty()) {
+                    if (projects.isEmpty()) {
                         moreItemsPresent = false;
-                    }
-                    else mProjects.addAll(projects);
+                    } else mProjects.addAll(projects);
 
                     loading = false;
 
@@ -105,7 +103,7 @@ public class HomeFragment extends Fragment {
                             Log.v("HOME", jsonData);
                             mProjectAdapter.notifyDataSetChanged();
 
-                            if(!animationDone){
+                            if (!animationDone) {
                                 startAnimation();
                                 animationDone = true;
                             }
@@ -128,11 +126,11 @@ public class HomeFragment extends Fragment {
         mLoadMoreListener = new OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
-                if(!moreItemsPresent){
+                if (!moreItemsPresent) {
                     mProjectAdapter.setLoaded();
                     return;
                 }
-                if(loading) return;
+                if (loading) return;
                 OkHttpRequests requests = new OkHttpRequests();
                 String url = ProjectMateUris.getProjectsForMe(mProjects.size());
                 String authId = StaticValues.getCodeChefAuthKey();

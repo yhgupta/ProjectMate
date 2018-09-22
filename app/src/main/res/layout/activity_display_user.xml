@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".DisplayUserActivity">
 
-    <LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/all_user_display_activity"
@@ -100,8 +100,8 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="16dp"
                     android:ems="10"
-                    android:textSize="16sp"
                     android:paddingBottom="5dp"
+                    android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -162,7 +162,6 @@
                     app:layout_constraintTop_toBottomOf="@+id/activity_all_users_tv_full_name" />
 
 
-
                 <!--HEADING SKILLS-->
 
 
@@ -203,12 +202,12 @@
             android:id="@+id/all_users_btn_save"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:backgroundTint="@color/colorBlue"
             android:clickable="true"
             android:elevation="8dp"
             android:focusable="true"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:layout_margin="4dp"
-            android:backgroundTint="@color/colorBlue">
+            android:foreground="?android:attr/selectableItemBackground">
 
             <TextView
                 android:id="@+id/profile_btn_text"
@@ -225,8 +224,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:visibility="invisible"
-                android:indeterminateTint="@android:color/white" />
+                android:indeterminateTint="@android:color/white"
+                android:visibility="invisible" />
 
         </android.support.v7.widget.CardView>
 

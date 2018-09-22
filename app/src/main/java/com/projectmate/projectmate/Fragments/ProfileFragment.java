@@ -28,13 +28,10 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.flexbox.FlexDirection;
-import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.gson.Gson;
 import com.projectmate.projectmate.Adapters.ProjectAdapter;
 import com.projectmate.projectmate.Adapters.RecyclerViewClickListener;
 import com.projectmate.projectmate.Adapters.SkillAdapter;
-import com.projectmate.projectmate.Adapters.SkillFlexAdapter;
 import com.projectmate.projectmate.AlibabaCloud.OkHttpRequests;
 import com.projectmate.projectmate.AlibabaCloud.ProjectMateUris;
 import com.projectmate.projectmate.Classes.Project;
@@ -45,8 +42,6 @@ import com.projectmate.projectmate.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -81,17 +76,16 @@ public class ProfileFragment extends Fragment {
     private ProjectAdapter mProjectAdapter;
 
 
-
     //Global toast to prevent overlapping
     private Toast mToast;
 
     private CardView mSaveBtn;
     private TextView mSaveBtnText;
     private ProgressBar mSaveBtnProgress;
-    private Boolean mSaveBtnClicked=false;
+    private Boolean mSaveBtnClicked = false;
 
 
-    private Boolean mChangesMade=false;
+    private Boolean mChangesMade = false;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -102,7 +96,7 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView =  inflater.inflate(R.layout.fragment_profile , container, false);
+        View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
 
         //Initializing all fields in the main View
         mNameEditText = rootView.findViewById(R.id.activity_profile_et_full_name);
@@ -115,10 +109,14 @@ public class ProfileFragment extends Fragment {
         mSaveBtnProgress = rootView.findViewById(R.id.profile_btn_progress);
 
         //Disabling all edit text
-        mNameEditText.setEnabled(false);mNameEditText.setInputType(InputType.TYPE_NULL);
-        mOrganizationEditText.setEnabled(false);mOrganizationEditText.setInputType(InputType.TYPE_NULL);
-        mCityEditText.setEnabled(false);mCityEditText.setInputType(InputType.TYPE_NULL);
-        mCountryEditText.setEnabled(false);mCountryEditText.setInputType(InputType.TYPE_NULL);
+        mNameEditText.setEnabled(false);
+        mNameEditText.setInputType(InputType.TYPE_NULL);
+        mOrganizationEditText.setEnabled(false);
+        mOrganizationEditText.setInputType(InputType.TYPE_NULL);
+        mCityEditText.setEnabled(false);
+        mCityEditText.setInputType(InputType.TYPE_NULL);
+        mCountryEditText.setEnabled(false);
+        mCountryEditText.setInputType(InputType.TYPE_NULL);
 
         mAddSkill = rootView.findViewById(R.id.activity_profile_tv_add_skill);
         mAddProject = rootView.findViewById(R.id.activity_profile_tv_add_project);
@@ -162,7 +160,7 @@ public class ProfileFragment extends Fragment {
 
         mAllSkills = new ArrayList<>(StaticValues.getAllSkills());
 
-        for(Skill skill : mUser.getSkills()){
+        for (Skill skill : mUser.getSkills()) {
             mAllSkills.remove(skill.getSkillID());
         }
 
@@ -199,7 +197,7 @@ public class ProfileFragment extends Fragment {
         mSaveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!mSaveBtnClicked){
+                if (!mSaveBtnClicked) {
                     mSaveBtnClicked = true;
                     saveProfile();
                 }
@@ -211,7 +209,7 @@ public class ProfileFragment extends Fragment {
     }
 
     //Create the dialog to add a project
-    private Dialog createAddProjectDialog(){
+    private Dialog createAddProjectDialog() {
         //Create a new AlertDialog Builder
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
@@ -253,9 +251,9 @@ public class ProfileFragment extends Fragment {
         builder.setPositiveButton(getString(R.string.add_project_dialog_save_btn), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if(addProject(view, mySkills)){
+                if (addProject(view, mySkills)) {
                     dialog.dismiss();
-                }else{
+                } else {
                     displayToast("Invalid");
                     dialog.dismiss();
                 }
@@ -275,7 +273,7 @@ public class ProfileFragment extends Fragment {
     }
 
     //Creates the dialog to add a skill
-    private Dialog createAddSkillDialog(){
+    private Dialog createAddSkillDialog() {
         //Create a new AlertDialog Builder
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
@@ -311,9 +309,9 @@ public class ProfileFragment extends Fragment {
         builder.setPositiveButton(getString(R.string.add_skill_dialog_save_btn), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if(addSkill(view)){
+                if (addSkill(view)) {
                     dialog.dismiss();
-                }else{
+                } else {
                     displayToast(getString(R.string.add_skill_dialog_invalid_skill_toast));
                     createAddSkillDialog().show();
                 }
@@ -333,13 +331,12 @@ public class ProfileFragment extends Fragment {
 
 
     //Add the project to user and return true if successful
-    private boolean addProject(View rootView, ArrayList<Skill>skills){
+    private boolean addProject(View rootView, ArrayList<Skill> skills) {
         //Get all of the views
 
         EditText tvName = rootView.findViewById(R.id.dialog_addproject_et_name);
         EditText tvShortDesc = rootView.findViewById(R.id.dialog_addproject_short_desc);
         EditText tvCompleteDesc = rootView.findViewById(R.id.dialog_addproject_complete_desc);
-
 
 
         //Get all fields from the views
@@ -348,12 +345,12 @@ public class ProfileFragment extends Fragment {
         String completeDesc = tvCompleteDesc.getText().toString().trim();
 
         //Check condition
-        if(name.isEmpty()) return false;
-        if(skills.size()==0) return false;
+        if (name.isEmpty()) return false;
+        if (skills.size() == 0) return false;
         //TODO: Check other conditions
 
         ArrayList<Integer> skillIds = new ArrayList<>();
-        for(Skill skill: skills){
+        for (Skill skill : skills) {
             skillIds.add(skill.getSkillID());
         }
         //Create a new skill and add to user skills
@@ -365,14 +362,14 @@ public class ProfileFragment extends Fragment {
         mProjectAdapter.notifyDataSetChanged();
 
         displayToast("Project Added Successfully");
-        mChangesMade=true;
+        mChangesMade = true;
 
         return true;
     }
 
 
     //Add the skill to user skills and return true if successful
-    private boolean addSkill(View rootView){
+    private boolean addSkill(View rootView) {
         //Get all of the views
         EditText tvName = rootView.findViewById(R.id.dialog_addskill_et_name);
         RatingBar ratingBar = rootView.findViewById(R.id.dialog_addskill_rating);
@@ -386,10 +383,10 @@ public class ProfileFragment extends Fragment {
         String courses = tvCourses.getText().toString().trim();
 
         //Check condition
-        if(name.isEmpty()) return false;
+        if (name.isEmpty()) return false;
         int position = StaticValues.getAllSkills().indexOf(name);
 
-        if(position<0) return false;
+        if (position < 0) return false;
 
         //Create a new skill and add to user skills
         Skill skill = new Skill(position, name, rating, shortDesc, courses);
@@ -401,13 +398,13 @@ public class ProfileFragment extends Fragment {
         //Notify adapter
         mSkillAdapter.notifyDataSetChanged();
 
-        mChangesMade=true;
+        mChangesMade = true;
 
         return true;
     }
 
     //Displays all skills
-    private Dialog createAllSkillsDialog(final AutoCompleteTextView textView, ArrayList<String> allSkills){
+    private Dialog createAllSkillsDialog(final AutoCompleteTextView textView, ArrayList<String> allSkills) {
 
         //Create new dialog and get inflater
         AlertDialog.Builder listDialog = new AlertDialog.Builder(getContext());
@@ -437,13 +434,12 @@ public class ProfileFragment extends Fragment {
         });
 
 
-
         final Dialog dialog = listDialog.create();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                textView.setText(((TextView)view).getText().toString());
+                textView.setText(((TextView) view).getText().toString());
                 dialog.dismiss();
                 textView.setSelection(textView.getText().toString().length());
                 textView.dismissDropDown();
@@ -455,7 +451,7 @@ public class ProfileFragment extends Fragment {
     }
 
     //Displays all skills
-    private Dialog createAllSkillsProjectDialog(final SkillAdapter skillAdapter, final ArrayList<Skill> allSkills, final ArrayList<Skill> mySkills){
+    private Dialog createAllSkillsProjectDialog(final SkillAdapter skillAdapter, final ArrayList<Skill> allSkills, final ArrayList<Skill> mySkills) {
 
         //Create new dialog and get inflater
         AlertDialog.Builder listDialog = new AlertDialog.Builder(getContext());
@@ -469,7 +465,7 @@ public class ProfileFragment extends Fragment {
         ListView listView = view.findViewById(R.id.listView);
 
         final ArrayList<String> skillList = new ArrayList<>();
-        for(Skill skill:allSkills){
+        for (Skill skill : allSkills) {
             skillList.add(skill.getSkillName());
         }
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, skillList);
@@ -490,13 +486,12 @@ public class ProfileFragment extends Fragment {
         });
 
 
-
         final Dialog dialog = listDialog.create();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String skill =((TextView)view).getText().toString();
+                String skill = ((TextView) view).getText().toString();
                 int pos = skillList.indexOf(skill);
 
                 mySkills.add(allSkills.get(pos));
@@ -514,10 +509,10 @@ public class ProfileFragment extends Fragment {
     }
 
     //saving profile
-    private void saveProfile(){
-        if(!mChangesMade){
+    private void saveProfile() {
+        if (!mChangesMade) {
             displayToast("No changes to save");
-            mSaveBtnClicked=false;
+            mSaveBtnClicked = false;
             return;
         }
         Animation fadeOut = new AlphaAnimation(1, 0);
@@ -569,7 +564,7 @@ public class ProfileFragment extends Fragment {
     }
 
     //saving user details to server
-    private void saveToServer(){
+    private void saveToServer() {
         Gson gson = new Gson();
         String jsonData = gson.toJson(mUser);
         Log.v("JSON", jsonData);
@@ -584,7 +579,7 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
 
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
@@ -634,8 +629,8 @@ public class ProfileFragment extends Fragment {
                             mSaveBtnText.startAnimation(fadeIn);
                             mSaveBtnProgress.startAnimation(fadeOut);
                             displayToast("Save Successful!");
-                            mChangesMade=false;
-                            mSaveBtnClicked=false;
+                            mChangesMade = false;
+                            mSaveBtnClicked = false;
                         }
                     });
                 }
@@ -646,11 +641,11 @@ public class ProfileFragment extends Fragment {
     }
 
     //display toast message ( one function instead of writing whole function again and again
-    private void displayToast(String message){
-        if(mToast==null){
+    private void displayToast(String message) {
+        if (mToast == null) {
             mToast = Toast.makeText(getContext(), message, Toast.LENGTH_SHORT);
             mToast.show();
-        }else{
+        } else {
             mToast.setText(message);
             mToast.show();
         }
@@ -658,7 +653,7 @@ public class ProfileFragment extends Fragment {
     }
 
     //dialog box to edit skill
-    private Dialog createEditSkillDialog( final int position ){
+    private Dialog createEditSkillDialog(final int position) {
         //Create a new AlertDialog Builder
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
@@ -679,7 +674,7 @@ public class ProfileFragment extends Fragment {
 
         final Skill currSkill = mUser.getSkills().get(position);
 
-        skillNameEditText.setText(currSkill.getSkillName() );
+        skillNameEditText.setText(currSkill.getSkillName());
         ratingSkill.setRating(currSkill.getSkillRating());
         shortDescription.setText(currSkill.getShortDescription());
         coursesTaken.setText(currSkill.getCoursesTaken());
@@ -712,11 +707,10 @@ public class ProfileFragment extends Fragment {
         }).setNeutralButton("Delete", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if( mUser.getSkills().size() == 1 ){
-                    Toast.makeText(getContext(),"Atleast One Skill is Needed",Toast.LENGTH_SHORT).show();
+                if (mUser.getSkills().size() == 1) {
+                    Toast.makeText(getContext(), "Atleast One Skill is Needed", Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
-                }
-                else {
+                } else {
                     mUser.getSkills().remove(position);
                     mSkillAdapter.notifyDataSetChanged();
                     mChangesMade = true;
@@ -729,12 +723,10 @@ public class ProfileFragment extends Fragment {
         return builder.create();
 
 
-
-
     }
 
     //dialog box to edit project
-    private Dialog createEditProjectDialog(final int position){
+    private Dialog createEditProjectDialog(final int position) {
 
         //Create a new AlertDialog Builder
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -772,8 +764,8 @@ public class ProfileFragment extends Fragment {
 
         ArrayList<Skill> toRemove = new ArrayList<>();
 
-        for(Skill skill : skills){
-            if(currProject.getSkills().contains(skill.getSkillID())){
+        for (Skill skill : skills) {
+            if (currProject.getSkills().contains(skill.getSkillID())) {
                 mySkills.add(skill);
                 toRemove.add(skill);
             }
@@ -789,7 +781,7 @@ public class ProfileFragment extends Fragment {
         addSkill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createAllSkillsProjectDialog(skillAdapter ,skills, mySkills).show();
+                createAllSkillsProjectDialog(skillAdapter, skills, mySkills).show();
             }
         });
 
@@ -808,7 +800,7 @@ public class ProfileFragment extends Fragment {
                 currProject.setProjectCompleteDesc(desc);
 
                 currProject.getSkills().clear();
-                for (Skill skill : mySkills){
+                for (Skill skill : mySkills) {
                     currProject.getSkills().add(skill.getSkillID());
                 }
                 mProjectAdapter.notifyDataSetChanged();
@@ -836,7 +828,6 @@ public class ProfileFragment extends Fragment {
 
         return builder.create();
     }
-
 
 
 }

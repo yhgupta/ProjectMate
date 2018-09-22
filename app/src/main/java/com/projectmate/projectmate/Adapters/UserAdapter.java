@@ -25,7 +25,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     private RecyclerViewClickListener mListener;
 
     //Constructor
-    public UserAdapter( ArrayList<AllUserItem> users, Context mContext, RecyclerViewClickListener mListener){
+    public UserAdapter(ArrayList<AllUserItem> users, Context mContext, RecyclerViewClickListener mListener) {
         this.mUsers = users;
         this.mContext = mContext;
         this.mListener = mListener;
@@ -36,7 +36,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     @Override
     public UserAdapter.UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_item_user, parent, false);
-        return new UserAdapter.UserViewHolder(view,mListener );
+        return new UserAdapter.UserViewHolder(view, mListener);
     }
 
     @Override

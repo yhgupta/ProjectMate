@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--USER ITEM WHEN THE PARTICULAR USER SEARCHES FOR THE STUDENTS WHICH
+<?xml version="1.0" encoding="utf-8"?><!--USER ITEM WHEN THE PARTICULAR USER SEARCHES FOR THE STUDENTS WHICH
     HE MAY REQUIRED FOR HIS PROJECT OR WANT TO JOIN SOME OTHERS PROJECT-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rv_item_root_view"

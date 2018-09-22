@@ -1,9 +1,8 @@
 package com.projectmate.projectmate;
 
-import android.content.Intent;
+import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
@@ -47,7 +46,7 @@ public class DisplayProjectActivity extends AppCompatActivity {
     private CardView mSaveBtn;
     private TextView mSaveBtnText;
     private ProgressBar mSaveBtnProgress;
-    private Boolean mSaveBtnClicked=false;
+    private Boolean mSaveBtnClicked = false;
 
 
     @Override
@@ -71,7 +70,7 @@ public class DisplayProjectActivity extends AppCompatActivity {
         mSaveBtnProgress = findViewById(R.id.profile_btn_progress);
 
         //checks if it is pressed on not
-        if(!showSaveBtn) mSaveBtn.setVisibility(View.GONE);
+        if (!showSaveBtn) mSaveBtn.setVisibility(View.GONE);
 
         displayPSkill = findViewById(R.id.dialog_add_skill_rv);
 
@@ -79,9 +78,9 @@ public class DisplayProjectActivity extends AppCompatActivity {
         mSaveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!mSaveBtnClicked){
+                if (!mSaveBtnClicked) {
                     joinProject();
-                    mSaveBtnClicked=true;
+                    mSaveBtnClicked = true;
                 }
 
             }
@@ -150,7 +149,7 @@ public class DisplayProjectActivity extends AppCompatActivity {
     }
 
     //join request and its animation
-    private void joinProject(){
+    private void joinProject() {
         /*fadein and fadeout animation works and further
         data retrieving and notification sending and receiving works*/
         Animation fadeOut = new AlphaAnimation(1, 0);
@@ -201,7 +200,7 @@ public class DisplayProjectActivity extends AppCompatActivity {
 
     }
 
-    private void sendJoinRequest(){
+    private void sendJoinRequest() {
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -210,7 +209,7 @@ public class DisplayProjectActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     DisplayProjectActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

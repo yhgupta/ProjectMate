@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--START ACTIVITY ( TO BE OPENED WHEN USER START THE APP)-->
+<?xml version="1.0" encoding="utf-8"?><!--START ACTIVITY ( TO BE OPENED WHEN USER START THE APP)-->
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -68,10 +67,10 @@
         android:elevation="8dp"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
+        app:cardCornerRadius="32sp"
         app:layout_constraintBottom_toBottomOf="@+id/activity_start_imageView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:cardCornerRadius="32sp">
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
             android:layout_width="wrap_content"

@@ -1,6 +1,5 @@
 package com.projectmate.projectmate.Adapters;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,23 +9,18 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.android.flexbox.FlexDirection;
-import com.google.android.flexbox.FlexboxLayoutManager;
 import com.projectmate.projectmate.AlibabaCloud.ProjectMateAPIContract;
-import com.projectmate.projectmate.AlibabaCloud.ProjectMateUris;
 import com.projectmate.projectmate.Classes.Activity;
-import com.projectmate.projectmate.Classes.Project;
 import com.projectmate.projectmate.Database.StaticValues;
 import com.projectmate.projectmate.R;
 
 import java.util.List;
 
-public class ActivitiesAdapter extends RecyclerView.Adapter<ActivitiesAdapter.ActivitiesViewHolder>{
+public class ActivitiesAdapter extends RecyclerView.Adapter<ActivitiesAdapter.ActivitiesViewHolder> {
 
     private List<Activity> mActivities;
 
     private RecyclerViewClickListener mListener;
-
 
 
     public ActivitiesAdapter(List<Activity> activity, RecyclerViewClickListener listener) {
