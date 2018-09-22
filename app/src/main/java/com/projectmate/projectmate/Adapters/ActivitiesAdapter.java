@@ -63,7 +63,7 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<ActivitiesAdapter.Ac
                 if (isSenderMe) {
                     holder.rootViewN.setVisibility(View.VISIBLE);
 
-                    holder.permTextN.setText("You have sent join request for ");
+                    holder.permTextN.setText(R.string.activity_adapter_join_requst);
                     holder.projNameN.setText(currActivity.getProject().getProject_name());
                 } else {
                     holder.rootViewAR.setVisibility(View.VISIBLE);

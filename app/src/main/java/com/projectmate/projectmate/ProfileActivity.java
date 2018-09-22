@@ -73,6 +73,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     private ArrayList<String> mAllSkills;
+    private ArrayList<String> mAllGlobalSkill;
 
     //Global toast to prevent overlapping
     private Toast mToast;
@@ -156,6 +157,7 @@ public class ProfileActivity extends AppCompatActivity {
         String[] arraySkill = getResources().getStringArray(R.array.skillsArray);
         StaticValues.setAllSkills(new ArrayList<>(Arrays.asList(arraySkill)));
         mAllSkills = new ArrayList<>(Arrays.asList(arraySkill));
+        mAllGlobalSkill = new ArrayList<>(mAllSkills);
 
         mProjectAdapter = new ProjectAdapter(mUser.getProjects(), this, new RecyclerViewClickListener() {
             @Override
