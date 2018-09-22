@@ -12,7 +12,7 @@ public class ProjectMateUris {
     public static String getAuthUrl(){
         Uri.Builder builder = new Uri.Builder();
         builder.scheme(ProjectMateAPIContract.SERVER_SCHEME)
-                .authority(ProjectMateAPIContract.SERVER_URL)
+                .encodedAuthority(ProjectMateAPIContract.SERVER_URL)
                 .appendPath(ProjectMateAPIContract.API_PATH)
         .appendPath(ProjectMateAPIContract.USERS_PATH)
         .appendPath(ProjectMateAPIContract.CURRENT_USER_PATH)
@@ -25,7 +25,7 @@ public class ProjectMateUris {
     public static String getProjectsForMe(int offset){
         Uri.Builder builder = new Uri.Builder();
         builder.scheme(ProjectMateAPIContract.SERVER_SCHEME)
-                .authority(ProjectMateAPIContract.SERVER_URL)
+                .encodedAuthority(ProjectMateAPIContract.SERVER_URL)
                 .appendPath(ProjectMateAPIContract.API_PATH)
                 .appendPath(ProjectMateAPIContract.PROJECTS_PATH)
                 .appendPath(String.valueOf(offset))
@@ -38,7 +38,7 @@ public class ProjectMateUris {
     public static String getAllProjects(int offset){
         Uri.Builder builder = new Uri.Builder();
         builder.scheme(ProjectMateAPIContract.SERVER_SCHEME)
-                .authority(ProjectMateAPIContract.SERVER_URL)
+                .encodedAuthority(ProjectMateAPIContract.SERVER_URL)
                 .appendPath(ProjectMateAPIContract.API_PATH)
                 .appendPath(ProjectMateAPIContract.PROJECTS_PATH)
                 .appendPath(ProjectMateAPIContract.All_PROJECTS_PATH)
@@ -52,7 +52,7 @@ public class ProjectMateUris {
     public static String getProject(int project_id){
         Uri.Builder builder = new Uri.Builder();
         builder.scheme(ProjectMateAPIContract.SERVER_SCHEME)
-                .authority(ProjectMateAPIContract.SERVER_URL)
+                .encodedAuthority(ProjectMateAPIContract.SERVER_URL)
                 .appendPath(ProjectMateAPIContract.API_PATH)
                 .appendPath(ProjectMateAPIContract.PROJECTS_PATH)
                 .appendPath(ProjectMateAPIContract.GET_PROJECTS_PATH)
@@ -66,7 +66,7 @@ public class ProjectMateUris {
     public static String getUsersForProject(int project_id, int offset){
         Uri.Builder builder = new Uri.Builder();
         builder.scheme(ProjectMateAPIContract.SERVER_SCHEME)
-                .authority(ProjectMateAPIContract.SERVER_URL)
+                .encodedAuthority(ProjectMateAPIContract.SERVER_URL)
                 .appendPath(ProjectMateAPIContract.API_PATH)
                 .appendPath(ProjectMateAPIContract.USERS_PATH)
                 .appendPath(ProjectMateAPIContract.ALL_USERS_PATH)
@@ -81,7 +81,7 @@ public class ProjectMateUris {
     public static String getUser(int user_id){
         Uri.Builder builder = new Uri.Builder();
         builder.scheme(ProjectMateAPIContract.SERVER_SCHEME)
-                .authority(ProjectMateAPIContract.SERVER_URL)
+                .encodedAuthority(ProjectMateAPIContract.SERVER_URL)
                 .appendPath(ProjectMateAPIContract.API_PATH)
                 .appendPath(ProjectMateAPIContract.USERS_PATH)
                 .appendPath(ProjectMateAPIContract.GET_USER_PATH)
@@ -95,7 +95,7 @@ public class ProjectMateUris {
     public static String InviteUserToProject(int project_id, int user_id){
         Uri.Builder builder = new Uri.Builder();
         builder.scheme(ProjectMateAPIContract.SERVER_SCHEME)
-                .authority(ProjectMateAPIContract.SERVER_URL)
+                .encodedAuthority(ProjectMateAPIContract.SERVER_URL)
                 .appendPath(ProjectMateAPIContract.API_PATH)
                 .appendPath(ProjectMateAPIContract.PROJECTS_PATH)
                 .appendPath(ProjectMateAPIContract.GET_PROJECTS_PATH)
@@ -111,7 +111,7 @@ public class ProjectMateUris {
     public static String JoinProject(int project_id){
         Uri.Builder builder = new Uri.Builder();
         builder.scheme(ProjectMateAPIContract.SERVER_SCHEME)
-                .authority(ProjectMateAPIContract.SERVER_URL)
+                .encodedAuthority(ProjectMateAPIContract.SERVER_URL)
                 .appendPath(ProjectMateAPIContract.API_PATH)
                 .appendPath(ProjectMateAPIContract.PROJECTS_PATH)
                 .appendPath(ProjectMateAPIContract.GET_PROJECTS_PATH)
@@ -126,7 +126,7 @@ public class ProjectMateUris {
     public static String GetActivities(int offset){
         Uri.Builder builder = new Uri.Builder();
         builder.scheme(ProjectMateAPIContract.SERVER_SCHEME)
-                .authority(ProjectMateAPIContract.SERVER_URL)
+                .encodedAuthority(ProjectMateAPIContract.SERVER_URL)
                 .appendPath(ProjectMateAPIContract.API_PATH)
                 .appendPath(ProjectMateAPIContract.ACTIVITIES_PATH)
                 .appendPath(ProjectMateAPIContract.GET_ACTIVITIES_PATH)
@@ -140,7 +140,7 @@ public class ProjectMateUris {
     public static String ReplyToActivity(int activity_id, int reply){
         Uri.Builder builder = new Uri.Builder();
         builder.scheme(ProjectMateAPIContract.SERVER_SCHEME)
-                .authority(ProjectMateAPIContract.SERVER_URL)
+                .encodedAuthority(ProjectMateAPIContract.SERVER_URL)
                 .appendPath(ProjectMateAPIContract.API_PATH)
                 .appendPath(ProjectMateAPIContract.ACTIVITIES_PATH)
                 .appendPath(ProjectMateAPIContract.REPLY_ACTIVITIES_PATH)
@@ -156,7 +156,7 @@ public class ProjectMateUris {
     public static String GetUserChats(){
         Uri.Builder builder = new Uri.Builder();
         builder.scheme(ProjectMateAPIContract.SERVER_SCHEME)
-                .authority(ProjectMateAPIContract.SERVER_URL)
+                .encodedAuthority(ProjectMateAPIContract.SERVER_URL)
                 .appendPath(ProjectMateAPIContract.API_PATH)
                 .appendPath(ProjectMateAPIContract.CHATS_PATH)
                 .appendPath(ProjectMateAPIContract.GET_CHATS_PATH)
@@ -170,7 +170,7 @@ public class ProjectMateUris {
     public static String GetChat(int user_id, int offset){
         Uri.Builder builder = new Uri.Builder();
         builder.scheme(ProjectMateAPIContract.SERVER_SCHEME)
-                .authority(ProjectMateAPIContract.SERVER_URL)
+                .encodedAuthority(ProjectMateAPIContract.SERVER_URL)
                 .appendPath(ProjectMateAPIContract.API_PATH)
                 .appendPath(ProjectMateAPIContract.CHATS_PATH)
                 .appendPath(ProjectMateAPIContract.GET_CHATS_PATH)
