@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -51,6 +52,8 @@ public class ChatActivity extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.activity_chats_rv);
         mMessageText = findViewById(R.id.activity_chats_et);
         mSendBtn = findViewById(R.id.activity_chats_btn_send);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mSendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,7 +131,7 @@ public class ChatActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
+            public void onResponse(Call call, Response response) {
                 reload();
             }
         };
@@ -141,5 +144,11 @@ public class ChatActivity extends AppCompatActivity {
 
             requests.performPutRequest(url, data, callback, StaticValues.getCodeChefAuthKey());
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        this.finish();
+        return true;
     }
 }

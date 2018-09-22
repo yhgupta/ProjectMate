@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.google.gson.Gson;
@@ -45,6 +46,8 @@ public class AllUsersActivity extends AppCompatActivity {
         mProjectId = getIntent().getIntExtra("PROJECT_ID", 0);
 
         mAllUsers = new ArrayList<>();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mMainView = findViewById(R.id.activity_all_users_rv);
         mMainView.setHasFixedSize(true);
@@ -115,5 +118,11 @@ public class AllUsersActivity extends AppCompatActivity {
         mAllUsers.add(null);
         mAdapter.notifyDataSetChanged();
         requests.performGetRequest(url, mCallback, StaticValues.getCodeChefAuthKey());
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        this.finish();
+        return true;
     }
 }

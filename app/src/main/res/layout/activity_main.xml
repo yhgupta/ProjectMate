@@ -23,6 +23,7 @@
             app:loading_color="#ffffff"
             app:loading_width="5dp" />
 
+
     </FrameLayout>
 
     <!--MAIN LAYOUT WHEN USER ENTER FOR FIRST TIME-->
