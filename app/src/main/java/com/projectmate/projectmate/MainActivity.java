@@ -126,8 +126,7 @@ public class MainActivity extends AppCompatActivity {
 
         StaticValues.setCodeChefAuthKey(userCode);
 
-        userFirstTime();
-
+        connectToServer();
 
     }
 
@@ -148,8 +147,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    //when user logins for first time
-    private void userFirstTime() {
+    //First connection to server getting user details
+    private void connectToServer() {
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

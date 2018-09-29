@@ -82,7 +82,7 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<ActivitiesAdapter.Ac
                 } else {
                     holder.rootViewAR.setVisibility(View.VISIBLE);
 
-                    holder.permTextAR.setText("You have a invitation from " + currActivity.getReceiver().getUsername() + " for ");
+                    holder.permTextAR.setText("You have a invitation from " + currActivity.getSender().getUsername() + " for ");
                     holder.projNameAR.setText(currActivity.getProject().getProject_name());
                 }
                 break;
@@ -119,7 +119,7 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<ActivitiesAdapter.Ac
                 if (isSenderMe) {
                     holder.permTextN.setText("Your join request has been rejected for ");
                 } else {
-                    holder.permTextN.setText("Your have rejected " + currActivity.getSender().getUsername() + " for ");
+                    holder.permTextN.setText("Your have rejected join request from " + currActivity.getSender().getUsername() + " for ");
                     holder.rootViewN.setTag(R.id.activity_main_layout, true);
                 }
                 break;
