@@ -82,7 +82,7 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<ActivitiesAdapter.Ac
                 } else {
                     holder.rootViewAR.setVisibility(View.VISIBLE);
 
-                    holder.permTextAR.setText("You have a invitation from " + currActivity.getSender().getUsername() + " for ");
+                    holder.permTextAR.setText("You have a invitation from " + currActivity.getReceiver().getUsername() + " for ");
                     holder.projNameAR.setText(currActivity.getProject().getProject_name());
                 }
                 break;
