@@ -44,7 +44,7 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<ActivitiesAdapter.Ac
         int activityType = currActivity.getActivity_type();
         boolean isSenderMe = currActivity.getSender().getId() == StaticValues.getCurrentUser().getId();
 
-        //setting visibliity
+        //setting visibility
         holder.rootViewAR.setVisibility(View.GONE);
         holder.rootViewAR.setTag(R.id.activity_main_layout, false);
         holder.rootViewSC.setVisibility(View.GONE);
