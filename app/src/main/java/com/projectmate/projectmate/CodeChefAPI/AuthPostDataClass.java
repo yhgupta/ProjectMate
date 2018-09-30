@@ -1,9 +1,8 @@
-
-
-//variables initialization and its getters and setters
-
 package com.projectmate.projectmate.CodeChefAPI;
 
+/**
+ * Class used to easily generate CodeChef post data
+ */
 public class AuthPostDataClass {
     private String grant_type = "authorization_code";
     private String code;

@@ -26,7 +26,7 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 /**
- * Displays all the users having skills required for a particular project
+ * Displays list of all the users having skills required for a particular project
  */
 
 public class AllUsersActivity extends AppCompatActivity {

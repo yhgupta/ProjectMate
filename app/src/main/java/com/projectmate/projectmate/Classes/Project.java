@@ -1,11 +1,12 @@
-//variables initialization and its getters and setters with constructors
-
 package com.projectmate.projectmate.Classes;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
+/**
+ * Simple class to hold project
+ */
 public class Project {
     private int id; // Primary Key
 

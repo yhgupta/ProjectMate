@@ -1,7 +1,8 @@
-
-//variables initialization and its getters and setters with constructors
 package com.projectmate.projectmate.Classes;
 
+/**
+ * Single activity holding class
+ */
 public class Activity {
     private int id;
 

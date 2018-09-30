@@ -47,6 +47,11 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
+/**
+ * This activity is shown to the user on start if he is a new user
+ * It is used to add skills and projects done by the user
+ */
+
 public class ProfileActivity extends AppCompatActivity {
 
 

@@ -33,7 +33,8 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 /**
- * This Activity directs a user to codechef, then login him and get the auth_token
+ * This Activity directs a user to CodeChef, then login him and get the auth_token
+ * It also performs post request to CodeChef to get access token of a user
  */
 
 public class BrowserActivity extends AppCompatActivity {

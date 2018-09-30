@@ -1,7 +1,8 @@
-//variables initialization and its getters and setters with constructors
-
 package com.projectmate.projectmate.Classes;
 
+/**
+ * Basic class for displaying list of a user
+ */
 public class BasicProject {
     private int id;
     private String project_name;

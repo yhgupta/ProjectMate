@@ -15,6 +15,9 @@ import com.projectmate.projectmate.R;
 
 import java.util.List;
 
+/**
+ * Shows list of skills with stars
+ */
 public class SkillAdapter extends RecyclerView.Adapter<SkillAdapter.SkillViewHolder> {
 
     //initializing variables

@@ -52,7 +52,7 @@ import okhttp3.Response;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * Shows list of user created projects
  */
 public class MyProjectFragment extends Fragment {
 

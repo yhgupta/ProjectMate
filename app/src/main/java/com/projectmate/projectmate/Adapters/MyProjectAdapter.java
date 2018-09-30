@@ -19,6 +19,10 @@ import com.projectmate.projectmate.R;
 
 import java.util.List;
 
+/**
+ * This class helps to fill in recycler view with Project items
+ */
+
 public class MyProjectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     //Initializing variables

@@ -1,10 +1,10 @@
-
-//variables initialization and its getters and setters with constructors
-
 package com.projectmate.projectmate.Classes;
 
 import java.util.ArrayList;
 
+/**
+ * Simple class to hold user
+ */
 public class User {
     private int id; // Primary Key
 

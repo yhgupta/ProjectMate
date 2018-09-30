@@ -19,7 +19,7 @@ public class MainFragmentsAdapter extends FragmentPagerAdapter{
             case 2:
                 return new ChatsFragment();
             case 3:
-                return new NotificationFragment();
+                return new ActivitiesFragment();
             case 4:
                 return new ProfileFragment();
         }

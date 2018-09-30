@@ -1,12 +1,10 @@
-
-
-//variables initialization and its getters and setters with constructors
-
-
 package com.projectmate.projectmate.Classes;
 
 import java.util.ArrayList;
 
+/**
+ * Item class to show list of all users
+ */
 public class AllUserItem {
     private int id;
     private String username;

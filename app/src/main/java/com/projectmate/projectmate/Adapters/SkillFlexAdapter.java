@@ -13,6 +13,9 @@ import com.projectmate.projectmate.R;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Shows list of skills in a compact manner
+ */
 public class SkillFlexAdapter extends RecyclerView.Adapter<SkillFlexAdapter.TestViewHolder> {
 
     //initializing variables

@@ -30,7 +30,9 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-
+/**
+ * Shows list of all the different chats a user has done with other users
+ */
 public class ChatsFragment extends Fragment {
 
     private ArrayList<Message> mMessages;
@@ -96,10 +98,15 @@ public class ChatsFragment extends Fragment {
                 Intent intent = new Intent(getContext(), ChatActivity.class);
                 int myId = StaticValues.getCurrentUser().getId();
                 int otherId = mMessages.get(position).getSender().getId();
-                if (otherId == myId)
+                String name = mMessages.get(position).getSender().getUsername();
+                if (otherId == myId){
                     otherId = mMessages.get(position).getReceiver().getId();
+                    name = mMessages.get(position).getReceiver().getUsername();
+                }
+
 
                 intent.putExtra("USER_ID", otherId);
+                intent.putExtra("USER_NAME", name);
 
                 startActivity(intent);
             }

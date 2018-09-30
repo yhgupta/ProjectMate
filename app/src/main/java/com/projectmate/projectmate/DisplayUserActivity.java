@@ -40,6 +40,10 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
+/**
+ * This activity is used to display all information of a user
+ */
+
 public class DisplayUserActivity extends AppCompatActivity {
 
     //Initialization of data types

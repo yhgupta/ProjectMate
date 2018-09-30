@@ -16,6 +16,9 @@ import com.projectmate.projectmate.R;
 
 import java.util.List;
 
+/**
+ * Helps to display list of all users
+ */
 public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectViewHolder>{
 
     //initializing variables

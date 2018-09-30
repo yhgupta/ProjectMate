@@ -13,6 +13,10 @@ import com.projectmate.projectmate.R;
 
 import java.util.List;
 
+/**
+ * This class helps to fill in recycler view with message items
+ */
+
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHolder> {
 
     //list of message of type Message

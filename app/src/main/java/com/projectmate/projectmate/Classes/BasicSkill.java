@@ -1,5 +1,3 @@
-//variables initialization and its getters and setters with constructors
-
 package com.projectmate.projectmate.Classes;
 
 public class BasicSkill {

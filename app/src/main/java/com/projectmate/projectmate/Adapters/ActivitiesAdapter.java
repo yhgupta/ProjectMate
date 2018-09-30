@@ -16,6 +16,10 @@ import com.projectmate.projectmate.R;
 
 import java.util.List;
 
+/**
+ * This class helps to fill in recycler view with activity items
+ */
+
 public class ActivitiesAdapter extends RecyclerView.Adapter<ActivitiesAdapter.ActivitiesViewHolder> {
 
     private List<Activity> mActivities;

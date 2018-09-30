@@ -48,7 +48,7 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Shows the current user profile and allows him to edt/change it
  */
 public class ProfileFragment extends Fragment {
 

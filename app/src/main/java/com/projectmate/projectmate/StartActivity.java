@@ -12,6 +12,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.view.View;
 
+/**
+ * The activity with a Get Started button at bottom
+ */
+
 public class StartActivity extends AppCompatActivity {
 
     //cardview initialization

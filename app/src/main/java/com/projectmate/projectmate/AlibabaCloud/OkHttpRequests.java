@@ -8,6 +8,10 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 
+/**
+ * All the different request performed by the app
+ */
+
 public class OkHttpRequests {
 
     private final OkHttpClient client = new OkHttpClient();

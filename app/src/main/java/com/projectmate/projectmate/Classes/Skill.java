@@ -1,11 +1,10 @@
-
-//variables initialization and its getters and setters with constructors
-
-
 package com.projectmate.projectmate.Classes;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Simple class to hold skill
+ */
 public class Skill {
 
     @SerializedName("skill_id")

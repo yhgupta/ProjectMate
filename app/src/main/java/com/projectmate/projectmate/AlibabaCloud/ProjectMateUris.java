@@ -2,7 +2,7 @@ package com.projectmate.projectmate.AlibabaCloud;
 
 import android.net.Uri;
 
-/*
+/**
  * This Class generate all the url's required for ProjectMate Api
  * */
 

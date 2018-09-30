@@ -26,6 +26,10 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
+/**
+ * This activity shows chats between the current user and the other user
+ */
+
 public class ChatActivity extends AppCompatActivity {
 
     private int mUserId;
@@ -48,6 +52,11 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
 
         mUserId = getIntent().getIntExtra("USER_ID", 0);
+
+        String username = getIntent().getStringExtra("USER_NAME");
+        if(username!=null){
+            getSupportActionBar().setTitle(username);
+        }
 
         mRecyclerView = findViewById(R.id.activity_chats_rv);
         mMessageText = findViewById(R.id.activity_chats_et);

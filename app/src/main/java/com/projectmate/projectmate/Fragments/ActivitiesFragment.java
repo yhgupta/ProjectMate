@@ -36,9 +36,9 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Shows a user with all his activities and any new notifications
  */
-public class NotificationFragment extends Fragment {
+public class ActivitiesFragment extends Fragment {
 
     private ArrayList<Activity> mActivities;
 
@@ -48,7 +48,7 @@ public class NotificationFragment extends Fragment {
 
     private RecyclerViewClickListener mItemClickListerner;
 
-    public NotificationFragment() {
+    public ActivitiesFragment() {
         // Required empty public constructor
     }
 

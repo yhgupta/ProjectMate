@@ -17,6 +17,10 @@ import com.projectmate.projectmate.R;
 
 import java.util.List;
 
+/**
+ * This class helps to fill in recycler view with all user items
+ */
+
 public class AllUsersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     private final int VIEW_ITEM = 1;

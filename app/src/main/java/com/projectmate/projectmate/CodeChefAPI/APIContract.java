@@ -1,10 +1,12 @@
 package com.projectmate.projectmate.CodeChefAPI;
 
-/*
+
+import android.net.Uri;
+
+/**
  * This is a contract class for interacting with the CodeChef API
  */
 
-import android.net.Uri;
 
 public class APIContract {
     public static final String CLIENT_ID = "ce9c5200940495422025bf247128d9a5";
@@ -28,7 +30,4 @@ public class APIContract {
         return builder.build().toString();
     }
 
-    public static String getCodeChefAuthTokenUrl() {
-        return CODECHEF_TOKEN_URL;
-    }
 }

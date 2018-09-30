@@ -1,5 +1,9 @@
 package com.projectmate.projectmate.AlibabaCloud;
 
+/**
+ * This Class contains all the constants for connecting to server
+ * */
+
 public class ProjectMateAPIContract {
 
     //All the paths for interacting with the ProjectMate API on Alibaba Cloud

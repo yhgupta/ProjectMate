@@ -1,8 +1,9 @@
-
-//variables initialization and its getters and setters with constructors
-
 package com.projectmate.projectmate.Classes;
 
+
+/**
+ * Simple class to hold message
+ */
 public class Message {
     private BasicUser sender;
     private BasicUser receiver;

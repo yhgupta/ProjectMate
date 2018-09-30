@@ -30,6 +30,11 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
+/**
+ * This is the main activity which checks if user is authenticated and is home for all
+ * the different fragments with a bottom navigation bar
+ */
+
 public class MainActivity extends AppCompatActivity {
 
 

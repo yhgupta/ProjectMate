@@ -4,6 +4,10 @@ import com.projectmate.projectmate.Classes.User;
 
 import java.util.ArrayList;
 
+
+/**
+ * Acts like a session class, stores data for other classes to access
+ */
 public class StaticValues {
     private StaticValues() {
     }
