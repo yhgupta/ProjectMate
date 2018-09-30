@@ -137,7 +137,7 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<ActivitiesAdapter.Ac
                     holder.rootViewSC.setTag(R.id.activity_main_layout, true);
                     holder.permTextN.setText("Your invite request has been rejected by " + currActivity.getReceiver().getUsername() + " for ");
                 } else {
-                    holder.permTextN.setText("Your have rejected invite request from" + currActivity.getSender().getUsername() + " for ");
+                    holder.permTextN.setText("Your have rejected invite request from " + currActivity.getSender().getUsername() + " for ");
                     holder.rootViewN.setTag(R.id.activity_main_layout, true);
                 }
                 break;
