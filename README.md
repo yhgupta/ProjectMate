@@ -11,8 +11,8 @@ https://goo.gl/u8sdfb
 Follow the below link to know more about the app
 https://goo.gl/cexAZ6
 ### Deployment
- - App code is present inside a app folder in this repository
- - Django server code files are in ProjectMateServer folder in this repository
+ - The App source code is present inside a app folder of this repository
+ - The Django server source code files are in ProjectMateServer folder of this repository
 ### Developers
  - Parth Rathore
  - Yash Gupta
