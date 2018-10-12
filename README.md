@@ -3,7 +3,7 @@ This app lets you find your perfect teammate to work on any project and make thi
 
 ### Getting Started
 You can download app from the link below
-https://goo.gl/u8sdfb
+https://goo.gl/NUVmjP
 
 The backend Django server is hosted on Alibaba Cloud at
 http://149.129.130.0/
